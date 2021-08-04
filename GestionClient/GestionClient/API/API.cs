@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data;
 using System.Data.OleDb;
-using System.Windows.Forms; // for Class => ToolStripStatusLabel
 using System.Drawing; // for Class => Color
 using System.Globalization;
-using System.Resources;
-using System.Reflection;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Windows.Forms; // for Class => ToolStripStatusLabel
 
 namespace GestionClient
 {
