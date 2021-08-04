@@ -17,25 +17,25 @@ namespace GestionClient
             // si le nom est vide
             if (NomTextBox.Text.Length == 0)
             {
-                MessageBox.Show(API.resManager.GetString("MessageBox_Nom_Obligatoire", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 NomTextBox.Focus();
             }
             else
             {
                 // on parcourt la dataTable Client
-                for (int i = 0; i < API.ds.Tables["Client"].Rows.Count; i++)
+                for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
                 {
                     // si nom du client trouvé
-                    if (API.ds.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(NomTextBox.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (API.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(NomTextBox.Text.ToUpper())) // ToUpper() pour gérer la casse
                     {
-                        API.searchFoundedPosition = i;
+                        API.SearchResultIndex = i;
                         this.Close(); // fermeture de la fenêtre
                         return; // on sort de la fonction
                     }
                 }
 
                 // si nn
-                MessageBox.Show(API.resManager.GetString("MessageBox_Client_Non_trouvé", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Non_trouvé", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -43,7 +43,7 @@ namespace GestionClient
         private void RechercherNomClient_Load(object sender, EventArgs e)
         {
             // on change la langue si l'arabe est séléctionné
-            if (API.getDefaultLanguage() == "ar")
+            if (API.GetCurrentLanguage() == "ar")
                 switchLanguage();
         }
 
@@ -52,12 +52,12 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.resManager.GetString("Rechercher_Client_Win_Name", API.cul);
+            this.Text = API.LanguagesResourceManager.GetString("Rechercher_Client_Win_Name", API.CurrentCulture);
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.resManager.GetString("Ajouter_Client_Client_GroupBox", API.cul);
-            NomLabel.Text = API.resManager.GetString("Ajouter_Client_Nom_Label", API.cul);
+            ClientGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Client_GroupBox", API.CurrentCulture);
+            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
             // Buttons
-            RechercherBtn.Text = API.resManager.GetString("Rechercher_Client_Rechercher_Button", API.cul);
+            RechercherBtn.Text = API.LanguagesResourceManager.GetString("Rechercher_Client_Rechercher_Button", API.CurrentCulture);
         }
     }
 }

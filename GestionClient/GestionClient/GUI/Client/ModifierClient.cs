@@ -30,7 +30,7 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.isModifierTavailOpened = false;
+            API.ModifierTavailFormOpened = false;
             main parent = (main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
@@ -40,19 +40,19 @@ namespace GestionClient
         {
             try
             {
-                if (API.isConnectedToDb) // si on est déjà connecté à la base de données
+                if (API.ConnectedToDatabase) // si on est déjà connecté à la base de données
                 {
                     // si la dataTable Client est vide
-                    if (API.ds.Tables["Client"].Rows.Count == 0)
-                        throw new Exception(API.resManager.GetString("MessageBox_Aucun_Client", API.cul));
+                    if (API.MainDataSet.Tables["Client"].Rows.Count == 0)
+                        throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Aucun_Client", API.CurrentCulture));
 
                     // remplissage de la combobox 'TravailCombo'
-                    TravailCombo.DataSource = API.ds.Tables["Travail"];
+                    TravailCombo.DataSource = API.MainDataSet.Tables["Travail"];
                     TravailCombo.DisplayMember = "description";
                     TravailCombo.ValueMember = "id";
 
                     // initialisation du DataView
-                    dv = new DataView(API.ds.Tables["Paiement"]);
+                    dv = new DataView(API.MainDataSet.Tables["Paiement"]);
                     // affichage du DataView dans la DataGridView
                     dataGridView1.DataSource = dv;
                     dataGridView1.Columns["id"].Visible = dataGridView1.Columns["id_client"].Visible = false;
@@ -71,17 +71,17 @@ namespace GestionClient
                     SuivantBtn.Select();
 
                     // on change la langue si l'arabe est séléctionné
-                    if (API.getDefaultLanguage() == "ar")
+                    if (API.GetCurrentLanguage() == "ar")
                         switchLanguage();
                 }
                 else
                 {
-                    throw new Exception(API.resManager.GetString("MessageBox_Connexion_Non_Etablie", API.cul));
+                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture));
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -91,8 +91,8 @@ namespace GestionClient
         {
             // on avance
             position++;
-            if (position > API.ds.Tables["Client"].Rows.Count - 1)
-                position = API.ds.Tables["Client"].Rows.Count - 1;
+            if (position > API.MainDataSet.Tables["Client"].Rows.Count - 1)
+                position = API.MainDataSet.Tables["Client"].Rows.Count - 1;
             // on affiche le client
             move();
         }
@@ -116,13 +116,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.resManager.GetString("MessageBox_Nom_Obligatoire", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientNameNotCurrent(NomTextBox.Text, position))
                 {
-                    MessageBox.Show(API.resManager.GetString("MessageBox_Nom_D_un_Autre_Client", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_D_un_Autre_Client", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -130,20 +130,20 @@ namespace GestionClient
                 else // si nn, c'est bon
                 {
                     // on parcourt la dataTable Client
-                    for (int i = 0; i < API.ds.Tables["Client"].Rows.Count; i++)
+                    for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
                     {
                         // si clé primaire trouvée
-                        if (Convert.ToInt32(API.ds.Tables["Client"].Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(API.MainDataSet.Tables["Client"].Rows[i]["id"]) == currentClientId)
                         {
                             // modification
-                            API.ds.Tables["Client"].Rows[position]["nom"] = NomTextBox.Text;
-                            API.ds.Tables["Client"].Rows[position]["id_travail"] = TravailCombo.SelectedValue;
+                            API.MainDataSet.Tables["Client"].Rows[position]["nom"] = NomTextBox.Text;
+                            API.MainDataSet.Tables["Client"].Rows[position]["id_travail"] = TravailCombo.SelectedValue;
                             if (DateNaissMaskedTextBox.MaskCompleted)
-                                API.ds.Tables["Client"].Rows[position]["date_naissance"] = DateNaissMaskedTextBox.Text;
-                            API.ds.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
-                            API.ds.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
-                            API.appliquerChangement(API.daClient, "Client");
-                            MessageBox.Show(API.resManager.GetString("MessageBox_Client_Modifié", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                                API.MainDataSet.Tables["Client"].Rows[position]["date_naissance"] = DateNaissMaskedTextBox.Text;
+                            API.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
+                            API.MainDataSet.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
+                            API.ApplyChanges(API.ClientDataAdapter, "Client");
+                            MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Modifié", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                             break; // on sort de la boucle
                         }
                     }
@@ -151,7 +151,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -160,31 +160,31 @@ namespace GestionClient
         {
             try
             {
-                if (MessageBox.Show(API.resManager.GetString("MessageBox_Confirmer_Suppression_Client", API.cul), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.msgBoxOptions) == DialogResult.Yes)
+                if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Client", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Client
-                    for (int i = 0; i < API.ds.Tables["Client"].Rows.Count; i++)
+                    for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Convert.ToInt32(API.ds.Tables["Client"].Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(API.MainDataSet.Tables["Client"].Rows[i]["id"]) == currentClientId)
                         {
                             // suppression du client
-                            API.ds.Tables["Client"].Rows[i].Delete();
-                            API.appliquerChangement(API.daClient, "Client");
+                            API.MainDataSet.Tables["Client"].Rows[i].Delete();
+                            API.ApplyChanges(API.ClientDataAdapter, "Client");
                             // suppression du dossier du client (!@ avec tout son contenu)
-                            string clientFolderName = API.PiecesSaveFolder + "\\" + currentClientId + "_";
+                            string clientFolderName = API.AppPiecesFolder + "\\" + currentClientId + "_";
                             if (Directory.Exists(clientFolderName))
                                 Directory.Delete(clientFolderName, true);
                             // si on peu faire un retour en arrière
-                            if (API.ds.Tables["Client"].Rows.Count > 0)
+                            if (API.MainDataSet.Tables["Client"].Rows.Count > 0)
                             {
                                 // on revient en arrière (simulation d'un click sur 'Précédent')
                                 PrécédentBtn_Click(sender, e);
-                                MessageBox.Show(API.resManager.GetString("MessageBox_Client_Supprimé", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Supprimé", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                             }
                             else
                             {
-                                MessageBox.Show(API.resManager.GetString("MessageBox_Client_Supprimé_Plus_Fermeture", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Supprimé_Plus_Fermeture", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                                 this.Close();
                             }
                             break; // on sort de la boucle for
@@ -194,7 +194,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -202,15 +202,15 @@ namespace GestionClient
         private void RechercherBtn_Click(object sender, EventArgs e)
         {
             // on affecte la position actuelle à 'searchFoundedPosition' de la ClassGlobal
-            API.searchFoundedPosition = position;
+            API.SearchResultIndex = position;
             // on affiche la fenêtre de recherche
             Form fen = new RechercherNomClient();
-            fen.RightToLeft = API.getDefaultLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+            fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
             fen.ShowDialog();
             // on affiche le client trouvé, si trouvé biensur
-            if (API.searchFoundedPosition != position)
+            if (API.SearchResultIndex != position)
             {
-                position = API.searchFoundedPosition;
+                position = API.SearchResultIndex;
                 move();
             }
         }
@@ -229,22 +229,22 @@ namespace GestionClient
                 // si le montant est vide
                 if (MontantMaskedTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.resManager.GetString("MessageBox_Montant_Obligatoire", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Montant_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     MontantMaskedTextBox.Focus();
                 }
                 else // si nn, c'est bon
                 {
                     // ajout du paiement
-                    API.ds.Tables["Paiement"].Rows.Add(null, API.ds.Tables["Client"].Rows[position]["id"], MontantMaskedTextBox.Text, DatePaiementDateTimePicker.Value);
-                    API.appliquerChangement(API.daPaiement, "Paiement");
+                    API.MainDataSet.Tables["Paiement"].Rows.Add(null, API.MainDataSet.Tables["Client"].Rows[position]["id"], MontantMaskedTextBox.Text, DatePaiementDateTimePicker.Value);
+                    API.ApplyChanges(API.PaiementDataAdapter, "Paiement");
                     //MessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
-                    API.getPaiement();
+                    API.FetchPaiementTable();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -271,7 +271,7 @@ namespace GestionClient
             {
                 // s'il n'y a aucune pièce
                 if (piecesPbList.Count == 0)
-                    throw new Exception(API.resManager.GetString("MessageBox_Aucune_Piece", API.cul));
+                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Aucune_Piece", API.CurrentCulture));
                 else // si nn
                 {
                     // on parcourt toutes les pieces
@@ -280,19 +280,19 @@ namespace GestionClient
                         // si on trouve qu'une piece est séléctionnée
                         if (piecesPbList[i].BackColor == SystemColors.Highlight && piecesPbList[i].Padding.All == 3)
                         {
-                            if (MessageBox.Show(API.resManager.GetString("MessageBox_Confirmer_Suppression_Piece", API.cul), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.msgBoxOptions) == DialogResult.Yes)
+                            if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Piece", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                             {
                                 // on parcourt la dataTable 'Pieces'
-                                for (int p = 0; p < API.ds.Tables["Pieces"].Rows.Count; p++)
+                                for (int p = 0; p < API.MainDataSet.Tables["Pieces"].Rows.Count; p++)
                                 {
                                     // si on trouve que la clé primaire (id) == tag de l'image ou on a sauvegardé l'id nous aussi
-                                    if (API.ds.Tables["Pieces"].Rows[p]["id"].ToString() == piecesPbList[i].Tag.ToString())
+                                    if (API.MainDataSet.Tables["Pieces"].Rows[p]["id"].ToString() == piecesPbList[i].Tag.ToString())
                                     {
                                         // suppression de l'image
                                         File.Delete(piecesPbList[i].ImageLocation);
                                         // suppression de la piece de la table 'Pieces'
-                                        API.ds.Tables["Pieces"].Rows[p].Delete();
-                                        API.appliquerChangement(API.daPieces, "Pieces");
+                                        API.MainDataSet.Tables["Pieces"].Rows[p].Delete();
+                                        API.ApplyChanges(API.PiecesDataAdapter, "Pieces");
                                         // raffraichissement des pieces
                                         showPieces(currentClientId);
                                         break; // on sort de la 2ème boucle
@@ -306,12 +306,12 @@ namespace GestionClient
                     }
 
                     // si nn, aucune piece n'est séléctionnée
-                    MessageBox.Show(API.resManager.GetString("MessageBox_Selectionner_Piece", API.cul), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Selectionner_Piece", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -330,7 +330,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -344,20 +344,20 @@ namespace GestionClient
             {
                 try
                 {
-                    if (MessageBox.Show(API.resManager.GetString("MessageBox_Confirmer_Suppression_Paiement", API.cul), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.msgBoxOptions) == DialogResult.Yes)
+                    if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Paiement", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
                         int paiementId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
 
                         // on boucle sur la dataTable Paiement
-                        for (int i = 0; i < API.ds.Tables["Paiement"].Rows.Count; i++)
+                        for (int i = 0; i < API.MainDataSet.Tables["Paiement"].Rows.Count; i++)
                         {
                             // si clé primaire trouvé
-                            if (Convert.ToInt32(API.ds.Tables["Paiement"].Rows[i]["id"]) == paiementId)
+                            if (Convert.ToInt32(API.MainDataSet.Tables["Paiement"].Rows[i]["id"]) == paiementId)
                             {
                                 // suppression du paiement
-                                API.ds.Tables["Paiement"].Rows[i].Delete();
-                                API.appliquerChangement(API.daPaiement, "Paiement");
+                                API.MainDataSet.Tables["Paiement"].Rows[i].Delete();
+                                API.ApplyChanges(API.PaiementDataAdapter, "Paiement");
                                 break; // on sort de la boucle for
                             }
                         }
@@ -365,7 +365,7 @@ namespace GestionClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                    MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 }
             }
         }
@@ -383,7 +383,7 @@ namespace GestionClient
                         // ajout de la pièce en tant que Photo
                         addPieceAs(openFileDialog1.FileName, "Photo");
                         // on défini le Tag de la dernière image ajoutée, Dans notre cas (le client n'a pas de photo) le Tag est obligatoire, ou on aura une erreur lors de la modification
-                        pictureBox1.Tag = API.ds.Tables["Pieces"].Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
+                        pictureBox1.Tag = API.MainDataSet.Tables["Pieces"].Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
                     }
                     // si nn, le client a déjà une photo, on la modifie
                     else
@@ -392,12 +392,12 @@ namespace GestionClient
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox1.ImageLocation = API.AppPath + "\\" + API.ds.Tables["Pieces"].Rows[Convert.ToInt32(pictureBox1.Tag)]["emplacement"].ToString();
+                    pictureBox1.ImageLocation = API.AppFolderPath + "\\" + API.MainDataSet.Tables["Pieces"].Rows[Convert.ToInt32(pictureBox1.Tag)]["emplacement"].ToString();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -410,7 +410,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -421,13 +421,13 @@ namespace GestionClient
         // move() : gère les déplacements des clients
         private void move()
         {
-            currentClientId = Convert.ToInt32(API.ds.Tables["Client"].Rows[position]["id"]);
+            currentClientId = Convert.ToInt32(API.MainDataSet.Tables["Client"].Rows[position]["id"]);
             setImage(currentClientId);
-            NomTextBox.Text = API.ds.Tables["Client"].Rows[position]["nom"].ToString();
-            TravailCombo.SelectedValue = API.ds.Tables["Client"].Rows[position]["id_travail"];
-            DateNaissMaskedTextBox.Text = API.ds.Tables["Client"].Rows[position]["date_naissance"].ToString();
-            NumTelMaskedTextBox.Text = API.ds.Tables["Client"].Rows[position]["numero_telephone"].ToString();
-            EmailTextBox.Text = API.ds.Tables["Client"].Rows[position]["email"].ToString();
+            NomTextBox.Text = API.MainDataSet.Tables["Client"].Rows[position]["nom"].ToString();
+            TravailCombo.SelectedValue = API.MainDataSet.Tables["Client"].Rows[position]["id_travail"];
+            DateNaissMaskedTextBox.Text = API.MainDataSet.Tables["Client"].Rows[position]["date_naissance"].ToString();
+            NumTelMaskedTextBox.Text = API.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"].ToString();
+            EmailTextBox.Text = API.MainDataSet.Tables["Client"].Rows[position]["email"].ToString();
             showPaiement(currentClientId);
             showPieces(currentClientId);
         }
@@ -436,19 +436,19 @@ namespace GestionClient
         private void setImage(int clientId)
         {
             // on parcourt la dataTable 'Pieces'
-            for (int i = 0; i < API.ds.Tables["Pieces"].Rows.Count; i++)
+            for (int i = 0; i < API.MainDataSet.Tables["Pieces"].Rows.Count; i++)
             {
                 // si on trouve que le client à une photo
-                if (Convert.ToInt32(API.ds.Tables["Pieces"].Rows[i]["id_client"]) == clientId && API.ds.Tables["Pieces"].Rows[i]["type_piece"].ToString() == "Photo")
+                if (Convert.ToInt32(API.MainDataSet.Tables["Pieces"].Rows[i]["id_client"]) == clientId && API.MainDataSet.Tables["Pieces"].Rows[i]["type_piece"].ToString() == "Photo")
                 {
-                    pictureBox1.ImageLocation = API.AppPath + "\\" + API.ds.Tables["Pieces"].Rows[i]["emplacement"].ToString();
+                    pictureBox1.ImageLocation = API.AppFolderPath + "\\" + API.MainDataSet.Tables["Pieces"].Rows[i]["emplacement"].ToString();
                     pictureBox1.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
             }
 
             // si nn
-            string sexe = API.ds.Tables["Client"].Rows[position]["sexe"].ToString();
+            string sexe = API.MainDataSet.Tables["Client"].Rows[position]["sexe"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
                 pictureBox1.Image = GestionClient.Properties.Resources.homme;
@@ -466,11 +466,11 @@ namespace GestionClient
                 if (pb.ImageLocation != null)
                     Process.Start(pb.ImageLocation);
                 else
-                    throw new Exception(API.resManager.GetString("MessageBox_Client_Sans_Photo", API.cul));
+                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Client_Sans_Photo", API.CurrentCulture));
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.msgBoxOptions);
+                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -485,15 +485,15 @@ namespace GestionClient
         private void setDataGridviewFormat()
         {
             // montant
-            dataGridView1.Columns["montant"].HeaderText = API.resManager.GetString("Modifier_Client_DataGridView_Montant_Column", API.cul);
+            dataGridView1.Columns["montant"].HeaderText = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Montant_Column", API.CurrentCulture);
             dataGridView1.Columns["montant"].Width = 200;
             NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            format.CurrencySymbol = API.resManager.GetString("Modifier_Client_DataGridView_Montant_Column_Devise", API.cul); ;
+            format.CurrencySymbol = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Montant_Column_Devise", API.CurrentCulture); ;
             format.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["montant"].DefaultCellStyle.FormatProvider = format;
             dataGridView1.Columns["montant"].DefaultCellStyle.Format = "c";
             // date paiement
-            dataGridView1.Columns["date_paiement"].HeaderText = API.resManager.GetString("Modifier_Client_DataGridView_Date_Paiement_Column", API.cul);
+            dataGridView1.Columns["date_paiement"].HeaderText = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Date_Paiement_Column", API.CurrentCulture);
             dataGridView1.Columns["date_paiement"].Width = 200;
         }
 
@@ -503,7 +503,7 @@ namespace GestionClient
             // filtrage
             //DataView dv = new DataView(ClassGlobal.ds.Tables["Pieces"]);
             //dv.RowFilter = "id_client = " + clientId + "AND type_piece = 'Autre'";
-            DataRow[] drs = API.ds.Tables["Pieces"].Select("id_client = " + clientId + "AND type_piece = 'Autre'");
+            DataRow[] drs = API.MainDataSet.Tables["Pieces"].Select("id_client = " + clientId + "AND type_piece = 'Autre'");
 
             // on vide le TableLayoutPanel
             PiecesTableLayoutPanel.Controls.Clear();
@@ -530,7 +530,7 @@ namespace GestionClient
                     pb.Dock = DockStyle.Fill;
                     pb.InitialImage = GestionClient.Properties.Resources.load;
                     //pb.ErrorImage = GestionClient.Properties.Resources._false;
-                    pb.ImageLocation = API.AppPath + "\\" + drs[i]["emplacement"].ToString();
+                    pb.ImageLocation = API.AppFolderPath + "\\" + drs[i]["emplacement"].ToString();
                     pb.DoubleClick += pictureBox1_Click;
                     pb.Click += pictureBoxsSingle_Click;
                     // ajout à la liste des images/pictureboxs
@@ -545,9 +545,9 @@ namespace GestionClient
         // checkDoubleClientNameNotCurrent(...) : vérifie si le nom du client entré existe déjà + ne prend pas en compte le client en cours (dont on change le nom)
         private bool checkDoubleClientNameNotCurrent(string name, int currentClientPosition)
         {
-            for (int i = 0; i < API.ds.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
             {
-                if (i != currentClientPosition && API.ds.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (i != currentClientPosition && API.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 
@@ -558,68 +558,68 @@ namespace GestionClient
         private void addPieceAs(string emplacementPiece, string typePiece)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = API.PiecesSaveFolder + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = API.AppPiecesFolder + "\\" + currentClientId + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = emplacementPiece.Remove(0, emplacementPiece.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
-            File.Copy(emplacementPiece, API.AppPath + "\\" + destinationFileName, true);
+            File.Copy(emplacementPiece, API.AppFolderPath + "\\" + destinationFileName, true);
             // on ajoute la photo en tant que Piece
-            API.ds.Tables["Pieces"].Rows.Add(null, currentClientId, destinationFileName, typePiece);
-            API.appliquerChangement(API.daPieces, "Pieces");
+            API.MainDataSet.Tables["Pieces"].Rows.Add(null, currentClientId, destinationFileName, typePiece);
+            API.ApplyChanges(API.PiecesDataAdapter, "Pieces");
             // mise à jour de la dataTable 'Pieces' (pour avoir les bon ids des pièces)
-            API.getPieces();
+            API.FetchPiecesTable();
         }
 
         // updatePiece(...) : met à jour une pièce, en la copyant dans la bdd et en changeant son emplacement + suppression de l'ancienne
         private void updatePiece(string nouveauEmplacement, int pieceIndex)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = API.PiecesSaveFolder + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = API.AppPiecesFolder + "\\" + currentClientId + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = nouveauEmplacement.Remove(0, nouveauEmplacement.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
-            File.Copy(nouveauEmplacement, API.AppPath + "\\" + destinationFileName, true);
+            File.Copy(nouveauEmplacement, API.AppFolderPath + "\\" + destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
-            string oldImage = API.AppPath + "\\" + API.ds.Tables["Pieces"].Rows[pieceIndex]["emplacement"].ToString();
+            string oldImage = API.AppFolderPath + "\\" + API.MainDataSet.Tables["Pieces"].Rows[pieceIndex]["emplacement"].ToString();
             if (File.Exists(oldImage))
                 File.Delete(oldImage);
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces
-            API.ds.Tables["Pieces"].Rows[pieceIndex]["emplacement"] = destinationFileName;
-            API.appliquerChangement(API.daPieces, "Pieces");
+            API.MainDataSet.Tables["Pieces"].Rows[pieceIndex]["emplacement"] = destinationFileName;
+            API.ApplyChanges(API.PiecesDataAdapter, "Pieces");
         }
 
         // switchLanguage() : charge la traduction des propriétés Text, ... des controls
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.resManager.GetString("Modifier_Client_Win_Name", API.cul);
+            this.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Win_Name", API.CurrentCulture);
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.resManager.GetString("Ajouter_Client_Client_GroupBox", API.cul);
-            NomLabel.Text = API.resManager.GetString("Ajouter_Client_Nom_Label", API.cul);
-            TravailLabel.Text = API.resManager.GetString("Ajouter_Client_Travail_Label", API.cul);
-            DateNaissanceLabel.Text = API.resManager.GetString("Ajouter_Client_Date_Naissance_Label", API.cul);
-            NumeroTelLabel.Text = API.resManager.GetString("Ajouter_Client_Numero_Tel_Label", API.cul);
-            EmailLabel.Text = API.resManager.GetString("Ajouter_Client_Email_Label", API.cul);
-            PhotoGroupBox.Text = API.resManager.GetString("Ajouter_Client_Photo_GroupBox", API.cul);
-            PaiementGroupBox.Text = API.resManager.GetString("Modifier_Client_Paiement_GroupBox", API.cul);
-            NouveauPaiementGroupBox.Text = API.resManager.GetString("Modifier_Client_Nouveau_Paiement_GroupBox", API.cul);
-            MontantLabel.Text = API.resManager.GetString("Modifier_Client_Montant_Label", API.cul);
-            DatePaiementLabel.Text = API.resManager.GetString("Modifier_Client_Date_Paiement_Label", API.cul);
-            PiecesGroupBox.Text = API.resManager.GetString("Modifier_Client_Pieces_GroupBox", API.cul);
-            toolTip1.SetToolTip(SupprimerPieceBtn, API.resManager.GetString("Modifier_Client_Supprimer_Piece_ToolTip", API.cul));
-            toolTip1.SetToolTip(AjouterPieceBtn, API.resManager.GetString("Modifier_Client_Ajouter_Piece_ToolTip", API.cul));
+            ClientGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Client_GroupBox", API.CurrentCulture);
+            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
+            TravailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Travail_Label", API.CurrentCulture);
+            DateNaissanceLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Date_Naissance_Label", API.CurrentCulture);
+            NumeroTelLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Numero_Tel_Label", API.CurrentCulture);
+            EmailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Email_Label", API.CurrentCulture);
+            PhotoGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Photo_GroupBox", API.CurrentCulture);
+            PaiementGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Paiement_GroupBox", API.CurrentCulture);
+            NouveauPaiementGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Nouveau_Paiement_GroupBox", API.CurrentCulture);
+            MontantLabel.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Montant_Label", API.CurrentCulture);
+            DatePaiementLabel.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Date_Paiement_Label", API.CurrentCulture);
+            PiecesGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Pieces_GroupBox", API.CurrentCulture);
+            toolTip1.SetToolTip(SupprimerPieceBtn, API.LanguagesResourceManager.GetString("Modifier_Client_Supprimer_Piece_ToolTip", API.CurrentCulture));
+            toolTip1.SetToolTip(AjouterPieceBtn, API.LanguagesResourceManager.GetString("Modifier_Client_Ajouter_Piece_ToolTip", API.CurrentCulture));
             // Buttons
-            SuivantBtn.Text = API.resManager.GetString("Modifier_Client_Suivant_Button", API.cul);
-            PrécédentBtn.Text = API.resManager.GetString("Modifier_Client_Précédent_Button", API.cul);
-            ModifierBtn.Text = API.resManager.GetString("Modifier_Client_Modifier_Button", API.cul);
-            SupprimerBtn.Text = API.resManager.GetString("Modifier_Client_Supprimer_Button", API.cul);
-            RechercherBtn.Text = API.resManager.GetString("Modifier_Client_Rechercher_Button", API.cul);
-            ModifierPhotoBtn.Text = API.resManager.GetString("Modifier_Client_Modifier_Button", API.cul);
-            EnregistrerPaiementBtn.Text = API.resManager.GetString("Modifier_Client_Enregistrer_Paiement_Button", API.cul);
+            SuivantBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Suivant_Button", API.CurrentCulture);
+            PrécédentBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Précédent_Button", API.CurrentCulture);
+            ModifierBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Modifier_Button", API.CurrentCulture);
+            SupprimerBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Supprimer_Button", API.CurrentCulture);
+            RechercherBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Rechercher_Button", API.CurrentCulture);
+            ModifierPhotoBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Modifier_Button", API.CurrentCulture);
+            EnregistrerPaiementBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Enregistrer_Paiement_Button", API.CurrentCulture);
             // openFileDialog1
-            openFileDialog1.Title = API.resManager.GetString("openFileDialog_Title", API.cul);
+            openFileDialog1.Title = API.LanguagesResourceManager.GetString("openFileDialog_Title", API.CurrentCulture);
             // on raffraichie le format de la liste des paiements (pour changer la langue de la liste aussi)
             setDataGridviewFormat();
         }

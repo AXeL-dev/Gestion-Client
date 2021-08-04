@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\API.Methods.cs" />
     <Compile Include="GUI\Aide\About.cs">
       <SubType>Form</SubType>
     </Compile>
