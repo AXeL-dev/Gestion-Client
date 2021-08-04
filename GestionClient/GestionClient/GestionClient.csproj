@@ -41,22 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs">
+    <Compile Include="GUI\Aide\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="About.Designer.cs">
+    <Compile Include="GUI\Aide\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="AjouterClient.cs">
+    <Compile Include="GUI\Client\AjouterClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AjouterClient.Designer.cs">
+    <Compile Include="GUI\Client\AjouterClient.Designer.cs">
       <DependentUpon>AjouterClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="AjouterTravail.cs">
+    <Compile Include="GUI\Travail\AjouterTravail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AjouterTravail.Designer.cs">
+    <Compile Include="GUI\Travail\AjouterTravail.Designer.cs">
       <DependentUpon>AjouterTravail.cs</DependentUpon>
     </Compile>
     <Compile Include="Languages\Res.fr.Designer.cs">
@@ -64,34 +64,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Res.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="ClassGlobal.cs" />
-    <Compile Include="DeleteButtonColumn.cs" />
-    <Compile Include="ListeClients.cs">
+    <Compile Include="API\API.cs" />
+    <Compile Include="API\DeleteButtonColumn.cs" />
+    <Compile Include="GUI\Client\ListeClients.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListeClients.Designer.cs">
+    <Compile Include="GUI\Client\ListeClients.Designer.cs">
       <DependentUpon>ListeClients.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageBoxManager.cs" />
-    <Compile Include="ModifierClient.cs">
+    <Compile Include="API\MessageBoxManager.cs" />
+    <Compile Include="GUI\Client\ModifierClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModifierClient.Designer.cs">
+    <Compile Include="GUI\Client\ModifierClient.Designer.cs">
       <DependentUpon>ModifierClient.cs</DependentUpon>
     </Compile>
-    <Compile Include="main.cs">
+    <Compile Include="GUI\main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="main.Designer.cs">
+    <Compile Include="GUI\main.Designer.cs">
       <DependentUpon>main.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrintDataGridView.cs" />
+    <Compile Include="API\PrintDataGridView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RechercherNomClient.cs">
+    <Compile Include="GUI\Client\RechercherNomClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RechercherNomClient.Designer.cs">
+    <Compile Include="GUI\Client\RechercherNomClient.Designer.cs">
       <DependentUpon>RechercherNomClient.cs</DependentUpon>
     </Compile>
     <Compile Include="Languages\Res.ar.Designer.cs">
@@ -99,32 +99,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Res.ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="SupprimerTravail.cs">
+    <Compile Include="GUI\Travail\SupprimerTravail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SupprimerTravail.Designer.cs">
+    <Compile Include="GUI\Travail\SupprimerTravail.Designer.cs">
       <DependentUpon>SupprimerTravail.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="About.resx">
+    <EmbeddedResource Include="GUI\Aide\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AjouterClient.resx">
+    <EmbeddedResource Include="GUI\Client\AjouterClient.resx">
       <DependentUpon>AjouterClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AjouterTravail.resx">
+    <EmbeddedResource Include="GUI\Travail\AjouterTravail.resx">
       <DependentUpon>AjouterTravail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Res.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ListeClients.resx">
+    <EmbeddedResource Include="GUI\Client\ListeClients.resx">
       <DependentUpon>ListeClients.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModifierClient.resx">
+    <EmbeddedResource Include="GUI\Client\ModifierClient.resx">
       <DependentUpon>ModifierClient.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="main.resx">
+    <EmbeddedResource Include="GUI\main.resx">
       <DependentUpon>main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -137,14 +137,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RechercherNomClient.resx">
+    <EmbeddedResource Include="GUI\Client\RechercherNomClient.resx">
       <DependentUpon>RechercherNomClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Res.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SupprimerTravail.resx">
+    <EmbeddedResource Include="GUI\Travail\SupprimerTravail.resx">
       <DependentUpon>SupprimerTravail.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -229,6 +229,7 @@
   <ItemGroup>
     <None Include="Resources\update.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
