@@ -19,11 +19,11 @@ namespace GestionClient
         #endregion
 
         #region Forms-Tracking-Properties
-        public static bool AjouterClientFormOpened = false;
-        public static bool AjouterTravailFormOpened = false;
-        public static bool SupprimerTravailFormOpened = false;
-        public static bool ModifierTavailFormOpened = false;
-        public static bool ListeClientsFormOpened = false;
+        public static bool AddCustomerFormOpened = false;
+        public static bool AddJobFormOpened = false;
+        public static bool RemoveJobFormOpened = false;
+        public static bool EditJobFormOpened = false;
+        public static bool CustomerListFormOpened = false;
         #endregion
 
         #region Database-Access-Properties
@@ -39,7 +39,7 @@ namespace GestionClient
         #endregion
 
         #region Language-Setup-Properties
-        public static ResourceManager LanguagesResourceManager = new ResourceManager("GestionClient.Languages.Res", typeof(main).Assembly);
+        public static ResourceManager LanguagesResourceManager = new ResourceManager("GestionClient.Languages.Res", typeof(Form_Main).Assembly);
         public static CultureInfo CurrentCulture = CultureInfo.CreateSpecificCulture("fr"); // langue française par défaut
         public static MessageBoxOptions CurrentMessageBoxOptions = new MessageBoxOptions();
         #endregion

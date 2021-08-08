@@ -1,6 +1,6 @@
 ﻿namespace GestionClient
 {
-    partial class About
+    partial class Form_About
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_About));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.AppNameGroupBox = new System.Windows.Forms.GroupBox();
             this.AppInfosTextBox = new System.Windows.Forms.TextBox();

@@ -3,19 +3,19 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class AjouterTravail : Form
+    public partial class Form_AddJob : Form
     {
         // attributs
         private bool showConfirmationMsg = true;
 
         // constr.
-        public AjouterTravail()
+        public Form_AddJob()
         {
             InitializeComponent();
         }
 
         // constr. surchargé
-        public AjouterTravail(bool showConfirmationMsg)
+        public Form_AddJob(bool showConfirmationMsg)
         {
             InitializeComponent();
             this.showConfirmationMsg = showConfirmationMsg;
@@ -77,10 +77,10 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.AjouterTravailFormOpened = false;
+            API.AddJobFormOpened = false;
             if (showConfirmationMsg) // si l'appel a été fait par la fenêtre mère et non une autre fenêtre comme AjouterClient
             {
-                main parent = (main)this.MdiParent;
+                Form_Main parent = (Form_Main)this.MdiParent;
                 parent.LanguageChanged -= this.LanguageChangedHandler;
             }
         }

@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class About : Form
+    public partial class Form_About : Form
     {
         // constr.
-        public About()
+        public Form_About()
         {
             InitializeComponent();
         }

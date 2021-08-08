@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class ModifierClient : Form
+    public partial class Form_EditCustomer : Form
     {
         // attributs
         private int position = 0;
@@ -18,7 +18,7 @@ namespace GestionClient
         private DataView dv;
 
         // constr.
-        public ModifierClient()
+        public Form_EditCustomer()
         {
             InitializeComponent();
         }
@@ -30,8 +30,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.ModifierTavailFormOpened = false;
-            main parent = (main)this.MdiParent;
+            API.EditJobFormOpened = false;
+            Form_Main parent = (Form_Main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
 
@@ -204,7 +204,7 @@ namespace GestionClient
             // on affecte la position actuelle à 'searchFoundedPosition' de la ClassGlobal
             API.SearchResultIndex = position;
             // on affiche la fenêtre de recherche
-            Form fen = new RechercherNomClient();
+            Form fen = new Form_SearchCustomer();
             fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
             fen.ShowDialog();
             // on affiche le client trouvé, si trouvé biensur

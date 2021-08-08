@@ -1,6 +1,6 @@
 ﻿namespace GestionClient
 {
-    partial class SupprimerTravail
+    partial class Form_RemoveJob
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SupprimerTravail));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_RemoveJob));
             this.TravailCombo = new System.Windows.Forms.ComboBox();
             this.SupprimerBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();

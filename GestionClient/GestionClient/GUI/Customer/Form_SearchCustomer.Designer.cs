@@ -1,6 +1,6 @@
 ﻿namespace GestionClient
 {
-    partial class RechercherNomClient
+    partial class Form_SearchCustomer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RechercherNomClient));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SearchCustomer));
             this.ClientGroupBox = new System.Windows.Forms.GroupBox();
             this.NomTextBox = new System.Windows.Forms.TextBox();
             this.NomLabel = new System.Windows.Forms.Label();

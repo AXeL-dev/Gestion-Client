@@ -4,13 +4,13 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class AjouterClient : Form
+    public partial class Form_AddCustomer : Form
     {
         // attributs
         private bool isImageChoosed = false;
 
         // constr.
-        public AjouterClient()
+        public Form_AddCustomer()
         {
             InitializeComponent();
         }
@@ -53,8 +53,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.AjouterClientFormOpened = false;
-            main parent = (main) this.MdiParent;
+            API.AddCustomerFormOpened = false;
+            Form_Main parent = (Form_Main) this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
 
@@ -139,13 +139,13 @@ namespace GestionClient
         private void NouveauTravailBtn_Click(object sender, EventArgs e)
         {
             // on ouvre l'interface de création de travail
-            if (!API.AjouterTravailFormOpened)
+            if (!API.AddJobFormOpened)
             {
                 // on sauvegarde le nombre d'item actuel dans la 'TravailCombo'
                 int travailItemsNbr = TravailCombo.Items.Count;
                 // on ouvre la fenêtre d'ajout de travail
-                API.AjouterTravailFormOpened = true;
-                Form fen = new AjouterTravail(false);
+                API.AddJobFormOpened = true;
+                Form fen = new Form_AddJob(false);
                 fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
                 fen.ShowDialog();
                 // après fermeture

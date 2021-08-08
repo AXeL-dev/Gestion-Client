@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class RechercherNomClient : Form
+    public partial class Form_SearchCustomer : Form
     {
         // constr.
-        public RechercherNomClient()
+        public Form_SearchCustomer()
         {
             InitializeComponent();
         }

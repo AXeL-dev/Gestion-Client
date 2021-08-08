@@ -1,6 +1,6 @@
 ﻿namespace GestionClient
 {
-    partial class ListeClients
+    partial class Form_CustomersList
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListeClients));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_CustomersList));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.ListeClientGroupBox = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();

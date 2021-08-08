@@ -6,13 +6,13 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class ListeClients : Form
+    public partial class Form_CustomersList : Form
     {
         // attributs
         private DataView dv;
 
         // constr.
-        public ListeClients()
+        public Form_CustomersList()
         {
             InitializeComponent();
         }
@@ -68,8 +68,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.ListeClientsFormOpened = false;
-            main parent = (main)this.MdiParent;
+            API.CustomerListFormOpened = false;
+            Form_Main parent = (Form_Main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
 

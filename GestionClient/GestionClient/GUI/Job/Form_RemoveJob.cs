@@ -3,10 +3,10 @@ using System.Windows.Forms;
 
 namespace GestionClient
 {
-    public partial class SupprimerTravail : Form
+    public partial class Form_RemoveJob : Form
     {
         // constr.
-        public SupprimerTravail()
+        public Form_RemoveJob()
         {
             InitializeComponent();
         }
@@ -35,8 +35,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void SupprimerTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.SupprimerTravailFormOpened = false;
-            main parent = (main)this.MdiParent;
+            API.RemoveJobFormOpened = false;
+            Form_Main parent = (Form_Main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
 
