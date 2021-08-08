@@ -15,15 +15,15 @@ namespace GestionClient
         private void About_Load(object sender, EventArgs e)
         {
             // On affiche le nom de l'application
-            AppNameGroupBox.Text = API.AppName;
+            AppNameGroupBox.Text = App.Name;
 
             // On affiche les informations de l'app.
-            AppInfosTextBox.Text = API.GetString("About_Version") + "\r\n\r\n" +
-                                   API.GetString("About_Dev") + "\r\n\r\n" +
-                                   API.GetString("About_DotNet_Version") + "\r\n\r\n" +
-                                   API.GetString("About_Compatibilité") + "\r\n\r\n" +
-                                   API.GetString("About_Copyright") + "\r\n\r\n" +
-                                   API.GetString("About_End");
+            AppInfosTextBox.Text = Language.GetString("About_Version") + "\r\n\r\n" +
+                                   Language.GetString("About_Dev") + "\r\n\r\n" +
+                                   Language.GetString("About_DotNet_Version") + "\r\n\r\n" +
+                                   Language.GetString("About_Compatibilité") + "\r\n\r\n" +
+                                   Language.GetString("About_Copyright") + "\r\n\r\n" +
+                                   Language.GetString("About_End");
 
             // On bouge le curseur de séléction au début (0), car on obtient un texte completement séléctionné au départ
             AppInfosTextBox.Select(0, 0);

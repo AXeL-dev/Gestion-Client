@@ -29,47 +29,47 @@ namespace GestionClient
                 // si la description est vide
                 if (DescriptionTextBox.Text.Length == 0)
                 {
-                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Description_Obligatoire"));
+                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Description_Obligatoire"));
                     DescriptionTextBox.Focus();
                 }
                 // si nn si travail en double
                 else if (checkDoubleTravailDescription(DescriptionTextBox.Text))
                 {
-                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Description_Double"));
+                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Description_Double"));
                     DescriptionTextBox.SelectAll(); // on séléctionne la description au cas l'utilisateur veut bien la supprimer
                     DescriptionTextBox.Focus();
                 }
                 else // si nn, c'est bon
                 {
                     // ajout du travail
-                    API.MainDataSet.Tables["Travail"].Rows.Add(null, DescriptionTextBox.Text);
-                    API.ApplyChanges(API.TravailDataAdapter, "Travail");
+                    Database.MainDataSet.Tables["Travail"].Rows.Add(null, DescriptionTextBox.Text);
+                    Database.ApplyChanges(Database.TravailDataAdapter, "Travail");
                     if (showConfirmationMsg)
-                        QuickMessageBox.ShowInformation(API.GetString("MessageBox_Travail_Ajouté"));
+                        QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Travail_Ajouté"));
                     // mise à jour de la dataTable Travail (pour avoir les bon ids)
-                    API.FetchTravailTable();
+                    Database.FetchTravailTable();
                     // fermeture de la fenêtre
                     this.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 
         // event. Load du formulaire
         private void AjouterTravail_Load(object sender, EventArgs e)
         {
-            if (!API.ConnectedToDatabase) // si on n'est pas connecté à la base de données
+            if (!Database.ConnectedToDatabase) // si on n'est pas connecté à la base de données
             {
-                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Connexion_Non_Etablie"));
+                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Connexion_Non_Etablie"));
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
             else
             {
                 // on change la langue si l'arabe est séléctionné
-                if (API.GetCurrentLanguage() == "ar")
+                if (Language.GetCurrentLanguage() == "ar")
                     switchLanguage();
             }
         }
@@ -77,7 +77,7 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.AddJobFormOpened = false;
+            App.AddJobFormOpened = false;
             if (showConfirmationMsg) // si l'appel a été fait par la fenêtre mère et non une autre fenêtre comme AjouterClient
             {
                 Form_Main parent = (Form_Main)this.MdiParent;
@@ -92,9 +92,9 @@ namespace GestionClient
             {
                 switchLanguage();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 
@@ -102,9 +102,9 @@ namespace GestionClient
         // checkDoubleClientName(...) : vérifie si le nom du client entré existe déjà (return true) ou pas (return false)
         private bool checkDoubleTravailDescription(string description)
         {
-            for (int i = 0; i < API.MainDataSet.Tables["Travail"].Rows.Count; i++)
+            for (int i = 0; i < Database.MainDataSet.Tables["Travail"].Rows.Count; i++)
             {
-                if (API.MainDataSet.Tables["Travail"].Rows[i]["description"].ToString().ToUpper() == description.ToUpper()) // ToUpper() pour gérer la casse
+                if (Database.MainDataSet.Tables["Travail"].Rows[i]["description"].ToString().ToUpper() == description.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 
@@ -115,13 +115,13 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.GetString("Ajouter_Travail_Win_Name");
+            this.Text = Language.GetString("Ajouter_Travail_Win_Name");
             // GroupBox 'Travail'
-            groupBox1.Text = API.GetString("Ajouter_Travail_1st_GroupBox");
+            groupBox1.Text = Language.GetString("Ajouter_Travail_1st_GroupBox");
             // Label 'Description'
-            label1.Text = API.GetString("Ajouter_Travail_1st_Label");
+            label1.Text = Language.GetString("Ajouter_Travail_1st_Label");
             // Button 'Ajouter'
-            AjouterBtn.Text = API.GetString("Ajouter_Travail_Ajouter_Button");
+            AjouterBtn.Text = Language.GetString("Ajouter_Travail_Ajouter_Button");
         }
     }
 }

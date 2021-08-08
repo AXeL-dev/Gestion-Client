@@ -7,8 +7,8 @@
 using System;
 using System.Collections;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Drawing.Printing;
+using System.Windows.Forms;
 
 namespace GestionClient
 {
@@ -174,9 +174,13 @@ namespace GestionClient
             }
             //If more lines exist, print another page.
             if (bMorePagesToPrint)
+            {
                 e.HasMorePages = true;
+            }
             else
+            {
                 e.HasMorePages = false;
+            }
         }
     }
 }

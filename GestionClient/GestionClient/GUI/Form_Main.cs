@@ -15,50 +15,50 @@ namespace GestionClient
             InitializeComponent();
         }
 
-        #region Common
+        #region Common-Methods
         private void SwitchLanguage()
         {
             // Form Title
-            this.Text = API.AppName = API.GetString("App_Name");
+            this.Text = App.Name = Language.GetString("App_Name");
 
             // Main Menu Items
-            menuItem_application.Text = API.GetString("Application_Menu");
-            menuItem_customer.Text = API.GetString("Client_Menu");
-            menuItem_job.Text = API.GetString("Travail_Menu");
-            menuItem_help.Text = API.GetString("Question_Menu");
+            menuItem_application.Text = Language.GetString("Application_Menu");
+            menuItem_customer.Text = Language.GetString("Client_Menu");
+            menuItem_job.Text = Language.GetString("Travail_Menu");
+            menuItem_help.Text = Language.GetString("Question_Menu");
 
             // Application Menu Items
-            menuItem_connect.Text = API.GetString("Connexion_DB_Sub_Menu");
-            menuItem_backup.Text = API.GetString("Sauvegarder_DB_Sub_Menu");
-            menuItem_language.Text = API.GetString("Langue_Sub_Menu");
-            menuItem_french.Text = API.GetString("Français_Sub_Menu");
-            menuItem_arabic.Text = API.GetString("Arabe_Sub_Menu");
-            menuItem_quit.Text = API.GetString("Quitter_Menu");
+            menuItem_connect.Text = Language.GetString("Connexion_DB_Sub_Menu");
+            menuItem_backup.Text = Language.GetString("Sauvegarder_DB_Sub_Menu");
+            menuItem_language.Text = Language.GetString("Langue_Sub_Menu");
+            menuItem_french.Text = Language.GetString("Français_Sub_Menu");
+            menuItem_arabic.Text = Language.GetString("Arabe_Sub_Menu");
+            menuItem_quit.Text = Language.GetString("Quitter_Menu");
 
             // Customer Menu Items
-            menuItem_addCustomer.Text = API.GetString("Ajouter_Client_Sub_Menu");
-            menuItem_editCustomer.Text = API.GetString("Modifier_Supprimer_Client_Sub_Menu");
-            menuItem_customersList.Text = API.GetString("Liste_Client_Sub_Menu");
+            menuItem_addCustomer.Text = Language.GetString("Ajouter_Client_Sub_Menu");
+            menuItem_editCustomer.Text = Language.GetString("Modifier_Supprimer_Client_Sub_Menu");
+            menuItem_customersList.Text = Language.GetString("Liste_Client_Sub_Menu");
 
             // Job Menu Items
-            menuItem_addJob.Text = API.GetString("Ajouter_Travail_Sub_Menu");
-            menuItem_removeJob.Text = API.GetString("Supprimer_Travail_Sub_Menu");
+            menuItem_addJob.Text = Language.GetString("Ajouter_Travail_Sub_Menu");
+            menuItem_removeJob.Text = Language.GetString("Supprimer_Travail_Sub_Menu");
 
             // Help Menu Items
-            menuItem_about.Text = API.GetString("A_propos_Sub_Menu");
+            menuItem_about.Text = Language.GetString("A_propos_Sub_Menu");
 
             // Connection Status
-            if (API.ConnectedToDatabase)
+            if (Database.ConnectedToDatabase)
             {
-                statusLabel_main.Text = API.GetString("Connexion_To_DB_Success");
+                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Success");
             }
             else
             {
-                statusLabel_main.Text = API.GetString("Connexion_To_DB_Error");
+                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Error");
             }
 
             // Save File Dialog Title
-            saveFileDialog_main.Title = API.GetString("saveFileDialog_Title");
+            saveFileDialog_main.Title = Language.GetString("saveFileDialog_Title");
         }
         #endregion
 
@@ -67,59 +67,67 @@ namespace GestionClient
             try
             {
                 // on crée le dossier qui contiendra toutes les pieces de nos clients s'il n'exsite pas
-                if (!Directory.Exists(API.AppFolderPath + "\\" + API.AppPiecesFolder))
-                    Directory.CreateDirectory(API.AppFolderPath + "\\" + API.AppPiecesFolder);
+                if (!Directory.Exists(App.FolderPath + "\\" + App.PiecesFolderPath))
+                {
+                    Directory.CreateDirectory(App.FolderPath + "\\" + App.PiecesFolderPath);
+                }
 
                 // on récupère la langue actuelle + on effectue les changements si nécessaire
-                if (API.GetCurrentLanguage() == "ar")
+                if (Language.GetCurrentLanguage() == "ar")
+                {
                     menuItem_arabic_Click(sender, e);
+                }
                 else
+                {
                     menuItem_french_Click(sender, e);
+                }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
 
             // connexion à la bdd + récupération des tables (je ne l'ai pas mis dans la close try{}catch(){} car cette fonction/méthode utilise déjà une)
-            API.FetchAllTables(statusLabel_main);
+            Database.FetchAllTables(statusLabel_main);
         }
 
         private void menuItem_quit_Click(object sender, EventArgs e)
         {
-            if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Quitter")) == DialogResult.Yes)
+            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Quitter")) == DialogResult.Yes)
+            {
                 this.Close();
+            }
         }
 
         private void menuItem_addCustomer_Click(object sender, EventArgs e)
         {
-            if (!API.AddCustomerFormOpened)
+            if (!App.AddCustomerFormOpened)
             {
                 Form_AddCustomer fen = new Form_AddCustomer();
                 fen.MdiParent = this;
                 this.LanguageChanged += fen.LanguageChangedHandler;
                 fen.Show();
-                API.AddCustomerFormOpened = true;
+                App.AddCustomerFormOpened = true;
             }
         }
 
         private void menuItem_about_Click(object sender, EventArgs e)
         {
             Form fen = new Form_About();
-            fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
-            fen.Text = API.GetString("A_propos_Sub_Menu");
+            fen.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+            fen.Text = Language.GetString("A_propos_Sub_Menu");
             fen.ShowDialog();
         }
 
         private void menuItem_connect_Click(object sender, EventArgs e)
         {
-            API.FetchAllTables(statusLabel_main);
+            Database.FetchAllTables(statusLabel_main);
         }
 
         private void menuItem_application_DropDownOpened(object sender, EventArgs e)
         {
             // si la connexion à la base de données est établie, on désactive l'item 'Connexion..' du menu 'Application', si nn on l'active
-            if (!API.ConnectedToDatabase)
+            if (!Database.ConnectedToDatabase)
                 menuItem_connect.Enabled = true;
             else
                 menuItem_connect.Enabled = false;
@@ -127,49 +135,49 @@ namespace GestionClient
 
         private void menuItem_addJob_Click(object sender, EventArgs e)
         {
-            if (!API.AddJobFormOpened)
+            if (!App.AddJobFormOpened)
             {
                 Form_AddJob fen = new Form_AddJob();
                 fen.MdiParent = this;
                 this.LanguageChanged += fen.LanguageChangedHandler;
                 fen.Show();
-                API.AddJobFormOpened = true;
+                App.AddJobFormOpened = true;
             }
         }
 
         private void menuItem_removeJob_Click(object sender, EventArgs e)
         {
-            if (!API.RemoveJobFormOpened)
+            if (!App.RemoveJobFormOpened)
             {
                 Form_RemoveJob fen = new Form_RemoveJob();
                 fen.MdiParent = this;
                 this.LanguageChanged += fen.LanguageChangedHandler;
                 fen.Show();
-                API.RemoveJobFormOpened = true;
+                App.RemoveJobFormOpened = true;
             }
         }
 
         private void menuItem_editJob_Click(object sender, EventArgs e)
         {
-            if (!API.EditJobFormOpened)
+            if (!App.EditJobFormOpened)
             {
                 Form_EditCustomer fen = new Form_EditCustomer();
                 fen.MdiParent = this;
                 this.LanguageChanged += fen.LanguageChangedHandler;
                 fen.Show();
-                API.EditJobFormOpened = true;
+                App.EditJobFormOpened = true;
             }
         }
 
         private void menuItem_customersList_Click(object sender, EventArgs e)
         {
-            if (!API.CustomerListFormOpened)
+            if (!App.CustomerListFormOpened)
             {
                 Form_CustomersList fen = new Form_CustomersList();
                 fen.MdiParent = this;
                 this.LanguageChanged += fen.LanguageChangedHandler;
                 fen.Show();
-                API.CustomerListFormOpened = true;
+                App.CustomerListFormOpened = true;
             }
         }
 
@@ -195,7 +203,7 @@ namespace GestionClient
 
                     // lancement de l'extraction
                     //proc.StartInfo.Arguments = String.Format("x -p{0} {1} {2}", PWD, SRC, DES);
-                    proc.StartInfo.Arguments = String.Format("a -r \"{0}\" \"{1}\"", saveFileDialog_main.FileName, API.AppFolderPath + "\\" + API.AppDatabaseFolder);
+                    proc.StartInfo.Arguments = String.Format("a -r \"{0}\" \"{1}\"", saveFileDialog_main.FileName, App.FolderPath + "\\" + App.DatabaseFolderName);
                     proc.Start();
 
                     // attente de la fin de l'extraction
@@ -206,16 +214,16 @@ namespace GestionClient
                     if (File.Exists(saveFileDialog_main.FileName))
                     {
                         QuickMessageBox.ShowInformation(string.Format("{0}{1}",
-                            API.GetString("MessageBox_DB_Saved_To"), saveFileDialog_main.FileName));
+                            Language.GetString("MessageBox_DB_Saved_To"), saveFileDialog_main.FileName));
                     }
                     else
                     {
-                        throw new Exception(API.GetString("MessageBox_Erreur"));
+                        throw new Exception(Language.GetString("MessageBox_Erreur"));
                     }
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    QuickMessageBox.ShowError(ex.Message);
+                    QuickMessageBox.ShowError(exception.Message);
                 }
             }
         }
@@ -229,11 +237,11 @@ namespace GestionClient
                     menuItem_french.Checked = true;
                     menuItem_arabic.Checked = false;
                     // changement de la langue au français
-                    API.CurrentCulture = CultureInfo.CreateSpecificCulture("fr");
+                    Language.CurrentCulture = CultureInfo.CreateSpecificCulture("fr");
                     // enregistrement de la langue actuelle
-                    API.SetCurrentLanguage("fr");
+                    Language.SetCurrentLanguage("fr");
                     // messagesBox => état normal
-                    API.CurrentMessageBoxOptions = new MessageBoxOptions();
+                    Language.CurrentMessageBoxOptions = new MessageBoxOptions();
                     // QuickMessageBox buttons text => état normal
                     MessageBoxManager.Unregister();
                     // main form => état normal
@@ -244,9 +252,9 @@ namespace GestionClient
                     this.OnLanguageChanged(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 
@@ -259,14 +267,14 @@ namespace GestionClient
                     menuItem_french.Checked = false;
                     menuItem_arabic.Checked = true;
                     // changement de la langue à l'arabe
-                    API.CurrentCulture = CultureInfo.CreateSpecificCulture("ar");
+                    Language.CurrentCulture = CultureInfo.CreateSpecificCulture("ar");
                     // enregistrement de la langue actuelle
-                    API.SetCurrentLanguage("ar");
+                    Language.SetCurrentLanguage("ar");
                     // messagesBox => RightToLeft
-                    API.CurrentMessageBoxOptions = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
+                    Language.CurrentMessageBoxOptions = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
                     // messagesBox buttons text
-                    MessageBoxManager.Yes = API.GetString("MessageBox_YES");
-                    MessageBoxManager.No = API.GetString("MessageBox_NO");
+                    MessageBoxManager.Yes = Language.GetString("MessageBox_YES");
+                    MessageBoxManager.No = Language.GetString("MessageBox_NO");
                     MessageBoxManager.Register();
                     // main form => RightToLeft
                     this.RightToLeft = RightToLeft.Yes;
@@ -276,9 +284,9 @@ namespace GestionClient
                     this.OnLanguageChanged(sender, e);
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 

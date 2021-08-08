@@ -11,8 +11,8 @@ namespace GestionClient
         #region Private-Methods
         private static DialogResult Show(string text, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
-            return MessageBox.Show(text, API.AppName, buttons, icon,
-                MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+            return MessageBox.Show(text, App.Name, buttons, icon,
+                MessageBoxDefaultButton.Button1, Language.CurrentMessageBoxOptions);
         }
         #endregion
 

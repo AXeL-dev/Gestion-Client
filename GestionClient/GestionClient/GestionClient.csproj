@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\API.Methods.cs" />
-    <Compile Include="API\QuickMessageBox.cs" />
+    <Compile Include="API\Core\App.cs" />
+    <Compile Include="API\Core\Database.cs" />
+    <Compile Include="API\Core\Language.cs" />
+    <Compile Include="API\UI Elements\QuickMessageBox.cs" />
     <Compile Include="GUI\Help\Form_About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,15 +68,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Res.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="API\API.cs" />
-    <Compile Include="API\DataGridViewDeleteButton.cs" />
+    <Compile Include="API\UI Elements\DataGridViewDeleteButton.cs" />
     <Compile Include="GUI\Customer\Form_CustomersList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\Customer\Form_CustomersList.Designer.cs">
       <DependentUpon>Form_CustomersList.cs</DependentUpon>
     </Compile>
-    <Compile Include="API\MessageBoxManager.cs" />
+    <Compile Include="API\UI Elements\MessageBoxManager.cs" />
     <Compile Include="GUI\Customer\Form_EditCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,7 +88,7 @@
     <Compile Include="GUI\Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="API\DataGridViewPrinter.cs" />
+    <Compile Include="API\UI Elements\DataGridViewPrinter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUI\Customer\Form_SearchCustomer.cs">

@@ -18,22 +18,22 @@ namespace GestionClient
         // event. Load du formulaire
         private void AjouterClient_Load(object sender, EventArgs e)
         {
-            if (API.ConnectedToDatabase) // si on est déjà connecté à la base de données
+            if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
             {
                 // séléction d'Homme dans la combobox
                 HommeFemmeCombo.SelectedIndex = 0;
                 // remplissage de la combobox 'TravailCombo'
-                TravailCombo.DataSource = API.MainDataSet.Tables["Travail"];
+                TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
                 TravailCombo.DisplayMember = "description";
                 TravailCombo.ValueMember = "id";
 
                 // on change la langue si l'arabe est séléctionné
-                if (API.GetCurrentLanguage() == "ar")
+                if (Language.GetCurrentLanguage() == "ar")
                     switchLanguage();
             }
             else
             {
-                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Connexion_Non_Etablie"));
+                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Connexion_Non_Etablie"));
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -53,7 +53,7 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
         {
-            API.AddCustomerFormOpened = false;
+            App.AddCustomerFormOpened = false;
             Form_Main parent = (Form_Main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
@@ -76,13 +76,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Obligatoire"));
+                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Obligatoire"));
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientName(NomTextBox.Text))
                 {
-                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Double"));
+                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Double"));
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -99,17 +99,17 @@ namespace GestionClient
                     string dateNaissance = null;
                     if (DateNaissMaskedTextBox.MaskCompleted)
                         dateNaissance = DateNaissMaskedTextBox.Text;
-                    API.MainDataSet.Tables["Client"].Rows.Add(null, NomTextBox.Text, HommeFemmeCombo.Text, TravailCombo.SelectedValue, dateNaissance, NumTelMaskedTextBox.Text.Replace(" ", string.Empty), EmailTextBox.Text, DateTime.Now.ToString());
-                    API.ApplyChanges(API.ClientDataAdapter, "Client");
+                    Database.MainDataSet.Tables["Client"].Rows.Add(null, NomTextBox.Text, HommeFemmeCombo.Text, TravailCombo.SelectedValue, dateNaissance, NumTelMaskedTextBox.Text.Replace(" ", string.Empty), EmailTextBox.Text, DateTime.Now.ToString());
+                    Database.ApplyChanges(Database.ClientDataAdapter, "Client");
                     // mise à jour de la dataTable Client (pour avoir les bon ids)
-                    API.FetchClientTable();
+                    Database.FetchClientTable();
                     // on récupère l'id du client
                     int clientId = getClientIdByName(NomTextBox.Text);
                     // on récupère le chemin ou on va pouvoir stocker l'image
-                    string imageFolderName = API.AppPiecesFolder + "\\" + clientId + "_";// +NomTextBox.Text;
+                    string imageFolderName = App.PiecesFolderPath + "\\" + clientId + "_";// +NomTextBox.Text;
                     // on crée le dossier qui contienra les pieces du client (dont l'image) s'il n'exsite pas
-                    if (!Directory.Exists(API.AppFolderPath + "\\" + imageFolderName))
-                        Directory.CreateDirectory(API.AppFolderPath + "\\" + imageFolderName);
+                    if (!Directory.Exists(App.FolderPath + "\\" + imageFolderName))
+                        Directory.CreateDirectory(App.FolderPath + "\\" + imageFolderName);
                     // ajout de la photo (si choisi)
                     if (isImageChoosed)
                     {
@@ -117,21 +117,21 @@ namespace GestionClient
                         string imageFileName = pictureBox1.ImageLocation.Remove(0, pictureBox1.ImageLocation.LastIndexOf('\\') + 1);
                         // on copie l'image dans le répertoire de notre base de données
                         string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
-                        File.Copy(pictureBox1.ImageLocation, API.AppFolderPath + "\\" + destinationFileName, true);
+                        File.Copy(pictureBox1.ImageLocation, App.FolderPath + "\\" + destinationFileName, true);
                         // on ajoute la photo en tant que Piece ('Photo')
-                        API.MainDataSet.Tables["Pieces"].Rows.Add(null, clientId, destinationFileName, "Photo");
-                        API.ApplyChanges(API.PiecesDataAdapter, "Pieces");
+                        Database.MainDataSet.Tables["Pieces"].Rows.Add(null, clientId, destinationFileName, "Photo");
+                        Database.ApplyChanges(Database.PiecesDataAdapter, "Pieces");
                         // mise à jour de la dataTable Pieces (pour avoir les bon ids, afin de pouvoir modifier la photo après)
-                        API.FetchPiecesTable();
+                        Database.FetchPiecesTable();
                     }
-                    QuickMessageBox.ShowInformation(API.GetString("MessageBox_Client_Ajouté"));
+                    QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Client_Ajouté"));
                     // fermeture de la fenêtre
                     this.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 
@@ -139,14 +139,14 @@ namespace GestionClient
         private void NouveauTravailBtn_Click(object sender, EventArgs e)
         {
             // on ouvre l'interface de création de travail
-            if (!API.AddJobFormOpened)
+            if (!App.AddJobFormOpened)
             {
                 // on sauvegarde le nombre d'item actuel dans la 'TravailCombo'
                 int travailItemsNbr = TravailCombo.Items.Count;
                 // on ouvre la fenêtre d'ajout de travail
-                API.AddJobFormOpened = true;
+                App.AddJobFormOpened = true;
                 Form fen = new Form_AddJob(false);
-                fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+                fen.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
                 fen.ShowDialog();
                 // après fermeture
                 if (TravailCombo.Items.Count > travailItemsNbr) // si un travail a été ajouté, on le séléctionne
@@ -161,9 +161,9 @@ namespace GestionClient
             {
                 switchLanguage();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                QuickMessageBox.ShowError(ex.Message);
+                QuickMessageBox.ShowError(exception.Message);
             }
         }
 
@@ -172,10 +172,10 @@ namespace GestionClient
         private int getClientIdByName(string clientName)
         {
             // on parcourt la dataTable Client
-            for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
             {
-                if (API.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString() == clientName)
-                    return Convert.ToInt32(API.MainDataSet.Tables["Client"].Rows[i]["id"]);
+                if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString() == clientName)
+                    return Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[i]["id"]);
             }
 
             // si on ne le trouve pas on retourne un -1
@@ -185,9 +185,9 @@ namespace GestionClient
         // checkDoubleClientName(...) : vérifie si le nom du client entré existe déjà (return true) ou pas (return false)
         private bool checkDoubleClientName(string name)
         {
-            for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
             {
-                if (API.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 
@@ -198,25 +198,25 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.GetString("Ajouter_Client_Win_Name");
+            this.Text = Language.GetString("Ajouter_Client_Win_Name");
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.GetString("Ajouter_Client_Client_GroupBox");
-            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
-            SexeLabel.Text = API.GetString("Ajouter_Client_Sexe_Label");
-            TravailLabel.Text = API.GetString("Ajouter_Client_Travail_Label");
-            DateNaissanceLabel.Text = API.GetString("Ajouter_Client_Date_Naissance_Label");
-            NumeroTelLabel.Text = API.GetString("Ajouter_Client_Numero_Tel_Label");
-            EmailLabel.Text = API.GetString("Ajouter_Client_Email_Label");
-            PhotoGroupBox.Text = API.GetString("Ajouter_Client_Photo_GroupBox");
+            ClientGroupBox.Text = Language.GetString("Ajouter_Client_Client_GroupBox");
+            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
+            SexeLabel.Text = Language.GetString("Ajouter_Client_Sexe_Label");
+            TravailLabel.Text = Language.GetString("Ajouter_Client_Travail_Label");
+            DateNaissanceLabel.Text = Language.GetString("Ajouter_Client_Date_Naissance_Label");
+            NumeroTelLabel.Text = Language.GetString("Ajouter_Client_Numero_Tel_Label");
+            EmailLabel.Text = Language.GetString("Ajouter_Client_Email_Label");
+            PhotoGroupBox.Text = Language.GetString("Ajouter_Client_Photo_GroupBox");
             // combobox
-            HommeFemmeCombo.Items[0] = API.GetString("Sexe_Homme");
-            HommeFemmeCombo.Items[1] = API.GetString("Sexe_Femme");
+            HommeFemmeCombo.Items[0] = Language.GetString("Sexe_Homme");
+            HommeFemmeCombo.Items[1] = Language.GetString("Sexe_Femme");
             // Buttons
-            NouveauTravailBtn.Text = API.GetString("Ajouter_Client_Nouveau_Travail_Button");
-            AjouterModifierPhotoBtn.Text = API.GetString("Ajouter_Client_Ajouter_Modifier_Photo_Button");
-            AjouterClientBtn.Text = API.GetString("Ajouter_Client_Ajouter_Button");
+            NouveauTravailBtn.Text = Language.GetString("Ajouter_Client_Nouveau_Travail_Button");
+            AjouterModifierPhotoBtn.Text = Language.GetString("Ajouter_Client_Ajouter_Modifier_Photo_Button");
+            AjouterClientBtn.Text = Language.GetString("Ajouter_Client_Ajouter_Button");
             // openFileDialog1
-            openFileDialog1.Title = API.GetString("openFileDialog_Title");
+            openFileDialog1.Title = Language.GetString("openFileDialog_Title");
         }
     }
 }

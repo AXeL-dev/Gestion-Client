@@ -1,12 +1,25 @@
 ﻿using System;
+using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace GestionClient
 {
-    static partial class API
+    static class Database
     {
+        #region Database-Access-Properties
+        public static bool ConnectedToDatabase = false;
+        public static OleDbConnection Connection = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + App.FolderPath + "\\data\\gestionClient.mdb;User Id=admin;Password=;");
+        public static OleDbDataAdapter ClientDataAdapter = new OleDbDataAdapter("", Connection);
+        public static OleDbDataAdapter PiecesDataAdapter = new OleDbDataAdapter("", Connection);
+        public static OleDbDataAdapter PaiementDataAdapter = new OleDbDataAdapter("", Connection);
+        public static OleDbDataAdapter TravailDataAdapter = new OleDbDataAdapter("", Connection);
+        public static OleDbDataAdapter ClientTravailPaiementDataAdapter = new OleDbDataAdapter("", Connection);
+        public static OleDbDataAdapter LangueDataAdapter = new OleDbDataAdapter("", Connection);
+        public static DataSet MainDataSet = new DataSet();
+        #endregion
+
         #region Database-Update-Methods
         /// <summary>
         /// Applique les changements à la table spécifiée.
@@ -36,17 +49,17 @@ namespace GestionClient
                 FetchTravailTable();
 
                 // on affiche un message de succès
-                infosToolStripStatusLabel.Text = API.GetString("Connexion_To_DB_Success"); //"Connexion à la base de données établie.";
+                infosToolStripStatusLabel.Text = Language.GetString("Connexion_To_DB_Success"); //"Connexion à la base de données établie.";
                 infosToolStripStatusLabel.ForeColor = Color.Green;
                 infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._true;
 
                 ConnectedToDatabase = true;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
                 // en cas d'erreur, on affiche le message d'erreur
-                infosToolStripStatusLabel.Text = API.GetString("Connexion_To_DB_Error"); //"Erreur de connexion à la base de données !"; // "Erreur : " + ex.Message;
-                infosToolStripStatusLabel.ToolTipText = ex.Message;
+                infosToolStripStatusLabel.Text = Language.GetString("Connexion_To_DB_Error"); //"Erreur de connexion à la base de données !"; // "Erreur : " + exception.Message;
+                infosToolStripStatusLabel.ToolTipText = exception.Message;
                 infosToolStripStatusLabel.ForeColor = Color.Red;
                 infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._false;
 
@@ -121,41 +134,6 @@ namespace GestionClient
             if (MainDataSet.Tables.Contains("ClientTravailPaiement")) // si une ancienne dataTable existe on l'efface
                 MainDataSet.Tables["ClientTravailPaiement"].Clear();
             ClientTravailPaiementDataAdapter.Fill(MainDataSet, "ClientTravailPaiement");
-        }
-        #endregion
-
-        #region Language-Setup-Methods
-        /// <summary>
-        /// Retourne la langue actuelle.
-        /// </summary>
-        /// <returns></returns>
-        public static string GetCurrentLanguage()
-        {
-            FetchLangueTable();
-            return MainDataSet.Tables["Langue"].Rows[0]["abrv"].ToString();
-        }
-
-        /// <summary>
-        /// Enregistre la langue actuelle dans la base de données.
-        /// </summary>
-        /// <param name="language"></param>
-        public static void SetCurrentLanguage(string language)
-        {
-            MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
-            ApplyChanges(LangueDataAdapter, "Langue");
-        }
-
-        /// <summary>
-        /// Obtient la valeur de la ressource System.String localisée pour la culture actuelle.
-        /// </summary>
-        /// <param name="name">Nom de la ressource à obtenir.</param>
-        /// <returns>
-        /// Valeur de la ressource localisée pour la culture spécifiée. 
-        /// Si aucune correspondance n'est possible, null est retournée.
-        /// </returns>
-        public static string GetString(string name)
-        {
-            return LanguagesResourceManager.GetString(name, CurrentCulture);
         }
         #endregion
     }

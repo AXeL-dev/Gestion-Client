@@ -17,25 +17,25 @@ namespace GestionClient
             // si le nom est vide
             if (NomTextBox.Text.Length == 0)
             {
-                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Obligatoire"));
+                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Obligatoire"));
                 NomTextBox.Focus();
             }
             else
             {
                 // on parcourt la dataTable Client
-                for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
+                for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
                 {
                     // si nom du client trouvé
-                    if (API.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(NomTextBox.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(NomTextBox.Text.ToUpper())) // ToUpper() pour gérer la casse
                     {
-                        API.SearchResultIndex = i;
+                        App.SearchResultIndex = i;
                         this.Close(); // fermeture de la fenêtre
                         return; // on sort de la fonction
                     }
                 }
 
                 // si nn
-                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Client_Non_trouvé"));
+                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Client_Non_trouvé"));
             }
         }
 
@@ -43,7 +43,7 @@ namespace GestionClient
         private void RechercherNomClient_Load(object sender, EventArgs e)
         {
             // on change la langue si l'arabe est séléctionné
-            if (API.GetCurrentLanguage() == "ar")
+            if (Language.GetCurrentLanguage() == "ar")
                 switchLanguage();
         }
 
@@ -52,12 +52,12 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.GetString("Rechercher_Client_Win_Name");
+            this.Text = Language.GetString("Rechercher_Client_Win_Name");
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.GetString("Ajouter_Client_Client_GroupBox");
-            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
+            ClientGroupBox.Text = Language.GetString("Ajouter_Client_Client_GroupBox");
+            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
             // Buttons
-            RechercherBtn.Text = API.GetString("Rechercher_Client_Rechercher_Button");
+            RechercherBtn.Text = Language.GetString("Rechercher_Client_Rechercher_Button");
         }
     }
 }

@@ -130,7 +130,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Supprimer un travail";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SupprimerTravail_FormClosed);
-            this.Load += new System.EventHandler(this.SupprimerTravail_Load);
+            this.Load += new System.EventHandler(this.Form_RemoveJob_Load);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
