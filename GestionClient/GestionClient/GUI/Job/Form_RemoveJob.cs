@@ -27,7 +27,7 @@ namespace GestionClient
             }
             else
             {
-                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -47,8 +47,8 @@ namespace GestionClient
             {
                 // si jamais la combobox est vide
                 if (TravailCombo.Items.Count == 0)
-                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Rien_A_Supprimer", API.CurrentCulture));
-                else if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Travail", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                    throw new Exception(API.GetString("MessageBox_Rien_A_Supprimer"));
+                else if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Travail"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Travail
                     for (int i = 0; i < API.MainDataSet.Tables["Travail"].Rows.Count; i++)
@@ -59,7 +59,7 @@ namespace GestionClient
                             // suppression
                             API.MainDataSet.Tables["Travail"].Rows[i].Delete();
                             API.ApplyChanges(API.TravailDataAdapter, "Travail");
-                            MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Travail_Supprimé", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                            MessageBox.Show(API.GetString("MessageBox_Travail_Supprimé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                             // mise à jour de la dataTable Client (pour supprimer les clients en relation avec ce travail)
                             API.FetchClientTable();
                             break; // on sort de la boucle for
@@ -91,13 +91,13 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Supprimer_Travail_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Supprimer_Travail_Win_Name");
             // Label 'Travail'
-            label1.Text = API.LanguagesResourceManager.GetString("Supprimer_Travail_1st_Label", API.CurrentCulture);
+            label1.Text = API.GetString("Supprimer_Travail_1st_Label");
             // Label '(*)...'
-            label2.Text = API.LanguagesResourceManager.GetString("Supprimer_Travail_2nd_Label", API.CurrentCulture);
+            label2.Text = API.GetString("Supprimer_Travail_2nd_Label");
             // Button 'Supprimer'
-            SupprimerBtn.Text = API.LanguagesResourceManager.GetString("Supprimer_Travail_Supprimer_Button", API.CurrentCulture);
+            SupprimerBtn.Text = API.GetString("Supprimer_Travail_Supprimer_Button");
         }
     }
 }

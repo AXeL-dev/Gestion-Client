@@ -26,7 +26,7 @@ namespace GestionClient
                 {
                     // si la dataTable Client est vide
                     if (API.MainDataSet.Tables["Client"].Rows.Count == 0)
-                        throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Aucun_Client", API.CurrentCulture));
+                        throw new Exception(API.GetString("MessageBox_Aucun_Client"));
 
                     // remplissage de la combobox 'TravailCombo'
                     TravailCombo.DataSource = API.MainDataSet.Tables["Travail"];
@@ -55,7 +55,7 @@ namespace GestionClient
                 }
                 else
                 {
-                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture));
+                    throw new Exception(API.GetString("MessageBox_Connexion_Non_Etablie"));
                 }
             }
             catch (Exception ex)
@@ -119,7 +119,7 @@ namespace GestionClient
         {
             try
             {
-                DataGridViewPrinter.Print(dataGridView1, e, API.LanguagesResourceManager.GetString("Liste_Client_Win_Name", API.CurrentCulture));
+                DataGridViewPrinter.Print(dataGridView1, e, API.GetString("Liste_Client_Win_Name"));
             }
             catch (Exception exc)
             {
@@ -160,26 +160,26 @@ namespace GestionClient
         private void setDataGridViewFormat()
         {
             // Headers Text
-            dataGridView1.Columns["nom"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Nom", API.CurrentCulture);
-            dataGridView1.Columns["sexe"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Sexe", API.CurrentCulture);
-            dataGridView1.Columns["travail"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Travail", API.CurrentCulture);
-            dataGridView1.Columns["age"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Age", API.CurrentCulture);
-            dataGridView1.Columns["date de naissance"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Date_Naissance", API.CurrentCulture);
-            dataGridView1.Columns["numéro tél"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Numero_Tel", API.CurrentCulture);
-            dataGridView1.Columns["email"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Email", API.CurrentCulture);
-            dataGridView1.Columns["montant payé"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Montant_Payé", API.CurrentCulture);
-            dataGridView1.Columns["ajouté le"].HeaderText = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Ajouté_Le", API.CurrentCulture);
+            dataGridView1.Columns["nom"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Nom");
+            dataGridView1.Columns["sexe"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Sexe");
+            dataGridView1.Columns["travail"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Travail");
+            dataGridView1.Columns["age"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Age");
+            dataGridView1.Columns["date de naissance"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Date_Naissance");
+            dataGridView1.Columns["numéro tél"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Numero_Tel");
+            dataGridView1.Columns["email"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Email");
+            dataGridView1.Columns["montant payé"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Montant_Payé");
+            dataGridView1.Columns["ajouté le"].HeaderText = API.GetString("Liste_Client_DataGridView_Column_Ajouté_Le");
 
             // ajout de 'ans' dans toutes les lignes de la colonne 'age'
             NumberFormatInfo formatAge = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            formatAge.CurrencySymbol = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Age_Devise", API.CurrentCulture);
+            formatAge.CurrencySymbol = API.GetString("Liste_Client_DataGridView_Column_Age_Devise");
             formatAge.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["age"].DefaultCellStyle.FormatProvider = formatAge;
             dataGridView1.Columns["age"].DefaultCellStyle.Format = "c";
 
             // ajout de la devise dans toutes les lignes de la colonne 'montant payé'
             NumberFormatInfo formatMontant = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            formatMontant.CurrencySymbol = API.LanguagesResourceManager.GetString("Liste_Client_DataGridView_Column_Montant_Payé_Devise", API.CurrentCulture);
+            formatMontant.CurrencySymbol = API.GetString("Liste_Client_DataGridView_Column_Montant_Payé_Devise");
             formatMontant.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["montant payé"].DefaultCellStyle.FormatProvider = formatMontant;
             dataGridView1.Columns["montant payé"].DefaultCellStyle.Format = "c";
@@ -189,16 +189,16 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Liste_Client_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Liste_Client_Win_Name");
             // Labels et GroupBoxs
-            FiltrerClientGroupBox.Text = API.LanguagesResourceManager.GetString("Liste_Client_Filtrer_GroupBox", API.CurrentCulture);
-            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
-            TravailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Travail_Label", API.CurrentCulture);
-            FiltrerTravailCheckBox.Text = API.LanguagesResourceManager.GetString("Liste_Client_Filtrer_CheckBox", API.CurrentCulture);
-            ListeClientGroupBox.Text = API.LanguagesResourceManager.GetString("Liste_Client_Liste_GroupBox", API.CurrentCulture);
+            FiltrerClientGroupBox.Text = API.GetString("Liste_Client_Filtrer_GroupBox");
+            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
+            TravailLabel.Text = API.GetString("Ajouter_Client_Travail_Label");
+            FiltrerTravailCheckBox.Text = API.GetString("Liste_Client_Filtrer_CheckBox");
+            ListeClientGroupBox.Text = API.GetString("Liste_Client_Liste_GroupBox");
             // Buttons
-            ActualiserBtn.Text = API.LanguagesResourceManager.GetString("Liste_Client_Actualiser_Button", API.CurrentCulture);
-            ImprimerBtn.Text = API.LanguagesResourceManager.GetString("Liste_Client_Imprimer_Button", API.CurrentCulture);
+            ActualiserBtn.Text = API.GetString("Liste_Client_Actualiser_Button");
+            ImprimerBtn.Text = API.GetString("Liste_Client_Imprimer_Button");
             // format de la DataGridView
             setDataGridViewFormat();
         }

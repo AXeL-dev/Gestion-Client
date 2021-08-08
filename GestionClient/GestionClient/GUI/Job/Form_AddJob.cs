@@ -29,13 +29,13 @@ namespace GestionClient
                 // si la description est vide
                 if (DescriptionTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Description_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Description_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     DescriptionTextBox.Focus();
                 }
                 // si nn si travail en double
                 else if (checkDoubleTravailDescription(DescriptionTextBox.Text))
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Description_Double", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Description_Double"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     DescriptionTextBox.SelectAll(); // on séléctionne la description au cas l'utilisateur veut bien la supprimer
                     DescriptionTextBox.Focus();
                 }
@@ -45,7 +45,7 @@ namespace GestionClient
                     API.MainDataSet.Tables["Travail"].Rows.Add(null, DescriptionTextBox.Text);
                     API.ApplyChanges(API.TravailDataAdapter, "Travail");
                     if (showConfirmationMsg)
-                        MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Travail_Ajouté", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                        MessageBox.Show(API.GetString("MessageBox_Travail_Ajouté"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     // mise à jour de la dataTable Travail (pour avoir les bon ids)
                     API.FetchTravailTable();
                     // fermeture de la fenêtre
@@ -63,7 +63,7 @@ namespace GestionClient
         {
             if (!API.ConnectedToDatabase) // si on n'est pas connecté à la base de données
             {
-                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
             else
@@ -115,13 +115,13 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Ajouter_Travail_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Ajouter_Travail_Win_Name");
             // GroupBox 'Travail'
-            groupBox1.Text = API.LanguagesResourceManager.GetString("Ajouter_Travail_1st_GroupBox", API.CurrentCulture);
+            groupBox1.Text = API.GetString("Ajouter_Travail_1st_GroupBox");
             // Label 'Description'
-            label1.Text = API.LanguagesResourceManager.GetString("Ajouter_Travail_1st_Label", API.CurrentCulture);
+            label1.Text = API.GetString("Ajouter_Travail_1st_Label");
             // Button 'Ajouter'
-            AjouterBtn.Text = API.LanguagesResourceManager.GetString("Ajouter_Travail_Ajouter_Button", API.CurrentCulture);
+            AjouterBtn.Text = API.GetString("Ajouter_Travail_Ajouter_Button");
         }
     }
 }

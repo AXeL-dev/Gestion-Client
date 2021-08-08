@@ -18,38 +18,37 @@ namespace GestionClient
         #region Common
         private void SwitchLanguage()
         {
-            // App Name
-            API.AppName = API.LanguagesResourceManager.GetString("App_Name", API.CurrentCulture);
+            API.AppName = API.GetString("App_Name");
             // Window Name
             this.Text = API.AppName;
             // Menu Items
-            menuItem_application.Text = API.LanguagesResourceManager.GetString("Application_Menu", API.CurrentCulture);
-            menuItem_customer.Text = API.LanguagesResourceManager.GetString("Client_Menu", API.CurrentCulture);
-            menuItem_job.Text = API.LanguagesResourceManager.GetString("Travail_Menu", API.CurrentCulture);
-            menuItem_help.Text = API.LanguagesResourceManager.GetString("Question_Menu", API.CurrentCulture);
+            menuItem_application.Text = API.GetString("Application_Menu");
+            menuItem_customer.Text = API.GetString("Client_Menu");
+            menuItem_job.Text = API.GetString("Travail_Menu");
+            menuItem_help.Text = API.GetString("Question_Menu");
             // > Application
-            menuItem_connect.Text = API.LanguagesResourceManager.GetString("Connexion_DB_Sub_Menu", API.CurrentCulture);
-            menuItem_backup.Text = API.LanguagesResourceManager.GetString("Sauvegarder_DB_Sub_Menu", API.CurrentCulture);
-            menuItem_language.Text = API.LanguagesResourceManager.GetString("Langue_Sub_Menu", API.CurrentCulture);
-            menuItem_french.Text = API.LanguagesResourceManager.GetString("Français_Sub_Menu", API.CurrentCulture);
-            menuItem_arabic.Text = API.LanguagesResourceManager.GetString("Arabe_Sub_Menu", API.CurrentCulture);
-            menuItem_quit.Text = API.LanguagesResourceManager.GetString("Quitter_Menu", API.CurrentCulture);
+            menuItem_connect.Text = API.GetString("Connexion_DB_Sub_Menu");
+            menuItem_backup.Text = API.GetString("Sauvegarder_DB_Sub_Menu");
+            menuItem_language.Text = API.GetString("Langue_Sub_Menu");
+            menuItem_french.Text = API.GetString("Français_Sub_Menu");
+            menuItem_arabic.Text = API.GetString("Arabe_Sub_Menu");
+            menuItem_quit.Text = API.GetString("Quitter_Menu");
             // > Client
-            menuItem_addCustomer.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Sub_Menu", API.CurrentCulture);
-            menuItem_editCustomer.Text = API.LanguagesResourceManager.GetString("Modifier_Supprimer_Client_Sub_Menu", API.CurrentCulture);
-            menuItem_customersList.Text = API.LanguagesResourceManager.GetString("Liste_Client_Sub_Menu", API.CurrentCulture);
+            menuItem_addCustomer.Text = API.GetString("Ajouter_Client_Sub_Menu");
+            menuItem_editCustomer.Text = API.GetString("Modifier_Supprimer_Client_Sub_Menu");
+            menuItem_customersList.Text = API.GetString("Liste_Client_Sub_Menu");
             // > Travail
-            menuItem_addJob.Text = API.LanguagesResourceManager.GetString("Ajouter_Travail_Sub_Menu", API.CurrentCulture);
-            menuItem_removeJob.Text = API.LanguagesResourceManager.GetString("Supprimer_Travail_Sub_Menu", API.CurrentCulture);
+            menuItem_addJob.Text = API.GetString("Ajouter_Travail_Sub_Menu");
+            menuItem_removeJob.Text = API.GetString("Supprimer_Travail_Sub_Menu");
             // > ?
-            menuItem_about.Text = API.LanguagesResourceManager.GetString("A_propos_Sub_Menu", API.CurrentCulture);
+            menuItem_about.Text = API.GetString("A_propos_Sub_Menu");
             // InfosToolStripStatusLabel
             if (API.ConnectedToDatabase)
-                statusLabel_main.Text = API.LanguagesResourceManager.GetString("Connexion_To_DB_Success", API.CurrentCulture);
+                statusLabel_main.Text = API.GetString("Connexion_To_DB_Success");
             else
-                statusLabel_main.Text = API.LanguagesResourceManager.GetString("Connexion_To_DB_Error", API.CurrentCulture);
+                statusLabel_main.Text = API.GetString("Connexion_To_DB_Error");
             // saveFileDialog1
-            saveFileDialog_main.Title = API.LanguagesResourceManager.GetString("saveFileDialog_Title", API.CurrentCulture);
+            saveFileDialog_main.Title = API.GetString("saveFileDialog_Title");
         }
         #endregion
 
@@ -78,7 +77,7 @@ namespace GestionClient
 
         private void menuItem_quit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Quitter", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+            if (MessageBox.Show(API.GetString("MessageBox_Quitter"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                 this.Close();
         }
 
@@ -98,7 +97,7 @@ namespace GestionClient
         {
             Form fen = new Form_About();
             fen.RightToLeft = API.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
-            fen.Text = API.LanguagesResourceManager.GetString("A_propos_Sub_Menu", API.CurrentCulture);
+            fen.Text = API.GetString("A_propos_Sub_Menu");
             fen.ShowDialog();
         }
 
@@ -195,9 +194,9 @@ namespace GestionClient
                     this.Cursor = Cursors.Default;
 
                     if (File.Exists(saveFileDialog_main.FileName))
-                        MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_DB_Saved_To", API.CurrentCulture) + saveFileDialog_main.FileName, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                        MessageBox.Show(API.GetString("MessageBox_DB_Saved_To") + saveFileDialog_main.FileName, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     else
-                        throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Erreur", API.CurrentCulture));
+                        throw new Exception(API.GetString("MessageBox_Erreur"));
                 }
                 catch (Exception ex)
                 {
@@ -251,8 +250,8 @@ namespace GestionClient
                     // messagesBox => RightToLeft
                     API.CurrentMessageBoxOptions = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
                     // messagesBox buttons text
-                    MessageBoxManager.Yes = API.LanguagesResourceManager.GetString("MessageBox_YES", API.CurrentCulture);
-                    MessageBoxManager.No = API.LanguagesResourceManager.GetString("MessageBox_NO", API.CurrentCulture);
+                    MessageBoxManager.Yes = API.GetString("MessageBox_YES");
+                    MessageBoxManager.No = API.GetString("MessageBox_NO");
                     MessageBoxManager.Register();
                     // main form => RightToLeft
                     this.RightToLeft = RightToLeft.Yes;

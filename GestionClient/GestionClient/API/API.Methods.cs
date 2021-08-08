@@ -36,7 +36,7 @@ namespace GestionClient
                 FetchTravailTable();
 
                 // on affiche un message de succès
-                infosToolStripStatusLabel.Text = API.LanguagesResourceManager.GetString("Connexion_To_DB_Success", API.CurrentCulture); //"Connexion à la base de données établie.";
+                infosToolStripStatusLabel.Text = API.GetString("Connexion_To_DB_Success"); //"Connexion à la base de données établie.";
                 infosToolStripStatusLabel.ForeColor = Color.Green;
                 infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._true;
 
@@ -45,7 +45,7 @@ namespace GestionClient
             catch (Exception ex)
             {
                 // en cas d'erreur, on affiche le message d'erreur
-                infosToolStripStatusLabel.Text = API.LanguagesResourceManager.GetString("Connexion_To_DB_Error", API.CurrentCulture); //"Erreur de connexion à la base de données !"; // "Erreur : " + ex.Message;
+                infosToolStripStatusLabel.Text = API.GetString("Connexion_To_DB_Error"); //"Erreur de connexion à la base de données !"; // "Erreur : " + ex.Message;
                 infosToolStripStatusLabel.ToolTipText = ex.Message;
                 infosToolStripStatusLabel.ForeColor = Color.Red;
                 infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._false;
@@ -143,6 +143,19 @@ namespace GestionClient
         {
             MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
             ApplyChanges(LangueDataAdapter, "Langue");
+        }
+
+        /// <summary>
+        /// Obtient la valeur de la ressource System.String localisée pour la culture actuelle.
+        /// </summary>
+        /// <param name="name">Nom de la ressource à obtenir.</param>
+        /// <returns>
+        /// Valeur de la ressource localisée pour la culture spécifiée. 
+        /// Si aucune correspondance n'est possible, null est retournée.
+        /// </returns>
+        public static string GetString(string name)
+        {
+            return LanguagesResourceManager.GetString(name, CurrentCulture);
         }
         #endregion
     }

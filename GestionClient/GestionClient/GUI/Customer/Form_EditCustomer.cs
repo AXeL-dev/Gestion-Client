@@ -44,7 +44,7 @@ namespace GestionClient
                 {
                     // si la dataTable Client est vide
                     if (API.MainDataSet.Tables["Client"].Rows.Count == 0)
-                        throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Aucun_Client", API.CurrentCulture));
+                        throw new Exception(API.GetString("MessageBox_Aucun_Client"));
 
                     // remplissage de la combobox 'TravailCombo'
                     TravailCombo.DataSource = API.MainDataSet.Tables["Travail"];
@@ -76,7 +76,7 @@ namespace GestionClient
                 }
                 else
                 {
-                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture));
+                    throw new Exception(API.GetString("MessageBox_Connexion_Non_Etablie"));
                 }
             }
             catch (Exception ex)
@@ -116,13 +116,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientNameNotCurrent(NomTextBox.Text, position))
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_D_un_Autre_Client", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Nom_D_un_Autre_Client"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -143,7 +143,7 @@ namespace GestionClient
                             API.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
                             API.MainDataSet.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
                             API.ApplyChanges(API.ClientDataAdapter, "Client");
-                            MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Modifié", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                            MessageBox.Show(API.GetString("MessageBox_Client_Modifié"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                             break; // on sort de la boucle
                         }
                     }
@@ -160,7 +160,7 @@ namespace GestionClient
         {
             try
             {
-                if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Client", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Client"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Client
                     for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
@@ -180,11 +180,11 @@ namespace GestionClient
                             {
                                 // on revient en arrière (simulation d'un click sur 'Précédent')
                                 PrécédentBtn_Click(sender, e);
-                                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Supprimé", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                                MessageBox.Show(API.GetString("MessageBox_Client_Supprimé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                             }
                             else
                             {
-                                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Supprimé_Plus_Fermeture", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                                MessageBox.Show(API.GetString("MessageBox_Client_Supprimé_Plus_Fermeture"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                                 this.Close();
                             }
                             break; // on sort de la boucle for
@@ -229,7 +229,7 @@ namespace GestionClient
                 // si le montant est vide
                 if (MontantMaskedTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Montant_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Montant_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     MontantMaskedTextBox.Focus();
                 }
                 else // si nn, c'est bon
@@ -271,7 +271,7 @@ namespace GestionClient
             {
                 // s'il n'y a aucune pièce
                 if (piecesPbList.Count == 0)
-                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Aucune_Piece", API.CurrentCulture));
+                    throw new Exception(API.GetString("MessageBox_Aucune_Piece"));
                 else // si nn
                 {
                     // on parcourt toutes les pieces
@@ -280,7 +280,7 @@ namespace GestionClient
                         // si on trouve qu'une piece est séléctionnée
                         if (piecesPbList[i].BackColor == SystemColors.Highlight && piecesPbList[i].Padding.All == 3)
                         {
-                            if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Piece", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                            if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Piece"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                             {
                                 // on parcourt la dataTable 'Pieces'
                                 for (int p = 0; p < API.MainDataSet.Tables["Pieces"].Rows.Count; p++)
@@ -306,7 +306,7 @@ namespace GestionClient
                     }
 
                     // si nn, aucune piece n'est séléctionnée
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Selectionner_Piece", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Selectionner_Piece"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 }
             }
             catch (Exception ex)
@@ -344,7 +344,7 @@ namespace GestionClient
             {
                 try
                 {
-                    if (MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Confirmer_Suppression_Paiement", API.CurrentCulture), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                    if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Paiement"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
                         int paiementId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
@@ -466,7 +466,7 @@ namespace GestionClient
                 if (pb.ImageLocation != null)
                     Process.Start(pb.ImageLocation);
                 else
-                    throw new Exception(API.LanguagesResourceManager.GetString("MessageBox_Client_Sans_Photo", API.CurrentCulture));
+                    throw new Exception(API.GetString("MessageBox_Client_Sans_Photo"));
             }
             catch (Exception ex)
             {
@@ -485,15 +485,15 @@ namespace GestionClient
         private void setDataGridviewFormat()
         {
             // montant
-            dataGridView1.Columns["montant"].HeaderText = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Montant_Column", API.CurrentCulture);
+            dataGridView1.Columns["montant"].HeaderText = API.GetString("Modifier_Client_DataGridView_Montant_Column");
             dataGridView1.Columns["montant"].Width = 200;
             NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            format.CurrencySymbol = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Montant_Column_Devise", API.CurrentCulture); ;
+            format.CurrencySymbol = API.GetString("Modifier_Client_DataGridView_Montant_Column_Devise"); ;
             format.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["montant"].DefaultCellStyle.FormatProvider = format;
             dataGridView1.Columns["montant"].DefaultCellStyle.Format = "c";
             // date paiement
-            dataGridView1.Columns["date_paiement"].HeaderText = API.LanguagesResourceManager.GetString("Modifier_Client_DataGridView_Date_Paiement_Column", API.CurrentCulture);
+            dataGridView1.Columns["date_paiement"].HeaderText = API.GetString("Modifier_Client_DataGridView_Date_Paiement_Column");
             dataGridView1.Columns["date_paiement"].Width = 200;
         }
 
@@ -594,32 +594,32 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Modifier_Client_Win_Name");
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Client_GroupBox", API.CurrentCulture);
-            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
-            TravailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Travail_Label", API.CurrentCulture);
-            DateNaissanceLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Date_Naissance_Label", API.CurrentCulture);
-            NumeroTelLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Numero_Tel_Label", API.CurrentCulture);
-            EmailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Email_Label", API.CurrentCulture);
-            PhotoGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Photo_GroupBox", API.CurrentCulture);
-            PaiementGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Paiement_GroupBox", API.CurrentCulture);
-            NouveauPaiementGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Nouveau_Paiement_GroupBox", API.CurrentCulture);
-            MontantLabel.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Montant_Label", API.CurrentCulture);
-            DatePaiementLabel.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Date_Paiement_Label", API.CurrentCulture);
-            PiecesGroupBox.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Pieces_GroupBox", API.CurrentCulture);
-            toolTip1.SetToolTip(SupprimerPieceBtn, API.LanguagesResourceManager.GetString("Modifier_Client_Supprimer_Piece_ToolTip", API.CurrentCulture));
-            toolTip1.SetToolTip(AjouterPieceBtn, API.LanguagesResourceManager.GetString("Modifier_Client_Ajouter_Piece_ToolTip", API.CurrentCulture));
+            ClientGroupBox.Text = API.GetString("Ajouter_Client_Client_GroupBox");
+            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
+            TravailLabel.Text = API.GetString("Ajouter_Client_Travail_Label");
+            DateNaissanceLabel.Text = API.GetString("Ajouter_Client_Date_Naissance_Label");
+            NumeroTelLabel.Text = API.GetString("Ajouter_Client_Numero_Tel_Label");
+            EmailLabel.Text = API.GetString("Ajouter_Client_Email_Label");
+            PhotoGroupBox.Text = API.GetString("Ajouter_Client_Photo_GroupBox");
+            PaiementGroupBox.Text = API.GetString("Modifier_Client_Paiement_GroupBox");
+            NouveauPaiementGroupBox.Text = API.GetString("Modifier_Client_Nouveau_Paiement_GroupBox");
+            MontantLabel.Text = API.GetString("Modifier_Client_Montant_Label");
+            DatePaiementLabel.Text = API.GetString("Modifier_Client_Date_Paiement_Label");
+            PiecesGroupBox.Text = API.GetString("Modifier_Client_Pieces_GroupBox");
+            toolTip1.SetToolTip(SupprimerPieceBtn, API.GetString("Modifier_Client_Supprimer_Piece_ToolTip"));
+            toolTip1.SetToolTip(AjouterPieceBtn, API.GetString("Modifier_Client_Ajouter_Piece_ToolTip"));
             // Buttons
-            SuivantBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Suivant_Button", API.CurrentCulture);
-            PrécédentBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Précédent_Button", API.CurrentCulture);
-            ModifierBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Modifier_Button", API.CurrentCulture);
-            SupprimerBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Supprimer_Button", API.CurrentCulture);
-            RechercherBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Rechercher_Button", API.CurrentCulture);
-            ModifierPhotoBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Modifier_Button", API.CurrentCulture);
-            EnregistrerPaiementBtn.Text = API.LanguagesResourceManager.GetString("Modifier_Client_Enregistrer_Paiement_Button", API.CurrentCulture);
+            SuivantBtn.Text = API.GetString("Modifier_Client_Suivant_Button");
+            PrécédentBtn.Text = API.GetString("Modifier_Client_Précédent_Button");
+            ModifierBtn.Text = API.GetString("Modifier_Client_Modifier_Button");
+            SupprimerBtn.Text = API.GetString("Modifier_Client_Supprimer_Button");
+            RechercherBtn.Text = API.GetString("Modifier_Client_Rechercher_Button");
+            ModifierPhotoBtn.Text = API.GetString("Modifier_Client_Modifier_Button");
+            EnregistrerPaiementBtn.Text = API.GetString("Modifier_Client_Enregistrer_Paiement_Button");
             // openFileDialog1
-            openFileDialog1.Title = API.LanguagesResourceManager.GetString("openFileDialog_Title", API.CurrentCulture);
+            openFileDialog1.Title = API.GetString("openFileDialog_Title");
             // on raffraichie le format de la liste des paiements (pour changer la langue de la liste aussi)
             setDataGridviewFormat();
         }

@@ -18,12 +18,12 @@ namespace GestionClient
             AppNameGroupBox.Text = API.AppName;
 
             // On affiche les informations de l'app.
-            AppInfosTextBox.Text = API.LanguagesResourceManager.GetString("About_Version", API.CurrentCulture) + "\r\n\r\n" +
-                                   API.LanguagesResourceManager.GetString("About_Dev", API.CurrentCulture) + "\r\n\r\n" +
-                                   API.LanguagesResourceManager.GetString("About_DotNet_Version", API.CurrentCulture) + "\r\n\r\n" +
-                                   API.LanguagesResourceManager.GetString("About_Compatibilité", API.CurrentCulture) + "\r\n\r\n" +
-                                   API.LanguagesResourceManager.GetString("About_Copyright", API.CurrentCulture) + "\r\n\r\n" +
-                                   API.LanguagesResourceManager.GetString("About_End", API.CurrentCulture);
+            AppInfosTextBox.Text = API.GetString("About_Version") + "\r\n\r\n" +
+                                   API.GetString("About_Dev") + "\r\n\r\n" +
+                                   API.GetString("About_DotNet_Version") + "\r\n\r\n" +
+                                   API.GetString("About_Compatibilité") + "\r\n\r\n" +
+                                   API.GetString("About_Copyright") + "\r\n\r\n" +
+                                   API.GetString("About_End");
 
             // On bouge le curseur de séléction au début (0), car on obtient un texte completement séléctionné au départ
             AppInfosTextBox.Select(0, 0);

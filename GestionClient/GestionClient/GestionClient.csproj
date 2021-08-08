@@ -42,23 +42,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\API.Methods.cs" />
-    <Compile Include="GUI\Aide\About.cs">
+    <Compile Include="GUI\Help\Form_About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Aide\About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
+    <Compile Include="GUI\Help\Form_About.Designer.cs">
+      <DependentUpon>Form_About.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Client\AjouterClient.cs">
+    <Compile Include="GUI\Customer\Form_AddCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\AjouterClient.Designer.cs">
-      <DependentUpon>AjouterClient.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_AddCustomer.Designer.cs">
+      <DependentUpon>Form_AddCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Travail\AjouterTravail.cs">
+    <Compile Include="GUI\Job\Form_AddJob.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Travail\AjouterTravail.Designer.cs">
-      <DependentUpon>AjouterTravail.cs</DependentUpon>
+    <Compile Include="GUI\Job\Form_AddJob.Designer.cs">
+      <DependentUpon>Form_AddJob.cs</DependentUpon>
     </Compile>
     <Compile Include="Languages\Res.fr.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,66 +67,66 @@
     </Compile>
     <Compile Include="API\API.cs" />
     <Compile Include="API\DataGridViewDeleteButton.cs" />
-    <Compile Include="GUI\Client\ListeClients.cs">
+    <Compile Include="GUI\Customer\Form_CustomersList.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\ListeClients.Designer.cs">
-      <DependentUpon>ListeClients.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_CustomersList.Designer.cs">
+      <DependentUpon>Form_CustomersList.cs</DependentUpon>
     </Compile>
     <Compile Include="API\MessageBoxManager.cs" />
-    <Compile Include="GUI\Client\ModifierClient.cs">
+    <Compile Include="GUI\Customer\Form_EditCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\ModifierClient.Designer.cs">
-      <DependentUpon>ModifierClient.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_EditCustomer.Designer.cs">
+      <DependentUpon>Form_EditCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\main.cs">
+    <Compile Include="GUI\Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\main.Designer.cs">
-      <DependentUpon>main.cs</DependentUpon>
+    <Compile Include="GUI\Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="API\PrintDataGridView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GUI\Client\RechercherNomClient.cs">
+    <Compile Include="GUI\Customer\Form_SearchCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\RechercherNomClient.Designer.cs">
-      <DependentUpon>RechercherNomClient.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_SearchCustomer.Designer.cs">
+      <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="Languages\Res.ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Res.ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Travail\SupprimerTravail.cs">
+    <Compile Include="GUI\Job\Form_RemoveJob.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Travail\SupprimerTravail.Designer.cs">
-      <DependentUpon>SupprimerTravail.cs</DependentUpon>
+    <Compile Include="GUI\Job\Form_RemoveJob.Designer.cs">
+      <DependentUpon>Form_RemoveJob.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GUI\Aide\About.resx">
-      <DependentUpon>About.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Help\Form_About.resx">
+      <DependentUpon>Form_About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\AjouterClient.resx">
-      <DependentUpon>AjouterClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_AddCustomer.resx">
+      <DependentUpon>Form_AddCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Travail\AjouterTravail.resx">
-      <DependentUpon>AjouterTravail.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Job\Form_AddJob.resx">
+      <DependentUpon>Form_AddJob.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Res.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\ListeClients.resx">
-      <DependentUpon>ListeClients.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_CustomersList.resx">
+      <DependentUpon>Form_CustomersList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\ModifierClient.resx">
-      <DependentUpon>ModifierClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_EditCustomer.resx">
+      <DependentUpon>Form_EditCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\main.resx">
-      <DependentUpon>main.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -138,15 +138,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="GUI\Client\RechercherNomClient.resx">
-      <DependentUpon>RechercherNomClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_SearchCustomer.resx">
+      <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Res.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Res.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Travail\SupprimerTravail.resx">
-      <DependentUpon>SupprimerTravail.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Job\Form_RemoveJob.resx">
+      <DependentUpon>Form_RemoveJob.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

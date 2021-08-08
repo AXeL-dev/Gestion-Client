@@ -33,7 +33,7 @@ namespace GestionClient
             }
             else
             {
-                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Connexion_Non_Etablie", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -76,13 +76,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientName(NomTextBox.Text))
                 {
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Double", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Nom_Double"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -124,7 +124,7 @@ namespace GestionClient
                         // mise à jour de la dataTable Pieces (pour avoir les bon ids, afin de pouvoir modifier la photo après)
                         API.FetchPiecesTable();
                     }
-                    MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Ajouté", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    MessageBox.Show(API.GetString("MessageBox_Client_Ajouté"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                     // fermeture de la fenêtre
                     this.Close();
                 }
@@ -198,25 +198,25 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Ajouter_Client_Win_Name");
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Client_GroupBox", API.CurrentCulture);
-            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
-            SexeLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Sexe_Label", API.CurrentCulture);
-            TravailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Travail_Label", API.CurrentCulture);
-            DateNaissanceLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Date_Naissance_Label", API.CurrentCulture);
-            NumeroTelLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Numero_Tel_Label", API.CurrentCulture);
-            EmailLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Email_Label", API.CurrentCulture);
-            PhotoGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Photo_GroupBox", API.CurrentCulture);
+            ClientGroupBox.Text = API.GetString("Ajouter_Client_Client_GroupBox");
+            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
+            SexeLabel.Text = API.GetString("Ajouter_Client_Sexe_Label");
+            TravailLabel.Text = API.GetString("Ajouter_Client_Travail_Label");
+            DateNaissanceLabel.Text = API.GetString("Ajouter_Client_Date_Naissance_Label");
+            NumeroTelLabel.Text = API.GetString("Ajouter_Client_Numero_Tel_Label");
+            EmailLabel.Text = API.GetString("Ajouter_Client_Email_Label");
+            PhotoGroupBox.Text = API.GetString("Ajouter_Client_Photo_GroupBox");
             // combobox
-            HommeFemmeCombo.Items[0] = API.LanguagesResourceManager.GetString("Sexe_Homme", API.CurrentCulture);
-            HommeFemmeCombo.Items[1] = API.LanguagesResourceManager.GetString("Sexe_Femme", API.CurrentCulture);
+            HommeFemmeCombo.Items[0] = API.GetString("Sexe_Homme");
+            HommeFemmeCombo.Items[1] = API.GetString("Sexe_Femme");
             // Buttons
-            NouveauTravailBtn.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nouveau_Travail_Button", API.CurrentCulture);
-            AjouterModifierPhotoBtn.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Ajouter_Modifier_Photo_Button", API.CurrentCulture);
-            AjouterClientBtn.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Ajouter_Button", API.CurrentCulture);
+            NouveauTravailBtn.Text = API.GetString("Ajouter_Client_Nouveau_Travail_Button");
+            AjouterModifierPhotoBtn.Text = API.GetString("Ajouter_Client_Ajouter_Modifier_Photo_Button");
+            AjouterClientBtn.Text = API.GetString("Ajouter_Client_Ajouter_Button");
             // openFileDialog1
-            openFileDialog1.Title = API.LanguagesResourceManager.GetString("openFileDialog_Title", API.CurrentCulture);
+            openFileDialog1.Title = API.GetString("openFileDialog_Title");
         }
     }
 }

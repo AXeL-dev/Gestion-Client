@@ -17,7 +17,7 @@ namespace GestionClient
             // si le nom est vide
             if (NomTextBox.Text.Length == 0)
             {
-                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Nom_Obligatoire", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
                 NomTextBox.Focus();
             }
             else
@@ -35,7 +35,7 @@ namespace GestionClient
                 }
 
                 // si nn
-                MessageBox.Show(API.LanguagesResourceManager.GetString("MessageBox_Client_Non_trouvé", API.CurrentCulture), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                MessageBox.Show(API.GetString("MessageBox_Client_Non_trouvé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
             }
         }
 
@@ -52,12 +52,12 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = API.LanguagesResourceManager.GetString("Rechercher_Client_Win_Name", API.CurrentCulture);
+            this.Text = API.GetString("Rechercher_Client_Win_Name");
             // Labels et GroupBoxs
-            ClientGroupBox.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Client_GroupBox", API.CurrentCulture);
-            NomLabel.Text = API.LanguagesResourceManager.GetString("Ajouter_Client_Nom_Label", API.CurrentCulture);
+            ClientGroupBox.Text = API.GetString("Ajouter_Client_Client_GroupBox");
+            NomLabel.Text = API.GetString("Ajouter_Client_Nom_Label");
             // Buttons
-            RechercherBtn.Text = API.LanguagesResourceManager.GetString("Rechercher_Client_Rechercher_Button", API.CurrentCulture);
+            RechercherBtn.Text = API.GetString("Rechercher_Client_Rechercher_Button");
         }
     }
 }
