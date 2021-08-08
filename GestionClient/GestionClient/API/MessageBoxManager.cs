@@ -62,7 +62,6 @@ namespace System.Windows.Forms
         [DllImport("user32.dll", EntryPoint = "SetWindowTextW", CharSet = CharSet.Unicode)]
         private static extern bool SetWindowText(IntPtr hWnd, string lpString);
 
-
         [StructLayout(LayoutKind.Sequential)]
         public struct CWPRETSTRUCT
         {
@@ -117,7 +116,7 @@ namespace System.Windows.Forms
         }
 
         /// <summary>
-        /// Enables MessageBoxManager functionality
+        /// Enables MessageBoxManager functionality.
         /// </summary>
         /// <remarks>
         /// MessageBoxManager functionality is enabled on current thread only.
@@ -131,7 +130,7 @@ namespace System.Windows.Forms
         }
 
         /// <summary>
-        /// Disables MessageBoxManager functionality
+        /// Disables MessageBoxManager functionality.
         /// </summary>
         /// <remarks>
         /// Disables MessageBoxManager functionality on current thread only.
@@ -211,7 +210,5 @@ namespace System.Windows.Forms
 
             return true;
         }
-
-
     }
 }

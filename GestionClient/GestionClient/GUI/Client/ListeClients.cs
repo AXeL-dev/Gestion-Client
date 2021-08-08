@@ -117,7 +117,14 @@ namespace GestionClient
         // event. PrintPage de 'printDocument1'
         private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            PrintDataGridView.printDataGridViewPage(e, dataGridView1, API.LanguagesResourceManager.GetString("Liste_Client_Win_Name", API.CurrentCulture));
+            try
+            {
+                DataGridViewPrinter.Print(dataGridView1, e, API.LanguagesResourceManager.GetString("Liste_Client_Win_Name", API.CurrentCulture));
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // event. Click sur le boutton 'ActualiserBtn'
