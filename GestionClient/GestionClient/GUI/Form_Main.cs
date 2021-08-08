@@ -66,11 +66,7 @@ namespace GestionClient
         {
             try
             {
-                // on crée le dossier qui contiendra toutes les pieces de nos clients s'il n'exsite pas
-                if (!Directory.Exists(App.FolderPath + "\\" + App.PiecesFolderPath))
-                {
-                    Directory.CreateDirectory(App.FolderPath + "\\" + App.PiecesFolderPath);
-                }
+                App.CreatePiecesFolder();
 
                 // on récupère la langue actuelle + on effectue les changements si nécessaire
                 if (Language.GetCurrentLanguage() == "ar")
@@ -113,10 +109,10 @@ namespace GestionClient
 
         private void menuItem_about_Click(object sender, EventArgs e)
         {
-            Form fen = new Form_About();
-            fen.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
-            fen.Text = Language.GetString("A_propos_Sub_Menu");
-            fen.ShowDialog();
+            Form_About form_about = new Form_About();
+            form_about.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+            form_about.Text = Language.GetString("A_propos_Sub_Menu");
+            form_about.ShowDialog();
         }
 
         private void menuItem_connect_Click(object sender, EventArgs e)

@@ -7,10 +7,10 @@ namespace GestionClient
     static class App
     {
         #region Application-Infos-Properties
-        public static String Name = "Gestion Client";
-        public static String FolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //Application.StartupPath;
-        public const String DatabaseFolderName = "data";
-        public const String PiecesFolderPath = DatabaseFolderName + "\\Pieces";
+        public static string Name = "Gestion Client";
+        public static readonly string FolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //Application.StartupPath;
+        public static readonly string DatabaseFolderName = "data";
+        public static readonly string PiecesFolderPath = Path.Combine(DatabaseFolderName, "Pieces");
         #endregion
 
         #region Forms-Tracking-Properties
@@ -24,5 +24,17 @@ namespace GestionClient
         #region Search-Tracking-Properties
         public static int SearchResultIndex;
         #endregion
+
+        /// <summary>
+        /// Créer le dossier qui contiendra toutes les pieces de nos clients s'il n'exsite pas.
+        /// </summary>
+        public static void CreatePiecesFolder()
+        {
+            string path = Path.Combine(App.FolderPath, App.PiecesFolderPath);
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
     }
 }
