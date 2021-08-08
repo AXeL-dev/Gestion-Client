@@ -33,7 +33,7 @@ namespace GestionClient
             }
             else
             {
-                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Connexion_Non_Etablie"));
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -54,7 +54,7 @@ namespace GestionClient
         private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
         {
             API.AddCustomerFormOpened = false;
-            Form_Main parent = (Form_Main) this.MdiParent;
+            Form_Main parent = (Form_Main)this.MdiParent;
             parent.LanguageChanged -= this.LanguageChangedHandler;
         }
 
@@ -76,13 +76,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Obligatoire"));
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientName(NomTextBox.Text))
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Nom_Double"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Double"));
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -114,7 +114,7 @@ namespace GestionClient
                     if (isImageChoosed)
                     {
                         // on récupère le nom de l'image
-                        string imageFileName =  pictureBox1.ImageLocation.Remove(0, pictureBox1.ImageLocation.LastIndexOf('\\') + 1);
+                        string imageFileName = pictureBox1.ImageLocation.Remove(0, pictureBox1.ImageLocation.LastIndexOf('\\') + 1);
                         // on copie l'image dans le répertoire de notre base de données
                         string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
                         File.Copy(pictureBox1.ImageLocation, API.AppFolderPath + "\\" + destinationFileName, true);
@@ -124,14 +124,14 @@ namespace GestionClient
                         // mise à jour de la dataTable Pieces (pour avoir les bon ids, afin de pouvoir modifier la photo après)
                         API.FetchPiecesTable();
                     }
-                    MessageBox.Show(API.GetString("MessageBox_Client_Ajouté"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowInformation(API.GetString("MessageBox_Client_Ajouté"));
                     // fermeture de la fenêtre
                     this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -163,7 +163,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 

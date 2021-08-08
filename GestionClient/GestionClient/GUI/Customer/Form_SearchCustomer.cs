@@ -17,7 +17,7 @@ namespace GestionClient
             // si le nom est vide
             if (NomTextBox.Text.Length == 0)
             {
-                MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Obligatoire"));
                 NomTextBox.Focus();
             }
             else
@@ -35,7 +35,7 @@ namespace GestionClient
                 }
 
                 // si nn
-                MessageBox.Show(API.GetString("MessageBox_Client_Non_trouvé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Client_Non_trouvé"));
             }
         }
 

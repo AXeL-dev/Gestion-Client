@@ -29,13 +29,13 @@ namespace GestionClient
                 // si la description est vide
                 if (DescriptionTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Description_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Description_Obligatoire"));
                     DescriptionTextBox.Focus();
                 }
                 // si nn si travail en double
                 else if (checkDoubleTravailDescription(DescriptionTextBox.Text))
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Description_Double"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Description_Double"));
                     DescriptionTextBox.SelectAll(); // on séléctionne la description au cas l'utilisateur veut bien la supprimer
                     DescriptionTextBox.Focus();
                 }
@@ -45,7 +45,7 @@ namespace GestionClient
                     API.MainDataSet.Tables["Travail"].Rows.Add(null, DescriptionTextBox.Text);
                     API.ApplyChanges(API.TravailDataAdapter, "Travail");
                     if (showConfirmationMsg)
-                        MessageBox.Show(API.GetString("MessageBox_Travail_Ajouté"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                        QuickMessageBox.ShowInformation(API.GetString("MessageBox_Travail_Ajouté"));
                     // mise à jour de la dataTable Travail (pour avoir les bon ids)
                     API.FetchTravailTable();
                     // fermeture de la fenêtre
@@ -54,7 +54,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -63,7 +63,7 @@ namespace GestionClient
         {
             if (!API.ConnectedToDatabase) // si on n'est pas connecté à la base de données
             {
-                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Connexion_Non_Etablie"));
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
             else
@@ -94,7 +94,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 

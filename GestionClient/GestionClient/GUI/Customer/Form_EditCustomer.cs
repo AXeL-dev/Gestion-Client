@@ -81,7 +81,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -116,13 +116,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Nom_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_Obligatoire"));
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientNameNotCurrent(NomTextBox.Text, position))
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Nom_D_un_Autre_Client"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Nom_D_un_Autre_Client"));
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -143,7 +143,7 @@ namespace GestionClient
                             API.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
                             API.MainDataSet.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
                             API.ApplyChanges(API.ClientDataAdapter, "Client");
-                            MessageBox.Show(API.GetString("MessageBox_Client_Modifié"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                            QuickMessageBox.ShowInformation(API.GetString("MessageBox_Client_Modifié"));
                             break; // on sort de la boucle
                         }
                     }
@@ -151,7 +151,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -160,7 +160,7 @@ namespace GestionClient
         {
             try
             {
-                if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Client"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Confirmer_Suppression_Client")) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Client
                     for (int i = 0; i < API.MainDataSet.Tables["Client"].Rows.Count; i++)
@@ -180,11 +180,11 @@ namespace GestionClient
                             {
                                 // on revient en arrière (simulation d'un click sur 'Précédent')
                                 PrécédentBtn_Click(sender, e);
-                                MessageBox.Show(API.GetString("MessageBox_Client_Supprimé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                                QuickMessageBox.ShowInformation(API.GetString("MessageBox_Client_Supprimé"));
                             }
                             else
                             {
-                                MessageBox.Show(API.GetString("MessageBox_Client_Supprimé_Plus_Fermeture"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Client_Supprimé_Plus_Fermeture"));
                                 this.Close();
                             }
                             break; // on sort de la boucle for
@@ -194,7 +194,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -218,7 +218,7 @@ namespace GestionClient
         // event. Click sur la 'PictureBox1'
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            showImage((PictureBox) sender);
+            showImage((PictureBox)sender);
         }
 
         // event. Click sur le boutton 'EnregistrerPaiementBtn'
@@ -229,7 +229,7 @@ namespace GestionClient
                 // si le montant est vide
                 if (MontantMaskedTextBox.Text.Length == 0)
                 {
-                    MessageBox.Show(API.GetString("MessageBox_Montant_Obligatoire"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Montant_Obligatoire"));
                     MontantMaskedTextBox.Focus();
                 }
                 else // si nn, c'est bon
@@ -237,14 +237,14 @@ namespace GestionClient
                     // ajout du paiement
                     API.MainDataSet.Tables["Paiement"].Rows.Add(null, API.MainDataSet.Tables["Client"].Rows[position]["id"], MontantMaskedTextBox.Text, DatePaiementDateTimePicker.Value);
                     API.ApplyChanges(API.PaiementDataAdapter, "Paiement");
-                    //MessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //QuickMessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
                     API.FetchPaiementTable();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -280,7 +280,7 @@ namespace GestionClient
                         // si on trouve qu'une piece est séléctionnée
                         if (piecesPbList[i].BackColor == SystemColors.Highlight && piecesPbList[i].Padding.All == 3)
                         {
-                            if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Piece"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                            if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Confirmer_Suppression_Piece")) == DialogResult.Yes)
                             {
                                 // on parcourt la dataTable 'Pieces'
                                 for (int p = 0; p < API.MainDataSet.Tables["Pieces"].Rows.Count; p++)
@@ -306,12 +306,12 @@ namespace GestionClient
                     }
 
                     // si nn, aucune piece n'est séléctionnée
-                    MessageBox.Show(API.GetString("MessageBox_Selectionner_Piece"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowWarning(API.GetString("MessageBox_Selectionner_Piece"));
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -330,7 +330,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -344,7 +344,7 @@ namespace GestionClient
             {
                 try
                 {
-                    if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Paiement"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                    if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Confirmer_Suppression_Paiement")) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
                         int paiementId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
@@ -365,7 +365,7 @@ namespace GestionClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowError(ex.Message);
                 }
             }
         }
@@ -397,7 +397,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -410,7 +410,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -470,7 +470,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 

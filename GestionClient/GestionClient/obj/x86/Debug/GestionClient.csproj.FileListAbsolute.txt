@@ -68,3 +68,4 @@ C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\D
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_Main.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_SearchCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_RemoveJob.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.csprojResolveAssemblyReference.cache

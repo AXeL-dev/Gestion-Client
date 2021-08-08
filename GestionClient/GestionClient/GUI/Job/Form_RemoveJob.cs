@@ -27,7 +27,7 @@ namespace GestionClient
             }
             else
             {
-                MessageBox.Show(API.GetString("MessageBox_Connexion_Non_Etablie"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowWarning(API.GetString("MessageBox_Connexion_Non_Etablie"));
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -48,7 +48,7 @@ namespace GestionClient
                 // si jamais la combobox est vide
                 if (TravailCombo.Items.Count == 0)
                     throw new Exception(API.GetString("MessageBox_Rien_A_Supprimer"));
-                else if (MessageBox.Show(API.GetString("MessageBox_Confirmer_Suppression_Travail"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+                else if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Confirmer_Suppression_Travail")) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Travail
                     for (int i = 0; i < API.MainDataSet.Tables["Travail"].Rows.Count; i++)
@@ -59,7 +59,7 @@ namespace GestionClient
                             // suppression
                             API.MainDataSet.Tables["Travail"].Rows[i].Delete();
                             API.ApplyChanges(API.TravailDataAdapter, "Travail");
-                            MessageBox.Show(API.GetString("MessageBox_Travail_Supprimé"), API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                            QuickMessageBox.ShowInformation(API.GetString("MessageBox_Travail_Supprimé"));
                             // mise à jour de la dataTable Client (pour supprimer les clients en relation avec ce travail)
                             API.FetchClientTable();
                             break; // on sort de la boucle for
@@ -69,7 +69,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -82,7 +82,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 

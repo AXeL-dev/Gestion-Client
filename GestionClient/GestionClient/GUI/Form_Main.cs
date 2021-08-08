@@ -18,36 +18,46 @@ namespace GestionClient
         #region Common
         private void SwitchLanguage()
         {
-            API.AppName = API.GetString("App_Name");
-            // Window Name
-            this.Text = API.AppName;
-            // Menu Items
+            // Form Title
+            this.Text = API.AppName = API.GetString("App_Name");
+
+            // Main Menu Items
             menuItem_application.Text = API.GetString("Application_Menu");
             menuItem_customer.Text = API.GetString("Client_Menu");
             menuItem_job.Text = API.GetString("Travail_Menu");
             menuItem_help.Text = API.GetString("Question_Menu");
-            // > Application
+
+            // Application Menu Items
             menuItem_connect.Text = API.GetString("Connexion_DB_Sub_Menu");
             menuItem_backup.Text = API.GetString("Sauvegarder_DB_Sub_Menu");
             menuItem_language.Text = API.GetString("Langue_Sub_Menu");
             menuItem_french.Text = API.GetString("Français_Sub_Menu");
             menuItem_arabic.Text = API.GetString("Arabe_Sub_Menu");
             menuItem_quit.Text = API.GetString("Quitter_Menu");
-            // > Client
+
+            // Customer Menu Items
             menuItem_addCustomer.Text = API.GetString("Ajouter_Client_Sub_Menu");
             menuItem_editCustomer.Text = API.GetString("Modifier_Supprimer_Client_Sub_Menu");
             menuItem_customersList.Text = API.GetString("Liste_Client_Sub_Menu");
-            // > Travail
+
+            // Job Menu Items
             menuItem_addJob.Text = API.GetString("Ajouter_Travail_Sub_Menu");
             menuItem_removeJob.Text = API.GetString("Supprimer_Travail_Sub_Menu");
-            // > ?
+
+            // Help Menu Items
             menuItem_about.Text = API.GetString("A_propos_Sub_Menu");
-            // InfosToolStripStatusLabel
+
+            // Connection Status
             if (API.ConnectedToDatabase)
+            {
                 statusLabel_main.Text = API.GetString("Connexion_To_DB_Success");
+            }
             else
+            {
                 statusLabel_main.Text = API.GetString("Connexion_To_DB_Error");
-            // saveFileDialog1
+            }
+
+            // Save File Dialog Title
             saveFileDialog_main.Title = API.GetString("saveFileDialog_Title");
         }
         #endregion
@@ -68,7 +78,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
 
             // connexion à la bdd + récupération des tables (je ne l'ai pas mis dans la close try{}catch(){} car cette fonction/méthode utilise déjà une)
@@ -77,7 +87,7 @@ namespace GestionClient
 
         private void menuItem_quit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(API.GetString("MessageBox_Quitter"), API.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2, API.CurrentMessageBoxOptions) == DialogResult.Yes)
+            if (QuickMessageBox.ShowQuestion(API.GetString("MessageBox_Quitter")) == DialogResult.Yes)
                 this.Close();
         }
 
@@ -194,13 +204,18 @@ namespace GestionClient
                     this.Cursor = Cursors.Default;
 
                     if (File.Exists(saveFileDialog_main.FileName))
-                        MessageBox.Show(API.GetString("MessageBox_DB_Saved_To") + saveFileDialog_main.FileName, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    {
+                        QuickMessageBox.ShowInformation(string.Format("{0}{1}",
+                            API.GetString("MessageBox_DB_Saved_To"), saveFileDialog_main.FileName));
+                    }
                     else
+                    {
                         throw new Exception(API.GetString("MessageBox_Erreur"));
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                    QuickMessageBox.ShowError(ex.Message);
                 }
             }
         }
@@ -219,7 +234,7 @@ namespace GestionClient
                     API.SetCurrentLanguage("fr");
                     // messagesBox => état normal
                     API.CurrentMessageBoxOptions = new MessageBoxOptions();
-                    // messageBox buttons text => état normal
+                    // QuickMessageBox buttons text => état normal
                     MessageBoxManager.Unregister();
                     // main form => état normal
                     this.RightToLeft = RightToLeft.No;
@@ -231,7 +246,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
@@ -263,7 +278,7 @@ namespace GestionClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, API.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1, API.CurrentMessageBoxOptions);
+                QuickMessageBox.ShowError(ex.Message);
             }
         }
 
