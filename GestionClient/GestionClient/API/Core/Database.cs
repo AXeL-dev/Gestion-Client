@@ -38,33 +38,13 @@ namespace GestionClient
         /// Récupère toutes les tables.
         /// </summary>
         /// <param name="infosToolStripStatusLabel"></param>
-        public static void FetchAllTables(ToolStripStatusLabel infosToolStripStatusLabel)
+        public static void FetchAllTables()
         {
-            try
-            {
-                // on récupère toutes les tables
-                FetchClientTable();
-                FetchPiecesTable();
-                FetchPaiementTable();
-                FetchTravailTable();
-
-                // on affiche un message de succès
-                infosToolStripStatusLabel.Text = Language.GetString("Connexion_To_DB_Success"); //"Connexion à la base de données établie.";
-                infosToolStripStatusLabel.ForeColor = Color.Green;
-                infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._true;
-
-                ConnectedToDatabase = true;
-            }
-            catch (Exception exception)
-            {
-                // en cas d'erreur, on affiche le message d'erreur
-                infosToolStripStatusLabel.Text = Language.GetString("Connexion_To_DB_Error"); //"Erreur de connexion à la base de données !"; // "Erreur : " + exception.Message;
-                infosToolStripStatusLabel.ToolTipText = exception.Message;
-                infosToolStripStatusLabel.ForeColor = Color.Red;
-                infosToolStripStatusLabel.Image = GestionClient.Properties.Resources._false;
-
-                ConnectedToDatabase = false;
-            }
+            FetchClientTable();
+            FetchPiecesTable();
+            FetchPaiementTable();
+            FetchTravailTable();
+            ConnectedToDatabase = true;
         }
 
         /// <summary>

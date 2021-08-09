@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing;
+using GestionClient.Properties;
 
 namespace GestionClient
 {
@@ -55,6 +57,24 @@ namespace GestionClient
             // Save File Dialog Title
             saveFileDialog_main.Title = Language.GetString("saveFileDialog_Title");
         }
+
+        public void ConnectToDatabase()
+        {
+            try
+            {
+                Database.FetchAllTables();
+                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Success");
+                statusLabel_main.ForeColor = Color.Green;
+                statusLabel_main.Image = Resources._true;
+            }
+            catch (Exception exception)
+            {
+                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Error");
+                statusLabel_main.ToolTipText = exception.Message;
+                statusLabel_main.ForeColor = Color.Red;
+                statusLabel_main.Image = Resources._false;
+            }
+        }
         #endregion
 
         private void Form_Main_Load(object sender, EventArgs e)
@@ -62,8 +82,6 @@ namespace GestionClient
             try
             {
                 App.CreatePiecesFolder();
-
-                // on récupère la langue actuelle + on effectue les changements si nécessaire
                 if (Language.IsArabic)
                 {
                     menuItem_arabic_Click(sender, e);
@@ -78,14 +96,13 @@ namespace GestionClient
                 QuickMessageBox.ShowError(exception.Message);
             }
 
-            // connexion à la bdd + récupération des tables (je ne l'ai pas mis dans 
-            // la close try{}catch(){} car cette fonction/méthode utilise déjà une)
-            Database.FetchAllTables(statusLabel_main);
+            ConnectToDatabase();
         }
 
         private void menuItem_quit_Click(object sender, EventArgs e)
         {
-            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Quitter")) == DialogResult.Yes)
+            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Quitter")) 
+                == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -95,10 +112,10 @@ namespace GestionClient
         {
             if (!App.AddCustomerFormOpened)
             {
-                Form_AddCustomer fen = new Form_AddCustomer();
-                fen.MdiParent = this;
-                this.LanguageChanged += fen.LanguageChangedHandler;
-                fen.Show();
+                Form_AddCustomer form_addCustomer = new Form_AddCustomer();
+                form_addCustomer.MdiParent = this;
+                this.LanguageChanged += form_addCustomer.LanguageChangedHandler;
+                form_addCustomer.Show();
                 App.AddCustomerFormOpened = true;
             }
         }
@@ -113,26 +130,22 @@ namespace GestionClient
 
         private void menuItem_connect_Click(object sender, EventArgs e)
         {
-            Database.FetchAllTables(statusLabel_main);
+            ConnectToDatabase();
         }
 
         private void menuItem_application_DropDownOpened(object sender, EventArgs e)
         {
-            // si la connexion à la base de données est établie, on désactive l'item 'Connexion..' du menu 'Application', si nn on l'active
-            if (!Database.ConnectedToDatabase)
-                menuItem_connect.Enabled = true;
-            else
-                menuItem_connect.Enabled = false;
+            menuItem_connect.Enabled = Database.ConnectedToDatabase ? false : true;
         }
 
         private void menuItem_addJob_Click(object sender, EventArgs e)
         {
             if (!App.AddJobFormOpened)
             {
-                Form_AddJob fen = new Form_AddJob();
-                fen.MdiParent = this;
-                this.LanguageChanged += fen.LanguageChangedHandler;
-                fen.Show();
+                Form_AddJob form_addJob = new Form_AddJob();
+                form_addJob.MdiParent = this;
+                this.LanguageChanged += form_addJob.LanguageChangedHandler;
+                form_addJob.Show();
                 App.AddJobFormOpened = true;
             }
         }
@@ -141,10 +154,10 @@ namespace GestionClient
         {
             if (!App.RemoveJobFormOpened)
             {
-                Form_RemoveJob fen = new Form_RemoveJob();
-                fen.MdiParent = this;
-                this.LanguageChanged += fen.LanguageChangedHandler;
-                fen.Show();
+                Form_RemoveJob form_removeJob = new Form_RemoveJob();
+                form_removeJob.MdiParent = this;
+                this.LanguageChanged += form_removeJob.LanguageChangedHandler;
+                form_removeJob.Show();
                 App.RemoveJobFormOpened = true;
             }
         }
@@ -153,10 +166,10 @@ namespace GestionClient
         {
             if (!App.EditJobFormOpened)
             {
-                Form_EditCustomer fen = new Form_EditCustomer();
-                fen.MdiParent = this;
-                this.LanguageChanged += fen.LanguageChangedHandler;
-                fen.Show();
+                Form_EditCustomer form_editCustomer = new Form_EditCustomer();
+                form_editCustomer.MdiParent = this;
+                this.LanguageChanged += form_editCustomer.LanguageChangedHandler;
+                form_editCustomer.Show();
                 App.EditJobFormOpened = true;
             }
         }
@@ -165,10 +178,10 @@ namespace GestionClient
         {
             if (!App.CustomerListFormOpened)
             {
-                Form_CustomersList fen = new Form_CustomersList();
-                fen.MdiParent = this;
-                this.LanguageChanged += fen.LanguageChangedHandler;
-                fen.Show();
+                Form_CustomersList form_customersList = new Form_CustomersList();
+                form_customersList.MdiParent = this;
+                this.LanguageChanged += form_customersList.LanguageChangedHandler;
+                form_customersList.Show();
                 App.CustomerListFormOpened = true;
             }
         }
