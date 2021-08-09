@@ -101,7 +101,7 @@ namespace GestionClient
 
         private void menuItem_quit_Click(object sender, EventArgs e)
         {
-            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Quitter")) 
+            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Quitter"))
                 == DialogResult.Yes)
             {
                 this.Close();
@@ -188,7 +188,8 @@ namespace GestionClient
 
         private void menuItem_backup_Click(object sender, EventArgs e)
         {
-            saveFileDialog_main.FileName = "Sauvegarde_" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_");
+            saveFileDialog_main.FileName = string.Format("Backup_{0}",
+                DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss"));
 
             if (saveFileDialog_main.ShowDialog() == DialogResult.OK)
             {

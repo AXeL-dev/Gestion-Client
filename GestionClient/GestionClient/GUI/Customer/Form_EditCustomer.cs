@@ -562,7 +562,7 @@ namespace GestionClient
             // on récupère le nom de l'image
             string imageFileName = emplacementPiece.Remove(0, emplacementPiece.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
-            string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
+            string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(emplacementPiece, App.FolderPath + "\\" + destinationFileName, true);
             // on ajoute la photo en tant que Piece
             Database.MainDataSet.Tables["Pieces"].Rows.Add(null, currentClientId, destinationFileName, typePiece);
@@ -579,7 +579,7 @@ namespace GestionClient
             // on récupère le nom de l'image
             string imageFileName = nouveauEmplacement.Remove(0, nouveauEmplacement.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
-            string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString().Replace("/", "-").Replace(":", "-").Replace(" ", "_") + "_" + imageFileName;
+            string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(nouveauEmplacement, App.FolderPath + "\\" + destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
             string oldImage = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[pieceIndex]["emplacement"].ToString();
