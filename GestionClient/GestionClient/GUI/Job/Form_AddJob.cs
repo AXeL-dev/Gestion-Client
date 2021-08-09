@@ -69,7 +69,7 @@ namespace GestionClient
             else
             {
                 // on change la langue si l'arabe est séléctionné
-                if (Language.GetCurrentLanguage() == "ar")
+                if (Language.IsArabic)
                     switchLanguage();
             }
         }

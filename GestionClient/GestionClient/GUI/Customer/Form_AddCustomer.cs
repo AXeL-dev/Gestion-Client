@@ -28,7 +28,7 @@ namespace GestionClient
                 TravailCombo.ValueMember = "id";
 
                 // on change la langue si l'arabe est séléctionné
-                if (Language.GetCurrentLanguage() == "ar")
+                if (Language.IsArabic)
                     switchLanguage();
             }
             else
@@ -146,7 +146,7 @@ namespace GestionClient
                 // on ouvre la fenêtre d'ajout de travail
                 App.AddJobFormOpened = true;
                 Form fen = new Form_AddJob(false);
-                fen.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+                fen.RightToLeft = Language.IsArabic ? RightToLeft.Yes : RightToLeft.No;
                 fen.ShowDialog();
                 // après fermeture
                 if (TravailCombo.Items.Count > travailItemsNbr) // si un travail a été ajouté, on le séléctionne

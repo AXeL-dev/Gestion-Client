@@ -48,14 +48,9 @@ namespace GestionClient
             menuItem_about.Text = Language.GetString("A_propos_Sub_Menu");
 
             // Connection Status
-            if (Database.ConnectedToDatabase)
-            {
-                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Success");
-            }
-            else
-            {
-                statusLabel_main.Text = Language.GetString("Connexion_To_DB_Error");
-            }
+            statusLabel_main.Text = Database.ConnectedToDatabase
+                ? Language.GetString("Connexion_To_DB_Success")
+                : Language.GetString("Connexion_To_DB_Error");
 
             // Save File Dialog Title
             saveFileDialog_main.Title = Language.GetString("saveFileDialog_Title");
@@ -69,7 +64,7 @@ namespace GestionClient
                 App.CreatePiecesFolder();
 
                 // on récupère la langue actuelle + on effectue les changements si nécessaire
-                if (Language.GetCurrentLanguage() == "ar")
+                if (Language.IsArabic)
                 {
                     menuItem_arabic_Click(sender, e);
                 }
@@ -83,7 +78,8 @@ namespace GestionClient
                 QuickMessageBox.ShowError(exception.Message);
             }
 
-            // connexion à la bdd + récupération des tables (je ne l'ai pas mis dans la close try{}catch(){} car cette fonction/méthode utilise déjà une)
+            // connexion à la bdd + récupération des tables (je ne l'ai pas mis dans 
+            // la close try{}catch(){} car cette fonction/méthode utilise déjà une)
             Database.FetchAllTables(statusLabel_main);
         }
 
@@ -110,7 +106,7 @@ namespace GestionClient
         private void menuItem_about_Click(object sender, EventArgs e)
         {
             Form_About form_about = new Form_About();
-            form_about.RightToLeft = Language.GetCurrentLanguage() == "ar" ? RightToLeft.Yes : RightToLeft.No;
+            form_about.RightToLeft = Language.IsArabic ? RightToLeft.Yes : RightToLeft.No;
             form_about.Text = Language.GetString("A_propos_Sub_Menu");
             form_about.ShowDialog();
         }

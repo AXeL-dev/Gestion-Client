@@ -6,13 +6,18 @@ namespace GestionClient
 {
     static class Language
     {
-        #region Language-Setup-Properties
         public static ResourceManager LanguagesResourceManager = new ResourceManager("GestionClient.Languages.Res", typeof(Form_Main).Assembly);
-        public static CultureInfo CurrentCulture = CultureInfo.CreateSpecificCulture("fr"); // langue française par défaut
+        public static CultureInfo CurrentCulture = CultureInfo.CreateSpecificCulture("fr");
         public static MessageBoxOptions CurrentMessageBoxOptions = new MessageBoxOptions();
-        #endregion
 
-        #region Language-Setup-Methods
+        public static bool IsArabic
+        {
+            get
+            {
+                return (GetCurrentLanguage() == "ar");
+            }
+        }
+
         /// <summary>
         /// Retourne la langue actuelle.
         /// </summary>
@@ -45,6 +50,5 @@ namespace GestionClient
         {
             return LanguagesResourceManager.GetString(name, CurrentCulture);
         }
-        #endregion
     }
 }

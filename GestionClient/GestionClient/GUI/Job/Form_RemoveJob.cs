@@ -22,7 +22,7 @@ namespace GestionClient
                 TravailCombo.ValueMember = "id";
 
                 // on change la langue si l'arabe est séléctionné
-                if (Language.GetCurrentLanguage() == "ar")
+                if (Language.IsArabic)
                     switchLanguage();
             }
             else
