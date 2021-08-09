@@ -45,6 +45,7 @@
     <Compile Include="API\Core\Database.cs" />
     <Compile Include="API\Core\Language.cs" />
     <Compile Include="API\UI Elements\QuickMessageBox.cs" />
+    <Compile Include="API\Miscellaneous\WinRar.cs" />
     <Compile Include="GUI\Help\Form_About.cs">
       <SubType>Form</SubType>
     </Compile>

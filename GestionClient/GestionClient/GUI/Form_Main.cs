@@ -195,37 +195,20 @@ namespace GestionClient
             {
                 try
                 {
-                    Process proc = new Process();
-                    // chemin du programme winrar.exe
-                    proc.StartInfo.FileName = @"C:\Program Files\WinRAR\rar.exe"; // ou unrar.exe pour extraire
-                    proc.StartInfo.CreateNoWindow = true;
-                    proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    proc.EnableRaisingEvents = true;
-
-                    //PWD: Password if the file has any
-                    //SRC: The path of your rar file. e.g: c:\temp\abc.rar
-                    //DES: The path you want it to be extracted. e.g: d:\extracted
-                    //ATTENTION: DESTINATION FOLDER MUST EXIST!
-
-                    // lancement de l'extraction
-                    //proc.StartInfo.Arguments = String.Format("x -p{0} {1} {2}", PWD, SRC, DES);
-                    proc.StartInfo.Arguments = String.Format("a -r \"{0}\" \"{1}\"", saveFileDialog_main.FileName, App.FolderPath + "\\" + App.DatabaseFolderName);
-                    proc.Start();
-
-                    // attente de la fin de l'extraction
-                    this.Cursor = Cursors.WaitCursor;
-                    proc.WaitForExit();
-                    this.Cursor = Cursors.Default;
-
-                    if (File.Exists(saveFileDialog_main.FileName))
+                    using (WinRar winrar = new WinRar())
                     {
-                        QuickMessageBox.ShowInformation(string.Format("{0}{1}",
+                        this.Cursor = Cursors.WaitCursor;
+                        winrar.Compress(saveFileDialog_main.FileName, App.DatabaseFolderName);
+                        this.Cursor = Cursors.Default;
+                    }
+
+                    if (!File.Exists(saveFileDialog_main.FileName))
+                    {
+                        throw new FileNotFoundException(Language.GetString("MessageBox_Erreur"));
+                    }
+
+                    QuickMessageBox.ShowInformation(string.Format("{0}{1}",
                             Language.GetString("MessageBox_DB_Saved_To"), saveFileDialog_main.FileName));
-                    }
-                    else
-                    {
-                        throw new Exception(Language.GetString("MessageBox_Erreur"));
-                    }
                 }
                 catch (Exception exception)
                 {
