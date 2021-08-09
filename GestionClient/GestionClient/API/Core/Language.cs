@@ -6,8 +6,10 @@ namespace GestionClient
 {
     static class Language
     {
-        public static ResourceManager LanguagesResourceManager = new ResourceManager("GestionClient.Languages.Res", typeof(Form_Main).Assembly);
-        public static CultureInfo CurrentCulture = CultureInfo.CreateSpecificCulture("fr");
+        private const string _languageResourceFileName = "GestionClient.Languages.Res";
+        private static ResourceManager _languagesResourceManager = new ResourceManager(_languageResourceFileName, typeof(Form_Main).Assembly);
+        private static CultureInfo _currentCulture = CultureInfo.CreateSpecificCulture("fr");
+        
         public static MessageBoxOptions CurrentMessageBoxOptions = new MessageBoxOptions();
 
         public static bool IsArabic
@@ -17,6 +19,29 @@ namespace GestionClient
                 return (GetCurrentLanguage() == "ar");
             }
         }
+
+        #region Private-Methods
+        /// <summary>
+        /// Set values indicating whether the text is displayed right to left.
+        /// </summary>
+        private static void SetMessageBoxesReadingDirection()
+        {
+            if (_currentCulture.TextInfo.IsRightToLeft)
+            {
+                Language.CurrentMessageBoxOptions = MessageBoxOptions.RightAlign
+                    | MessageBoxOptions.RtlReading;
+                MessageBoxManager.Yes = Language.GetString("MessageBox_YES");
+                MessageBoxManager.No = Language.GetString("MessageBox_NO");
+                MessageBoxManager.Register();
+
+            }
+            else
+            {
+                Language.CurrentMessageBoxOptions = new MessageBoxOptions();
+                MessageBoxManager.Unregister();
+            }
+        }
+        #endregion
 
         /// <summary>
         /// Retourne la langue actuelle.
@@ -29,11 +54,13 @@ namespace GestionClient
         }
 
         /// <summary>
-        /// Enregistre la langue actuelle dans la base de données.
+        /// Change et enregistre la langue actuelle dans la base de données.
         /// </summary>
         /// <param name="language"></param>
         public static void SetCurrentLanguage(string language)
         {
+            _currentCulture = CultureInfo.CreateSpecificCulture(language);
+            SetMessageBoxesReadingDirection();
             Database.MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
             Database.ApplyChanges(Database.LangueDataAdapter, "Langue");
         }
@@ -48,7 +75,7 @@ namespace GestionClient
         /// </returns>
         public static string GetString(string name)
         {
-            return LanguagesResourceManager.GetString(name, CurrentCulture);
+            return _languagesResourceManager.GetString(name, _currentCulture);
         }
     }
 }

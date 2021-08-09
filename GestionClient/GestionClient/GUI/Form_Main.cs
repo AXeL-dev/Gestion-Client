@@ -221,23 +221,13 @@ namespace GestionClient
         {
             try
             {
-                if (menuItem_french.Checked == false)
+                if (!menuItem_french.Checked)
                 {
                     menuItem_french.Checked = true;
                     menuItem_arabic.Checked = false;
-                    // changement de la langue au français
-                    Language.CurrentCulture = CultureInfo.CreateSpecificCulture("fr");
-                    // enregistrement de la langue actuelle
                     Language.SetCurrentLanguage("fr");
-                    // messagesBox => état normal
-                    Language.CurrentMessageBoxOptions = new MessageBoxOptions();
-                    // QuickMessageBox buttons text => état normal
-                    MessageBoxManager.Unregister();
-                    // main form => état normal
                     this.RightToLeft = RightToLeft.No;
-                    // modification du texte des controls
                     SwitchLanguage();
-                    // on informe les fenêtres enfants
                     this.OnLanguageChanged(sender, e);
                 }
             }
@@ -251,25 +241,13 @@ namespace GestionClient
         {
             try
             {
-                if (menuItem_arabic.Checked == false)
+                if (!menuItem_arabic.Checked)
                 {
                     menuItem_french.Checked = false;
                     menuItem_arabic.Checked = true;
-                    // changement de la langue à l'arabe
-                    Language.CurrentCulture = CultureInfo.CreateSpecificCulture("ar");
-                    // enregistrement de la langue actuelle
                     Language.SetCurrentLanguage("ar");
-                    // messagesBox => RightToLeft
-                    Language.CurrentMessageBoxOptions = MessageBoxOptions.RightAlign | MessageBoxOptions.RtlReading;
-                    // messagesBox buttons text
-                    MessageBoxManager.Yes = Language.GetString("MessageBox_YES");
-                    MessageBoxManager.No = Language.GetString("MessageBox_NO");
-                    MessageBoxManager.Register();
-                    // main form => RightToLeft
                     this.RightToLeft = RightToLeft.Yes;
-                    // modification du texte des controls
                     SwitchLanguage();
-                    // on informe les fenêtres enfants
                     this.OnLanguageChanged(sender, e);
                 }
             }
