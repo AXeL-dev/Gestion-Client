@@ -43,7 +43,7 @@ namespace GestionClient
         private void RechercherNomClient_Load(object sender, EventArgs e)
         {
             // on change la langue si l'arabe est séléctionné
-            if (Language.IsArabic)
+            if (Language.IsRightToLeft)
                 switchLanguage();
         }
 

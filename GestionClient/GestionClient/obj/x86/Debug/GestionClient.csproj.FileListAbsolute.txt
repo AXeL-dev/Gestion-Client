@@ -1,71 +1,23 @@
-D:\Gestion Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe
-D:\Gestion Client\GestionClient\GestionClient\bin\Debug\GestionClient.pdb
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.AjouterClient.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.main.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
-D:\Gestion Client\backup\GestionClient\GestionClient\bin\Debug\GestionClient.exe
-D:\Gestion Client\backup\GestionClient\GestionClient\bin\Debug\GestionClient.pdb
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GestionClient.AjouterClient.resources
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GestionClient.main.resources
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
-D:\Gestion Client\backup\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.About.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.AjouterTravail.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.SupprimerTravail.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.RechercherNomClient.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.ModifierClient.resources
-D:\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.ListeClients.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\bin\Debug\GestionClient.pdb
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\bin\Debug\ar\GestionClient.resources.dll
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\bin\Debug\fr\GestionClient.resources.dll
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.About.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.AjouterClient.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.AjouterTravail.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.ListeClients.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.ModifierClient.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.main.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.RechercherNomClient.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.SupprimerTravail.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Res.ar.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Res.fr.resources
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\ar\GestionClient.resources.dll
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\fr\GestionClient.resources.dll
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
-D:\prv\[new]\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
-E:\2.prg\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
-E:\2.prg\[C#]\Gestion Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.pdb
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\fr\GestionClient.resources.dll
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\ja\GestionClient.resources.dll
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\ar\GestionClient.resources.dll
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Res.fr.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Res.ar.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.csproj.GenerateResource.Cache
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\fr\GestionClient.resources.dll
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\ar\GestionClient.resources.dll
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_About.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_AddCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_AddJob.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_CustomersList.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_EditCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_Main.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_SearchCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_RemoveJob.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.csprojResolveAssemblyReference.cache
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Main.fr.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Main.ja.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Languages.Main.ar.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.csproj.GenerateResource.Cache
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\fr\GestionClient.resources.dll
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\ja\GestionClient.resources.dll
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\ar\GestionClient.resources.dll
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb

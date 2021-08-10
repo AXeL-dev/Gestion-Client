@@ -1,22 +1,23 @@
 ﻿using System.Globalization;
 using System.Resources;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace GestionClient
 {
     static class Language
     {
-        private const string _languageResourceFileName = "GestionClient.Languages.Res";
+        private const string _languageResourceFileName = "GestionClient.Languages.Main";
         private static ResourceManager _languagesResourceManager = new ResourceManager(_languageResourceFileName, typeof(Form_Main).Assembly);
         private static CultureInfo _currentCulture = CultureInfo.CreateSpecificCulture("fr");
-        
+
         public static MessageBoxOptions CurrentMessageBoxOptions = new MessageBoxOptions();
 
-        public static bool IsArabic
+        public static bool IsRightToLeft
         {
             get
             {
-                return (GetCurrentLanguage() == "ar");
+                return _currentCulture.TextInfo.IsRightToLeft;
             }
         }
 
@@ -24,7 +25,7 @@ namespace GestionClient
         /// <summary>
         /// Set values indicating whether the text is displayed right to left.
         /// </summary>
-        private static void SetMessageBoxesReadingDirection()
+        private static void LocalizeMessageBoxes()
         {
             if (_currentCulture.TextInfo.IsRightToLeft)
             {
@@ -44,7 +45,30 @@ namespace GestionClient
         #endregion
 
         /// <summary>
-        /// Retourne la langue actuelle.
+        /// Get all languages with available resources files.
+        /// </summary>
+        /// <returns>
+        /// Dictionary key-value pairs where 
+        /// the key is language two-letter name (example: ar) 
+        /// and value is language display name (example: Arabic)
+        /// </returns>
+        public static Dictionary<string, string> GetAvailableLanguages()
+        {
+            Dictionary<string, string> languages = new Dictionary<string, string>();
+            CultureInfo[] allCultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            foreach (CultureInfo culture in allCultures)
+            {
+                if (!culture.Equals(CultureInfo.InvariantCulture) &&
+                        _languagesResourceManager.GetResourceSet(culture, true, false) != null)
+                {
+                    languages.Add(culture.TwoLetterISOLanguageName, culture.DisplayName);
+                }
+            }
+            return languages;
+        }
+
+        /// <summary>
+        /// Get current language saved in database. 
         /// </summary>
         /// <returns></returns>
         public static string GetCurrentLanguage()
@@ -60,7 +84,7 @@ namespace GestionClient
         public static void SetCurrentLanguage(string language)
         {
             _currentCulture = CultureInfo.CreateSpecificCulture(language);
-            SetMessageBoxesReadingDirection();
+            LocalizeMessageBoxes();
             Database.MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
             Database.ApplyChanges(Database.LangueDataAdapter, "Langue");
         }

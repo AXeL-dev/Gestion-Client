@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Ajouter_Client_Sub_Menu" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Ajouter_Travail_Sub_Menu" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Application_Menu" xml:space="preserve">
+    <value>＆申し込み</value>
+  </data>
+  <data name="App_Name" xml:space="preserve">
+    <value>クライアント管理</value>
+  </data>
+  <data name="Arabe_Sub_Menu" xml:space="preserve">
+    <value>アラブ</value>
+  </data>
+  <data name="A_propos_Sub_Menu" xml:space="preserve">
+    <value>に関してで</value>
+  </data>
+  <data name="Client_Menu" xml:space="preserve">
+    <value>＆お客様</value>
+  </data>
+  <data name="Connexion_DB_Sub_Menu" xml:space="preserve">
+    <value>データベースへの接続</value>
+  </data>
+  <data name="Français_Sub_Menu" xml:space="preserve">
+    <value>フランス語</value>
+  </data>
+  <data name="Langue_Sub_Menu" xml:space="preserve">
+    <value>舌</value>
+  </data>
+  <data name="Liste_Client_Sub_Menu" xml:space="preserve">
+    <value>リスト</value>
+  </data>
+  <data name="Modifier_Supprimer_Client_Sub_Menu" xml:space="preserve">
+    <value>変更削除</value>
+  </data>
+  <data name="Question_Menu" xml:space="preserve">
+    <value>？</value>
+  </data>
+  <data name="Quitter_Menu" xml:space="preserve">
+    <value>去るには</value>
+  </data>
+  <data name="Sauvegarder_DB_Sub_Menu" xml:space="preserve">
+    <value>データベースのバックアップを作成する</value>
+  </data>
+  <data name="Supprimer_Travail_Sub_Menu" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="Travail_Menu" xml:space="preserve">
+    <value>＆仕事</value>
+  </data>
+  <data name="MessageBox_Quitter" xml:space="preserve">
+    <value>本当にやめる気？</value>
+  </data>
+  <data name="Connexion_To_DB_Error" xml:space="preserve">
+    <value>データベース接続エラー！</value>
+  </data>
+  <data name="Connexion_To_DB_Success" xml:space="preserve">
+    <value>データベース接続が確立されました。</value>
+  </data>
+  <data name="MessageBox_DB_Saved_To" xml:space="preserve">
+    <value>&gt;に保存されたデータベース</value>
+  </data>
+  <data name="MessageBox_Erreur" xml:space="preserve">
+    <value>エラーが発生しました ！</value>
+  </data>
+  <data name="About_Compatibilité" xml:space="preserve">
+    <value>互換性：Windows XP SP3 / Windows 7 / ++</value>
+  </data>
+  <data name="About_Copyright" xml:space="preserve">
+    <value>Copyright©2014-2015</value>
+  </data>
+  <data name="About_Dev" xml:space="preserve">
+    <value>開発者：AXeL</value>
+  </data>
+  <data name="About_DotNet_Version" xml:space="preserve">
+    <value>.Netバージョン：2.0</value>
+  </data>
+  <data name="About_End" xml:space="preserve">
+    <value>権利と使用はありません。</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>バージョン：1.0</value>
+  </data>
+  <data name="MessageBox_NO" xml:space="preserve">
+    <value>番号</value>
+  </data>
+  <data name="MessageBox_YES" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="Ajouter_Client_Ajouter_Button" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Ajouter_Client_Ajouter_Modifier_Photo_Button" xml:space="preserve">
+    <value>追加/編集</value>
+  </data>
+  <data name="Ajouter_Client_Client_GroupBox" xml:space="preserve">
+    <value>お客様</value>
+  </data>
+  <data name="Ajouter_Client_Date_Naissance_Label" xml:space="preserve">
+    <value>生年月日 ：</value>
+  </data>
+  <data name="Ajouter_Client_Email_Label" xml:space="preserve">
+    <value>Eメール ：</value>
+  </data>
+  <data name="Ajouter_Client_Nom_Label" xml:space="preserve">
+    <value>苗字 ：</value>
+  </data>
+  <data name="Ajouter_Client_Nouveau_Travail_Button" xml:space="preserve">
+    <value>新しい</value>
+  </data>
+  <data name="Ajouter_Client_Numero_Tel_Label" xml:space="preserve">
+    <value>電話番号：</value>
+  </data>
+  <data name="Ajouter_Client_Photo_GroupBox" xml:space="preserve">
+    <value>写真</value>
+  </data>
+  <data name="Ajouter_Client_Sexe_Label" xml:space="preserve">
+    <value>♂| ♀：</value>
+  </data>
+  <data name="Ajouter_Client_Travail_Label" xml:space="preserve">
+    <value>仕事 ：</value>
+  </data>
+  <data name="Ajouter_Client_Win_Name" xml:space="preserve">
+    <value>顧客を追加する</value>
+  </data>
+  <data name="Ajouter_Travail_1st_GroupBox" xml:space="preserve">
+    <value>仕事</value>
+  </data>
+  <data name="Ajouter_Travail_1st_Label" xml:space="preserve">
+    <value>説明：</value>
+  </data>
+  <data name="Ajouter_Travail_Ajouter_Button" xml:space="preserve">
+    <value>追加</value>
+  </data>
+  <data name="Ajouter_Travail_Win_Name" xml:space="preserve">
+    <value>ジョブを追加する</value>
+  </data>
+  <data name="Liste_Client_Actualiser_Button" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Age" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Age_Devise" xml:space="preserve">
+    <value>年</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Ajouté_Le" xml:space="preserve">
+    <value>で遊んだ</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Date_Naissance" xml:space="preserve">
+    <value>生年月日</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Email" xml:space="preserve">
+    <value>Eメール</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Montant_Payé" xml:space="preserve">
+    <value>給与額</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Montant_Payé_Devise" xml:space="preserve">
+    <value>Dh</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Nom" xml:space="preserve">
+    <value>苗字</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Numero_Tel" xml:space="preserve">
+    <value>電話番号</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Sexe" xml:space="preserve">
+    <value>セックス</value>
+  </data>
+  <data name="Liste_Client_DataGridView_Column_Travail" xml:space="preserve">
+    <value>仕事</value>
+  </data>
+  <data name="Liste_Client_Filtrer_CheckBox" xml:space="preserve">
+    <value>ジョブでフィルタリングする</value>
+  </data>
+  <data name="Liste_Client_Filtrer_GroupBox" xml:space="preserve">
+    <value>クライアントをフィルタリングする</value>
+  </data>
+  <data name="Liste_Client_Imprimer_Button" xml:space="preserve">
+    <value>印刷する</value>
+  </data>
+  <data name="Liste_Client_Liste_GroupBox" xml:space="preserve">
+    <value>クライアントのリスト</value>
+  </data>
+  <data name="Liste_Client_Win_Name" xml:space="preserve">
+    <value>クライアントのリスト</value>
+  </data>
+  <data name="Modifier_Client_Ajouter_Piece_ToolTip" xml:space="preserve">
+    <value>部屋を追加する</value>
+  </data>
+  <data name="Modifier_Client_DataGridView_Date_Paiement_Column" xml:space="preserve">
+    <value>支払期日</value>
+  </data>
+  <data name="Modifier_Client_DataGridView_Montant_Column" xml:space="preserve">
+    <value>給与額</value>
+  </data>
+  <data name="Modifier_Client_DataGridView_Montant_Column_Devise" xml:space="preserve">
+    <value>DH</value>
+  </data>
+  <data name="Modifier_Client_Date_Paiement_Label" xml:space="preserve">
+    <value>日にち：</value>
+  </data>
+  <data name="Modifier_Client_Enregistrer_Paiement_Button" xml:space="preserve">
+    <value>支払いの記録</value>
+  </data>
+  <data name="Modifier_Client_Modifier_Button" xml:space="preserve">
+    <value>編集</value>
+  </data>
+  <data name="Modifier_Client_Montant_Label" xml:space="preserve">
+    <value>金額（DH）：</value>
+  </data>
+  <data name="Modifier_Client_Nouveau_Paiement_GroupBox" xml:space="preserve">
+    <value>新規支払い</value>
+  </data>
+  <data name="Modifier_Client_Paiement_GroupBox" xml:space="preserve">
+    <value>支払い</value>
+  </data>
+  <data name="Modifier_Client_Pieces_GroupBox" xml:space="preserve">
+    <value>部屋</value>
+  </data>
+  <data name="Modifier_Client_Précédent_Button" xml:space="preserve">
+    <value>前</value>
+  </data>
+  <data name="Modifier_Client_Rechercher_Button" xml:space="preserve">
+    <value>研究するには</value>
+  </data>
+  <data name="Modifier_Client_Suivant_Button" xml:space="preserve">
+    <value>次</value>
+  </data>
+  <data name="Modifier_Client_Supprimer_Button" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="Modifier_Client_Supprimer_Piece_ToolTip" xml:space="preserve">
+    <value>部屋を削除する</value>
+  </data>
+  <data name="Modifier_Client_Win_Name" xml:space="preserve">
+    <value>顧客を変更する</value>
+  </data>
+  <data name="openFileDialog_Title" xml:space="preserve">
+    <value>写真の選択</value>
+  </data>
+  <data name="Rechercher_Client_Rechercher_Button" xml:space="preserve">
+    <value>研究するには</value>
+  </data>
+  <data name="Rechercher_Client_Win_Name" xml:space="preserve">
+    <value>クライアントを探す</value>
+  </data>
+  <data name="saveFileDialog_Title" xml:space="preserve">
+    <value>バックアップ場所の選択</value>
+  </data>
+  <data name="Supprimer_Travail_1st_Label" xml:space="preserve">
+    <value>仕事 ：</value>
+  </data>
+  <data name="Supprimer_Travail_2nd_Label" xml:space="preserve">
+    <value>（*）ジョブを削除すると、このジョブに割り当てられているクライアントも削除されます。</value>
+  </data>
+  <data name="Supprimer_Travail_Supprimer_Button" xml:space="preserve">
+    <value>削除する</value>
+  </data>
+  <data name="Supprimer_Travail_Win_Name" xml:space="preserve">
+    <value>ジョブを削除する</value>
+  </data>
+  <data name="MessageBox_Aucune_Piece" xml:space="preserve">
+    <value>削除する部分はありません！</value>
+  </data>
+  <data name="MessageBox_Aucun_Client" xml:space="preserve">
+    <value>クライアントはいません！少なくとも1つ追加してください。</value>
+  </data>
+  <data name="MessageBox_Client_Ajouté" xml:space="preserve">
+    <value>お客様が追加しました！</value>
+  </data>
+  <data name="MessageBox_Client_Modifié" xml:space="preserve">
+    <value>お客様が変わりました！</value>
+  </data>
+  <data name="MessageBox_Client_Non_trouvé" xml:space="preserve">
+    <value>この名前の顧客は見つかりませんでした！</value>
+  </data>
+  <data name="MessageBox_Client_Sans_Photo" xml:space="preserve">
+    <value>このクライアントは写真を持っていません！</value>
+  </data>
+  <data name="MessageBox_Client_Supprimé" xml:space="preserve">
+    <value>お客様が削除されました！</value>
+  </data>
+  <data name="MessageBox_Client_Supprimé_Plus_Fermeture" xml:space="preserve">
+    <value>お客様が削除されました！これ以上の顧客はありません。閉鎖...</value>
+  </data>
+  <data name="MessageBox_Confirmer_Suppression_Client" xml:space="preserve">
+    <value>このクライアントを削除してもよろしいですか？</value>
+  </data>
+  <data name="MessageBox_Confirmer_Suppression_Paiement" xml:space="preserve">
+    <value>この支払いを削除してもよろしいですか？</value>
+  </data>
+  <data name="MessageBox_Confirmer_Suppression_Piece" xml:space="preserve">
+    <value>この部分を削除してもよろしいですか？</value>
+  </data>
+  <data name="MessageBox_Confirmer_Suppression_Travail" xml:space="preserve">
+    <value>このジョブを削除してもよろしいですか？</value>
+  </data>
+  <data name="MessageBox_Connexion_Non_Etablie" xml:space="preserve">
+    <value>データベース接続が確立されていません！</value>
+  </data>
+  <data name="MessageBox_Description_Double" xml:space="preserve">
+    <value>入力した説明はすでに存在します！</value>
+  </data>
+  <data name="MessageBox_Description_Obligatoire" xml:space="preserve">
+    <value>仕事の説明は必須です！</value>
+  </data>
+  <data name="MessageBox_Montant_Obligatoire" xml:space="preserve">
+    <value>お支払い金額は必須です！</value>
+  </data>
+  <data name="MessageBox_Nom_Double" xml:space="preserve">
+    <value>入力した顧客名はすでに存在します！</value>
+  </data>
+  <data name="MessageBox_Nom_D_un_Autre_Client" xml:space="preserve">
+    <value>入力した顧客名は別の顧客のものです！変更してください。</value>
+  </data>
+  <data name="MessageBox_Nom_Obligatoire" xml:space="preserve">
+    <value>お客様のお名前が必要です！</value>
+  </data>
+  <data name="MessageBox_Rien_A_Supprimer" xml:space="preserve">
+    <value>削除するものはありません！</value>
+  </data>
+  <data name="MessageBox_Selectionner_Piece" xml:space="preserve">
+    <value>部屋を選んでください！</value>
+  </data>
+  <data name="MessageBox_Travail_Ajouté" xml:space="preserve">
+    <value>作業が追加されました！</value>
+  </data>
+  <data name="MessageBox_Travail_Supprimé" xml:space="preserve">
+    <value>作品が削除されました！</value>
+  </data>
+  <data name="Sexe_Femme" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="Sexe_Homme" xml:space="preserve">
+    <value>男</value>
+  </data>
+</root>

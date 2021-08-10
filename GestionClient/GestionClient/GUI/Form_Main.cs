@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using GestionClient.Properties;
+using System.Collections.Generic;
 
 namespace GestionClient
 {
@@ -82,14 +83,27 @@ namespace GestionClient
             try
             {
                 App.CreatePiecesFolder();
-                if (Language.IsArabic)
+
+                menuItem_language.DropDownItems.Clear();
+                foreach (KeyValuePair<string, string> languageEntry in Language.GetAvailableLanguages())
                 {
-                    menuItem_arabic_Click(sender, e);
+                    ToolStripItem menuItem = menuItem_language.DropDownItems.Add(languageEntry.Value);
+                    menuItem.Tag = languageEntry.Key;
+                    menuItem.Click += new EventHandler(menuItem_languageEntry_Click);
+                    if (languageEntry.Key == Language.GetCurrentLanguage())
+                    {
+                        menuItem_languageEntry_Click(menuItem, EventArgs.Empty);
+                    }
                 }
-                else
-                {
-                    menuItem_french_Click(sender, e);
-                }
+
+                //if (Language.IsRightToLeft)
+                //{
+                //    menuItem_arabic_Click(sender, e);
+                //}
+                //else
+                //{
+                //    menuItem_french_Click(sender, e);
+                //}
             }
             catch (Exception exception)
             {
@@ -97,6 +111,29 @@ namespace GestionClient
             }
 
             ConnectToDatabase();
+        }
+
+        /// <summary>
+        /// General handler for every generated language sub-menu-item of the language menu-item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItem_languageEntry_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            string language = menuItem.Tag as string;
+            if (!menuItem.Checked)
+            {
+                foreach (ToolStripMenuItem item in menuItem_language.DropDownItems)
+                {
+                    item.Checked = false;
+                }
+                menuItem.Checked = true;
+                Language.SetCurrentLanguage(language);
+                this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+                SwitchLanguage();
+                this.OnLanguageChanged(sender, e);
+            }
         }
 
         private void menuItem_quit_Click(object sender, EventArgs e)
@@ -123,7 +160,7 @@ namespace GestionClient
         private void menuItem_about_Click(object sender, EventArgs e)
         {
             Form_About form_about = new Form_About();
-            form_about.RightToLeft = Language.IsArabic ? RightToLeft.Yes : RightToLeft.No;
+            form_about.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
             form_about.Text = Language.GetString("A_propos_Sub_Menu");
             form_about.ShowDialog();
         }

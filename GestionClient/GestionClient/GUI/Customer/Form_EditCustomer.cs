@@ -71,7 +71,7 @@ namespace GestionClient
                     SuivantBtn.Select();
 
                     // on change la langue si l'arabe est séléctionné
-                    if (Language.IsArabic)
+                    if (Language.IsRightToLeft)
                         switchLanguage();
                 }
                 else
@@ -205,7 +205,7 @@ namespace GestionClient
             App.SearchResultIndex = position;
             // on affiche la fenêtre de recherche
             Form fen = new Form_SearchCustomer();
-            fen.RightToLeft = Language.IsArabic ? RightToLeft.Yes : RightToLeft.No;
+            fen.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
             fen.ShowDialog();
             // on affiche le client trouvé, si trouvé biensur
             if (App.SearchResultIndex != position)

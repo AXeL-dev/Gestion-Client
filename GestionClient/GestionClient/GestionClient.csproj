@@ -12,6 +12,21 @@
     <AssemblyName>GestionClient</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -64,11 +79,6 @@
     <Compile Include="GUI\Job\Form_AddJob.Designer.cs">
       <DependentUpon>Form_AddJob.cs</DependentUpon>
     </Compile>
-    <Compile Include="Languages\Res.fr.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Res.fr.resx</DependentUpon>
-    </Compile>
     <Compile Include="API\UI Elements\DataGridViewDeleteButton.cs" />
     <Compile Include="GUI\Customer\Form_CustomersList.cs">
       <SubType>Form</SubType>
@@ -90,6 +100,21 @@
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="API\UI Elements\DataGridViewPrinter.cs" />
+    <Compile Include="Languages\Main.ar.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.ar.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Languages\Main.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Languages\Main.ja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Main.ja.resx</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GUI\Customer\Form_SearchCustomer.cs">
@@ -97,11 +122,6 @@
     </Compile>
     <Compile Include="GUI\Customer\Form_SearchCustomer.Designer.cs">
       <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Languages\Res.ar.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Res.ar.resx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Job\Form_RemoveJob.cs">
       <SubType>Form</SubType>
@@ -118,9 +138,9 @@
     <EmbeddedResource Include="GUI\Job\Form_AddJob.resx">
       <DependentUpon>Form_AddJob.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Res.fr.resx">
+    <EmbeddedResource Include="Languages\Main.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Res.fr.Designer.cs</LastGenOutput>
+      <LastGenOutput>Main.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Form_CustomersList.resx">
       <DependentUpon>Form_CustomersList.cs</DependentUpon>
@@ -130,6 +150,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Main.ja.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Main.ja.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -144,9 +168,9 @@
     <EmbeddedResource Include="GUI\Customer\Form_SearchCustomer.resx">
       <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Res.ar.resx">
+    <EmbeddedResource Include="Languages\Main.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Res.ar.Designer.cs</LastGenOutput>
+      <LastGenOutput>Main.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Job\Form_RemoveJob.resx">
       <DependentUpon>Form_RemoveJob.cs</DependentUpon>
@@ -233,7 +257,23 @@
   <ItemGroup>
     <None Include="Resources\update.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
