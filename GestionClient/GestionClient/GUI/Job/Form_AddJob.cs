@@ -82,7 +82,7 @@ namespace GestionClient
             if (showConfirmationMsg) // si l'appel a été fait par la fenêtre mère et non une autre fenêtre comme AjouterClient
             {
                 Form_Main parent = (Form_Main)this.MdiParent;
-                parent.LanguageChanged -= this.LanguageChangedHandler;
+                Language.Changed -= this.LanguageChangedHandler;
             }
         }
 

@@ -37,8 +37,7 @@ namespace GestionClient
         private void SupprimerTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
             App.RemoveJobFormOpened = false;
-            Form_Main parent = (Form_Main)this.MdiParent;
-            parent.LanguageChanged -= this.LanguageChangedHandler;
+            Language.Changed -= this.LanguageChangedHandler;
         }
 
         // event. Click sur le boutton 'SupprimerBtn'

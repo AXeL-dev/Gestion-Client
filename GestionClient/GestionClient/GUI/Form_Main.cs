@@ -10,18 +10,19 @@ namespace GestionClient
 {
     public partial class Form_Main : Form
     {
-        public event EventHandler LanguageChanged;
-
         public Form_Main()
         {
             InitializeComponent();
+            Language.Changed += (s, args) => SwitchLanguage();
         }
 
         #region Common-Methods
         private void SwitchLanguage()
         {
+            // Reading Direction
+            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+
             // Form Title
-            //this.Text = App.Name = LocalizedStrings.App_Name;
             this.Text = App.Name = LocalizedStrings.App_Name;
 
             // Main Menu Items
@@ -57,6 +58,21 @@ namespace GestionClient
             saveFileDialog_main.Title = LocalizedStrings.saveFileDialog_Title;
         }
 
+        public void FillLanguageMenuItem()
+        {
+            menuItem_language.DropDownItems.Clear();
+            foreach (KeyValuePair<string, string> languageEntry in Language.GetAvailableLanguages())
+            {
+                ToolStripItem newMenuItem = menuItem_language.DropDownItems.Add(languageEntry.Value);
+                newMenuItem.Tag = languageEntry.Key;
+                newMenuItem.Click += new EventHandler(menuItem_languageEntry_Click);
+                if (languageEntry.Key == Language.GetCurrentLanguage())
+                {
+                    menuItem_languageEntry_Click(newMenuItem, EventArgs.Empty);
+                }
+            }
+        }
+
         public void ConnectToDatabase()
         {
             try
@@ -80,19 +96,8 @@ namespace GestionClient
         {
             try
             {
-                App.CreatePiecesFolder();
-
-                menuItem_language.DropDownItems.Clear();
-                foreach (KeyValuePair<string, string> languageEntry in Language.GetAvailableLanguages())
-                {
-                    ToolStripItem newMenuItem = menuItem_language.DropDownItems.Add(languageEntry.Value);
-                    newMenuItem.Tag = languageEntry.Key;
-                    newMenuItem.Click += new EventHandler(menuItem_languageEntry_Click);
-                    if (languageEntry.Key == Language.GetCurrentLanguage())
-                    {
-                        menuItem_languageEntry_Click(newMenuItem, EventArgs.Empty);
-                    }
-                }
+                App.CreateAssetsFolder();
+                FillLanguageMenuItem();
             }
             catch (Exception exception)
             {
@@ -102,114 +107,16 @@ namespace GestionClient
             ConnectToDatabase();
         }
 
-        /// <summary>
-        /// General handler for every generated language sub-menu-item of the language menu-item.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void menuItem_languageEntry_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
-            string language = menuItem.Tag as string;
-            if (!menuItem.Checked)
-            {
-                foreach (ToolStripMenuItem item in menuItem_language.DropDownItems)
-                {
-                    item.Checked = false;
-                }
-                menuItem.Checked = true;
-                Language.SetCurrentLanguage(language);
-                this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-                SwitchLanguage();
-                this.OnLanguageChanged(sender, e);
-            }
-        }
-
-        private void menuItem_quit_Click(object sender, EventArgs e)
-        {
-            if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Quitter)
-                == DialogResult.Yes)
-            {
-                this.Close();
-            }
-        }
-
-        private void menuItem_addCustomer_Click(object sender, EventArgs e)
-        {
-            if (!App.AddCustomerFormOpened)
-            {
-                Form_AddCustomer form_addCustomer = new Form_AddCustomer();
-                form_addCustomer.MdiParent = this;
-                this.LanguageChanged += form_addCustomer.LanguageChangedHandler;
-                form_addCustomer.Show();
-                App.AddCustomerFormOpened = true;
-            }
-        }
-
-        private void menuItem_about_Click(object sender, EventArgs e)
-        {
-            Form_About form_about = new Form_About();
-            form_about.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-            form_about.Text = LocalizedStrings.A_propos_Sub_Menu;
-            form_about.ShowDialog();
-        }
-
-        private void menuItem_connect_Click(object sender, EventArgs e)
-        {
-            ConnectToDatabase();
-        }
-
+        #region Menu-Events-Handlers
+        #region Menu/Application
         private void menuItem_application_DropDownOpened(object sender, EventArgs e)
         {
             menuItem_connect.Enabled = Database.ConnectedToDatabase ? false : true;
         }
 
-        private void menuItem_addJob_Click(object sender, EventArgs e)
+        private void menuItem_connect_Click(object sender, EventArgs e)
         {
-            if (!App.AddJobFormOpened)
-            {
-                Form_AddJob form_addJob = new Form_AddJob();
-                form_addJob.MdiParent = this;
-                this.LanguageChanged += form_addJob.LanguageChangedHandler;
-                form_addJob.Show();
-                App.AddJobFormOpened = true;
-            }
-        }
-
-        private void menuItem_removeJob_Click(object sender, EventArgs e)
-        {
-            if (!App.RemoveJobFormOpened)
-            {
-                Form_RemoveJob form_removeJob = new Form_RemoveJob();
-                form_removeJob.MdiParent = this;
-                this.LanguageChanged += form_removeJob.LanguageChangedHandler;
-                form_removeJob.Show();
-                App.RemoveJobFormOpened = true;
-            }
-        }
-
-        private void menuItem_editJob_Click(object sender, EventArgs e)
-        {
-            if (!App.EditJobFormOpened)
-            {
-                Form_EditCustomer form_editCustomer = new Form_EditCustomer();
-                form_editCustomer.MdiParent = this;
-                this.LanguageChanged += form_editCustomer.LanguageChangedHandler;
-                form_editCustomer.Show();
-                App.EditJobFormOpened = true;
-            }
-        }
-
-        private void menuItem_customersList_Click(object sender, EventArgs e)
-        {
-            if (!App.CustomerListFormOpened)
-            {
-                Form_CustomersList form_customersList = new Form_CustomersList();
-                form_customersList.MdiParent = this;
-                this.LanguageChanged += form_customersList.LanguageChangedHandler;
-                form_customersList.Show();
-                App.CustomerListFormOpened = true;
-            }
+            ConnectToDatabase();
         }
 
         private void menuItem_backup_Click(object sender, EventArgs e)
@@ -243,12 +150,109 @@ namespace GestionClient
             }
         }
 
-        public void OnLanguageChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Click event handler called for every generated language sub-item.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItem_languageEntry_Click(object sender, EventArgs e)
         {
-            if (LanguageChanged != null) // i.e. there are some subscribers, s'il y'a des enfants souscris à l'evennement de la fen. parent
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            string language = menuItem.Tag as string;
+            if (!menuItem.Checked)
             {
-                LanguageChanged(sender, e); // notify all subscribers, on les informent que l'even. à été déclenché ;))
+                foreach (ToolStripMenuItem item in menuItem_language.DropDownItems)
+                {
+                    item.Checked = false;
+                }
+                menuItem.Checked = true;
+                Language.SetCurrentLanguage(language);
             }
         }
+
+        private void menuItem_quit_Click(object sender, EventArgs e)
+        {
+            if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Quitter)
+                == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+        #endregion
+
+        #region Menu/Customer
+        private void menuItem_addCustomer_Click(object sender, EventArgs e)
+        {
+            if (!App.AddCustomerFormOpened)
+            {
+                Form_AddCustomer form_addCustomer = new Form_AddCustomer();
+                form_addCustomer.MdiParent = this;
+                Language.Changed += form_addCustomer.LanguageChangedHandler;
+                form_addCustomer.Show();
+                App.AddCustomerFormOpened = true;
+            }
+        }
+
+        private void menuItem_editCustomer_Click(object sender, EventArgs e)
+        {
+            if (!App.EditCustomerFormOpened)
+            {
+                Form_EditCustomer form_editCustomer = new Form_EditCustomer();
+                form_editCustomer.MdiParent = this;
+                Language.Changed += form_editCustomer.LanguageChangedHandler;
+                form_editCustomer.Show();
+                App.EditCustomerFormOpened = true;
+            }
+        }
+
+        private void menuItem_customersList_Click(object sender, EventArgs e)
+        {
+            if (!App.CustomerListFormOpened)
+            {
+                Form_CustomersList form_customersList = new Form_CustomersList();
+                form_customersList.MdiParent = this;
+                Language.Changed += form_customersList.LanguageChangedHandler;
+                form_customersList.Show();
+                App.CustomerListFormOpened = true;
+            }
+        }
+        #endregion
+
+        #region Menu/Job
+        private void menuItem_addJob_Click(object sender, EventArgs e)
+        {
+            if (!App.AddJobFormOpened)
+            {
+                Form_AddJob form_addJob = new Form_AddJob();
+                form_addJob.MdiParent = this;
+                Language.Changed += form_addJob.LanguageChangedHandler;
+                form_addJob.Show();
+                App.AddJobFormOpened = true;
+            }
+        }
+
+        private void menuItem_removeJob_Click(object sender, EventArgs e)
+        {
+            if (!App.RemoveJobFormOpened)
+            {
+                Form_RemoveJob form_removeJob = new Form_RemoveJob();
+                form_removeJob.MdiParent = this;
+                Language.Changed += form_removeJob.LanguageChangedHandler;
+                form_removeJob.Show();
+                App.RemoveJobFormOpened = true;
+            }
+        }
+        #endregion
+
+        #region Menu/Help
+        private void menuItem_about_Click(object sender, EventArgs e)
+        {
+            Form_About form_about = new Form_About();
+            form_about.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+            form_about.Text = LocalizedStrings.A_propos_Sub_Menu;
+            form_about.ShowDialog();
+        }
+        #endregion
+        #endregion
     }
 }

@@ -71,7 +71,7 @@ namespace GestionClient
         {
             App.CustomerListFormOpened = false;
             Form_Main parent = (Form_Main)this.MdiParent;
-            parent.LanguageChanged -= this.LanguageChangedHandler;
+            Language.Changed -= this.LanguageChangedHandler;
         }
 
         // event. SelectedIndexChanged de la combobox 'TravailCombo'

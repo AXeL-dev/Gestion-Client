@@ -31,9 +31,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.EditJobFormOpened = false;
-            Form_Main parent = (Form_Main)this.MdiParent;
-            parent.LanguageChanged -= this.LanguageChangedHandler;
+            App.EditCustomerFormOpened = false;
+            Language.Changed -= this.LanguageChangedHandler;
         }
 
         // event. Load du formulaire
@@ -173,7 +172,7 @@ namespace GestionClient
                             Database.MainDataSet.Tables["Client"].Rows[i].Delete();
                             Database.ApplyChanges(Database.ClientDataAdapter, "Client");
                             // suppression du dossier du client (!@ avec tout son contenu)
-                            string clientFolderName = App.PiecesFolderPath + "\\" + currentClientId + "_";
+                            string clientFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";
                             if (Directory.Exists(clientFolderName))
                                 Directory.Delete(clientFolderName, true);
                             // si on peu faire un retour en arrière
@@ -559,7 +558,7 @@ namespace GestionClient
         private void addPieceAs(string emplacementPiece, string typePiece)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = App.PiecesFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = emplacementPiece.Remove(0, emplacementPiece.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
@@ -576,7 +575,7 @@ namespace GestionClient
         private void updatePiece(string nouveauEmplacement, int pieceIndex)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = App.PiecesFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = nouveauEmplacement.Remove(0, nouveauEmplacement.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Forms;
 using GestionClient.Localization;
@@ -7,6 +8,7 @@ namespace GestionClient
 {
     static class Language
     {
+        public static event EventHandler Changed;
         public static MessageBoxOptions CurrentMessageBoxOptions = new MessageBoxOptions();
 
         public static bool IsRightToLeft
@@ -78,15 +80,20 @@ namespace GestionClient
         }
 
         /// <summary>
-        /// Change et enregistre la langue actuelle dans la base de données.
+        /// Change and save current language in database. Triggers Changed event.
         /// </summary>
         /// <param name="language"></param>
         public static void SetCurrentLanguage(string language)
         {
-            Localization.LocalizedStrings.Culture = CultureInfo.CreateSpecificCulture(language);
+            LocalizedStrings.Culture = CultureInfo.CreateSpecificCulture(language);
             LocalizeMessageBoxes();
             Database.MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
             Database.ApplyChanges(Database.LangueDataAdapter, "Langue");
+            // Trigger LanguageChanged event to let subscribers handle it.
+            if (Changed != null)
+            {
+                Changed(null, EventArgs.Empty);
+            }
         }
     }
 }

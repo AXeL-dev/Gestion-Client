@@ -55,8 +55,7 @@ namespace GestionClient
         private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
         {
             App.AddCustomerFormOpened = false;
-            Form_Main parent = (Form_Main)this.MdiParent;
-            parent.LanguageChanged -= this.LanguageChangedHandler;
+            Language.Changed -= this.LanguageChangedHandler;
         }
 
         // event. Click du boutton 'AjouterModifierPhotoBtn'
@@ -107,7 +106,7 @@ namespace GestionClient
                     // on récupère l'id du client
                     int clientId = getClientIdByName(NomTextBox.Text);
                     // on récupère le chemin ou on va pouvoir stocker l'image
-                    string imageFolderName = App.PiecesFolderPath + "\\" + clientId + "_";// +NomTextBox.Text;
+                    string imageFolderName = App.AssetsFolderPath + "\\" + clientId + "_";// +NomTextBox.Text;
                     // on crée le dossier qui contienra les pieces du client (dont l'image) s'il n'exsite pas
                     if (!Directory.Exists(App.FolderPath + "\\" + imageFolderName))
                         Directory.CreateDirectory(App.FolderPath + "\\" + imageFolderName);

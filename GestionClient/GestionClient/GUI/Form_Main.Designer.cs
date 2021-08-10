@@ -137,7 +137,7 @@
             this.menuItem_editCustomer.Name = "menuItem_editCustomer";
             this.menuItem_editCustomer.Size = new System.Drawing.Size(151, 22);
             this.menuItem_editCustomer.Text = "Edit/Remove...";
-            this.menuItem_editCustomer.Click += new System.EventHandler(this.menuItem_editJob_Click);
+            this.menuItem_editCustomer.Click += new System.EventHandler(this.menuItem_editCustomer_Click);
             // 
             // menuItem_customersList
             // 

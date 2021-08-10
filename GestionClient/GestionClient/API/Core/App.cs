@@ -9,15 +9,16 @@ namespace GestionClient
         public static string Name = "Gestion Client";
         public static readonly string FolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); //Application.StartupPath;
         public static readonly string DatabaseFolderName = "data";
-        public static readonly string PiecesFolderPath = Path.Combine(DatabaseFolderName, "Pieces");
+        public static readonly string AssetsFolderPath = Path.Combine(DatabaseFolderName, "Pieces");
         #endregion
 
         #region Forms-Tracking-Properties
         public static bool AddCustomerFormOpened = false;
+        public static bool EditCustomerFormOpened = false;
+        public static bool CustomerListFormOpened = false;
         public static bool AddJobFormOpened = false;
         public static bool RemoveJobFormOpened = false;
-        public static bool EditJobFormOpened = false;
-        public static bool CustomerListFormOpened = false;
+
         #endregion
 
         #region Search-Tracking-Properties
@@ -27,9 +28,9 @@ namespace GestionClient
         /// <summary>
         /// Créer le dossier qui contiendra toutes les pieces de nos clients s'il n'exsite pas.
         /// </summary>
-        public static void CreatePiecesFolder()
+        public static void CreateAssetsFolder()
         {
-            string path = Path.Combine(App.FolderPath, App.PiecesFolderPath);
+            string path = Path.Combine(App.FolderPath, App.AssetsFolderPath);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
