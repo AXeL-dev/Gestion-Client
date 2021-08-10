@@ -100,20 +100,25 @@
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="API\UI Elements\DataGridViewPrinter.cs" />
-    <Compile Include="Languages\Main.ar.Designer.cs">
+    <Compile Include="Localization\LocalizedStrings.ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Main.ar.resx</DependentUpon>
+      <DependentUpon>LocalizedStrings.ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="Languages\Main.fr.Designer.cs">
+    <Compile Include="Localization\LocalizedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Main.fr.resx</DependentUpon>
+      <DependentUpon>LocalizedStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Languages\Main.ja.Designer.cs">
+    <Compile Include="Localization\LocalizedStrings.fr.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Main.ja.resx</DependentUpon>
+      <DependentUpon>LocalizedStrings.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Localization\LocalizedStrings.ja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedStrings.ja.resx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,9 +143,9 @@
     <EmbeddedResource Include="GUI\Job\Form_AddJob.resx">
       <DependentUpon>Form_AddJob.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Main.fr.resx">
+    <EmbeddedResource Include="Localization\LocalizedStrings.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Main.fr.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalizedStrings.fr.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Customer\Form_CustomersList.resx">
       <DependentUpon>Form_CustomersList.cs</DependentUpon>
@@ -151,9 +156,13 @@
     <EmbeddedResource Include="GUI\Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Main.ja.resx">
+    <EmbeddedResource Include="Localization\LocalizedStrings.ja.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Main.ja.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalizedStrings.ja.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -168,9 +177,9 @@
     <EmbeddedResource Include="GUI\Customer\Form_SearchCustomer.resx">
       <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Main.ar.resx">
+    <EmbeddedResource Include="Localization\LocalizedStrings.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Main.ar.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalizedStrings.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Job\Form_RemoveJob.resx">
       <DependentUpon>Form_RemoveJob.cs</DependentUpon>

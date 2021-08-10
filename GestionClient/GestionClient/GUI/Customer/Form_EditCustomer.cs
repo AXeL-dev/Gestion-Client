@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -44,7 +45,7 @@ namespace GestionClient
                 {
                     // si la dataTable Client est vide
                     if (Database.MainDataSet.Tables["Client"].Rows.Count == 0)
-                        throw new Exception(Language.GetString("MessageBox_Aucun_Client"));
+                        throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
                     TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
@@ -76,7 +77,7 @@ namespace GestionClient
                 }
                 else
                 {
-                    throw new Exception(Language.GetString("MessageBox_Connexion_Non_Etablie"));
+                    throw new Exception(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
                 }
             }
             catch (Exception exception)
@@ -116,13 +117,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Obligatoire"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientNameNotCurrent(NomTextBox.Text, position))
                 {
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_D_un_Autre_Client"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_D_un_Autre_Client);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -143,7 +144,7 @@ namespace GestionClient
                             Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
                             Database.MainDataSet.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
                             Database.ApplyChanges(Database.ClientDataAdapter, "Client");
-                            QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Client_Modifié"));
+                            QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Modifié);
                             break; // on sort de la boucle
                         }
                     }
@@ -160,7 +161,7 @@ namespace GestionClient
         {
             try
             {
-                if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Confirmer_Suppression_Client")) == DialogResult.Yes)
+                if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Client) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Client
                     for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
@@ -180,11 +181,11 @@ namespace GestionClient
                             {
                                 // on revient en arrière (simulation d'un click sur 'Précédent')
                                 PrécédentBtn_Click(sender, e);
-                                QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Client_Supprimé"));
+                                QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Supprimé);
                             }
                             else
                             {
-                                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Client_Supprimé_Plus_Fermeture"));
+                                QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Client_Supprimé_Plus_Fermeture);
                                 this.Close();
                             }
                             break; // on sort de la boucle for
@@ -229,7 +230,7 @@ namespace GestionClient
                 // si le montant est vide
                 if (MontantMaskedTextBox.Text.Length == 0)
                 {
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Montant_Obligatoire"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Montant_Obligatoire);
                     MontantMaskedTextBox.Focus();
                 }
                 else // si nn, c'est bon
@@ -271,7 +272,7 @@ namespace GestionClient
             {
                 // s'il n'y a aucune pièce
                 if (piecesPbList.Count == 0)
-                    throw new Exception(Language.GetString("MessageBox_Aucune_Piece"));
+                    throw new Exception(LocalizedStrings.MessageBox_Aucune_Piece);
                 else // si nn
                 {
                     // on parcourt toutes les pieces
@@ -280,7 +281,7 @@ namespace GestionClient
                         // si on trouve qu'une piece est séléctionnée
                         if (piecesPbList[i].BackColor == SystemColors.Highlight && piecesPbList[i].Padding.All == 3)
                         {
-                            if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Confirmer_Suppression_Piece")) == DialogResult.Yes)
+                            if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Piece) == DialogResult.Yes)
                             {
                                 // on parcourt la dataTable 'Pieces'
                                 for (int p = 0; p < Database.MainDataSet.Tables["Pieces"].Rows.Count; p++)
@@ -306,7 +307,7 @@ namespace GestionClient
                     }
 
                     // si nn, aucune piece n'est séléctionnée
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Selectionner_Piece"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Selectionner_Piece);
                 }
             }
             catch (Exception exception)
@@ -344,7 +345,7 @@ namespace GestionClient
             {
                 try
                 {
-                    if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Confirmer_Suppression_Paiement")) == DialogResult.Yes)
+                    if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Paiement) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
                         int paiementId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
@@ -466,7 +467,7 @@ namespace GestionClient
                 if (pb.ImageLocation != null)
                     Process.Start(pb.ImageLocation);
                 else
-                    throw new Exception(Language.GetString("MessageBox_Client_Sans_Photo"));
+                    throw new Exception(LocalizedStrings.MessageBox_Client_Sans_Photo);
             }
             catch (Exception exception)
             {
@@ -485,15 +486,15 @@ namespace GestionClient
         private void setDataGridviewFormat()
         {
             // montant
-            dataGridView1.Columns["montant"].HeaderText = Language.GetString("Modifier_Client_DataGridView_Montant_Column");
+            dataGridView1.Columns["montant"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
             dataGridView1.Columns["montant"].Width = 200;
             NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            format.CurrencySymbol = Language.GetString("Modifier_Client_DataGridView_Montant_Column_Devise"); ;
+            format.CurrencySymbol = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column_Devise; ;
             format.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["montant"].DefaultCellStyle.FormatProvider = format;
             dataGridView1.Columns["montant"].DefaultCellStyle.Format = "c";
             // date paiement
-            dataGridView1.Columns["date_paiement"].HeaderText = Language.GetString("Modifier_Client_DataGridView_Date_Paiement_Column");
+            dataGridView1.Columns["date_paiement"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
             dataGridView1.Columns["date_paiement"].Width = 200;
         }
 
@@ -594,32 +595,32 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = Language.GetString("Modifier_Client_Win_Name");
+            this.Text = LocalizedStrings.Modifier_Client_Win_Name;
             // Labels et GroupBoxs
-            ClientGroupBox.Text = Language.GetString("Ajouter_Client_Client_GroupBox");
-            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
-            TravailLabel.Text = Language.GetString("Ajouter_Client_Travail_Label");
-            DateNaissanceLabel.Text = Language.GetString("Ajouter_Client_Date_Naissance_Label");
-            NumeroTelLabel.Text = Language.GetString("Ajouter_Client_Numero_Tel_Label");
-            EmailLabel.Text = Language.GetString("Ajouter_Client_Email_Label");
-            PhotoGroupBox.Text = Language.GetString("Ajouter_Client_Photo_GroupBox");
-            PaiementGroupBox.Text = Language.GetString("Modifier_Client_Paiement_GroupBox");
-            NouveauPaiementGroupBox.Text = Language.GetString("Modifier_Client_Nouveau_Paiement_GroupBox");
-            MontantLabel.Text = Language.GetString("Modifier_Client_Montant_Label");
-            DatePaiementLabel.Text = Language.GetString("Modifier_Client_Date_Paiement_Label");
-            PiecesGroupBox.Text = Language.GetString("Modifier_Client_Pieces_GroupBox");
-            toolTip1.SetToolTip(SupprimerPieceBtn, Language.GetString("Modifier_Client_Supprimer_Piece_ToolTip"));
-            toolTip1.SetToolTip(AjouterPieceBtn, Language.GetString("Modifier_Client_Ajouter_Piece_ToolTip"));
+            ClientGroupBox.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            TravailLabel.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            DateNaissanceLabel.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
+            NumeroTelLabel.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
+            EmailLabel.Text = LocalizedStrings.Ajouter_Client_Email_Label;
+            PhotoGroupBox.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
+            PaiementGroupBox.Text = LocalizedStrings.Modifier_Client_Paiement_GroupBox;
+            NouveauPaiementGroupBox.Text = LocalizedStrings.Modifier_Client_Nouveau_Paiement_GroupBox;
+            MontantLabel.Text = LocalizedStrings.Modifier_Client_Montant_Label;
+            DatePaiementLabel.Text = LocalizedStrings.Modifier_Client_Date_Paiement_Label;
+            PiecesGroupBox.Text = LocalizedStrings.Modifier_Client_Pieces_GroupBox;
+            toolTip1.SetToolTip(SupprimerPieceBtn, LocalizedStrings.Modifier_Client_Supprimer_Piece_ToolTip);
+            toolTip1.SetToolTip(AjouterPieceBtn, LocalizedStrings.Modifier_Client_Ajouter_Piece_ToolTip);
             // Buttons
-            SuivantBtn.Text = Language.GetString("Modifier_Client_Suivant_Button");
-            PrécédentBtn.Text = Language.GetString("Modifier_Client_Précédent_Button");
-            ModifierBtn.Text = Language.GetString("Modifier_Client_Modifier_Button");
-            SupprimerBtn.Text = Language.GetString("Modifier_Client_Supprimer_Button");
-            RechercherBtn.Text = Language.GetString("Modifier_Client_Rechercher_Button");
-            ModifierPhotoBtn.Text = Language.GetString("Modifier_Client_Modifier_Button");
-            EnregistrerPaiementBtn.Text = Language.GetString("Modifier_Client_Enregistrer_Paiement_Button");
+            SuivantBtn.Text = LocalizedStrings.Modifier_Client_Suivant_Button;
+            PrécédentBtn.Text = LocalizedStrings.Modifier_Client_Précédent_Button;
+            ModifierBtn.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            SupprimerBtn.Text = LocalizedStrings.Modifier_Client_Supprimer_Button;
+            RechercherBtn.Text = LocalizedStrings.Modifier_Client_Rechercher_Button;
+            ModifierPhotoBtn.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            EnregistrerPaiementBtn.Text = LocalizedStrings.Modifier_Client_Enregistrer_Paiement_Button;
             // openFileDialog1
-            openFileDialog1.Title = Language.GetString("openFileDialog_Title");
+            openFileDialog1.Title = LocalizedStrings.openFileDialog_Title;
             // on raffraichie le format de la liste des paiements (pour changer la langue de la liste aussi)
             setDataGridviewFormat();
         }

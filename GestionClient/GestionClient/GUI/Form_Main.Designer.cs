@@ -34,8 +34,6 @@
             this.menuItem_connect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_backup = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_language = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItem_french = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuItem_arabic = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItem_quit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItem_customer = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,29 +95,10 @@
             // 
             // menuItem_language
             // 
-            this.menuItem_language.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItem_french,
-            this.menuItem_arabic});
             this.menuItem_language.Image = global::GestionClient.Properties.Resources.language;
             this.menuItem_language.Name = "menuItem_language";
             this.menuItem_language.Size = new System.Drawing.Size(218, 22);
             this.menuItem_language.Text = "Language";
-            // 
-            // menuItem_french
-            // 
-            this.menuItem_french.Checked = true;
-            this.menuItem_french.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.menuItem_french.Name = "menuItem_french";
-            this.menuItem_french.Size = new System.Drawing.Size(152, 22);
-            this.menuItem_french.Text = "French";
-            this.menuItem_french.Click += new System.EventHandler(this.menuItem_french_Click);
-            // 
-            // menuItem_arabic
-            // 
-            this.menuItem_arabic.Name = "menuItem_arabic";
-            this.menuItem_arabic.Size = new System.Drawing.Size(152, 22);
-            this.menuItem_arabic.Text = "Arabic";
-            this.menuItem_arabic.Click += new System.EventHandler(this.menuItem_arabic_Click);
             // 
             // toolStripSeparator1
             // 
@@ -148,7 +127,7 @@
             // 
             this.menuItem_addCustomer.Image = global::GestionClient.Properties.Resources.person_add;
             this.menuItem_addCustomer.Name = "menuItem_addCustomer";
-            this.menuItem_addCustomer.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_addCustomer.Size = new System.Drawing.Size(151, 22);
             this.menuItem_addCustomer.Text = "Add...";
             this.menuItem_addCustomer.Click += new System.EventHandler(this.menuItem_addCustomer_Click);
             // 
@@ -156,7 +135,7 @@
             // 
             this.menuItem_editCustomer.Image = global::GestionClient.Properties.Resources.edit;
             this.menuItem_editCustomer.Name = "menuItem_editCustomer";
-            this.menuItem_editCustomer.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_editCustomer.Size = new System.Drawing.Size(151, 22);
             this.menuItem_editCustomer.Text = "Edit/Remove...";
             this.menuItem_editCustomer.Click += new System.EventHandler(this.menuItem_editJob_Click);
             // 
@@ -164,7 +143,7 @@
             // 
             this.menuItem_customersList.Image = global::GestionClient.Properties.Resources.document_file;
             this.menuItem_customersList.Name = "menuItem_customersList";
-            this.menuItem_customersList.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_customersList.Size = new System.Drawing.Size(151, 22);
             this.menuItem_customersList.Text = "List";
             this.menuItem_customersList.Click += new System.EventHandler(this.menuItem_customersList_Click);
             // 
@@ -181,7 +160,7 @@
             // 
             this.menuItem_addJob.Image = global::GestionClient.Properties.Resources.tag;
             this.menuItem_addJob.Name = "menuItem_addJob";
-            this.menuItem_addJob.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_addJob.Size = new System.Drawing.Size(126, 22);
             this.menuItem_addJob.Text = "Add...";
             this.menuItem_addJob.Click += new System.EventHandler(this.menuItem_addJob_Click);
             // 
@@ -189,7 +168,7 @@
             // 
             this.menuItem_removeJob.Image = global::GestionClient.Properties.Resources.close_delete;
             this.menuItem_removeJob.Name = "menuItem_removeJob";
-            this.menuItem_removeJob.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_removeJob.Size = new System.Drawing.Size(126, 22);
             this.menuItem_removeJob.Text = "Remove...";
             this.menuItem_removeJob.Click += new System.EventHandler(this.menuItem_removeJob_Click);
             // 
@@ -205,7 +184,7 @@
             // 
             this.menuItem_about.Image = global::GestionClient.Properties.Resources.information;
             this.menuItem_about.Name = "menuItem_about";
-            this.menuItem_about.Size = new System.Drawing.Size(152, 22);
+            this.menuItem_about.Size = new System.Drawing.Size(107, 22);
             this.menuItem_about.Text = "About";
             this.menuItem_about.Click += new System.EventHandler(this.menuItem_about_Click);
             // 
@@ -277,8 +256,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItem_backup;
         private System.Windows.Forms.SaveFileDialog saveFileDialog_main;
         private System.Windows.Forms.ToolStripMenuItem menuItem_language;
-        private System.Windows.Forms.ToolStripMenuItem menuItem_french;
-        private System.Windows.Forms.ToolStripMenuItem menuItem_arabic;
     }
 }
 

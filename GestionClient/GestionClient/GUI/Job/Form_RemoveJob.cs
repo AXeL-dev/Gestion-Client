@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -27,7 +28,7 @@ namespace GestionClient
             }
             else
             {
-                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Connexion_Non_Etablie"));
+                QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -47,8 +48,8 @@ namespace GestionClient
             {
                 // si jamais la combobox est vide
                 if (TravailCombo.Items.Count == 0)
-                    throw new Exception(Language.GetString("MessageBox_Rien_A_Supprimer"));
-                else if (QuickMessageBox.ShowQuestion(Language.GetString("MessageBox_Confirmer_Suppression_Travail")) == DialogResult.Yes)
+                    throw new Exception(LocalizedStrings.MessageBox_Rien_A_Supprimer);
+                else if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Travail) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Travail
                     for (int i = 0; i < Database.MainDataSet.Tables["Travail"].Rows.Count; i++)
@@ -59,7 +60,7 @@ namespace GestionClient
                             // suppression
                             Database.MainDataSet.Tables["Travail"].Rows[i].Delete();
                             Database.ApplyChanges(Database.TravailDataAdapter, "Travail");
-                            QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Travail_Supprimé"));
+                            QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Travail_Supprimé);
                             // mise à jour de la dataTable Client (pour supprimer les clients en relation avec ce travail)
                             Database.FetchClientTable();
                             break; // on sort de la boucle for
@@ -91,13 +92,13 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = Language.GetString("Supprimer_Travail_Win_Name");
+            this.Text = LocalizedStrings.Supprimer_Travail_Win_Name;
             // Label 'Travail'
-            label1.Text = Language.GetString("Supprimer_Travail_1st_Label");
+            label1.Text = LocalizedStrings.Supprimer_Travail_1st_Label;
             // Label '(*)...'
-            label2.Text = Language.GetString("Supprimer_Travail_2nd_Label");
+            label2.Text = LocalizedStrings.Supprimer_Travail_2nd_Label;
             // Button 'Supprimer'
-            SupprimerBtn.Text = Language.GetString("Supprimer_Travail_Supprimer_Button");
+            SupprimerBtn.Text = LocalizedStrings.Supprimer_Travail_Supprimer_Button;
         }
     }
 }

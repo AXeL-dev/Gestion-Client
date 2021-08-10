@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -33,7 +34,7 @@ namespace GestionClient
             }
             else
             {
-                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Connexion_Non_Etablie"));
+                QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
                 this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
             }
         }
@@ -76,13 +77,13 @@ namespace GestionClient
                 // si le nom est vide
                 if (NomTextBox.Text.Length == 0)
                 {
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Obligatoire"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
                     NomTextBox.Focus();
                 }
                 // si nn si nom en double
                 else if (checkDoubleClientName(NomTextBox.Text))
                 {
-                    QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Double"));
+                    QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Double);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
                     NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
                     NomTextBox.Focus();
@@ -124,7 +125,7 @@ namespace GestionClient
                         // mise à jour de la dataTable Pieces (pour avoir les bon ids, afin de pouvoir modifier la photo après)
                         Database.FetchPiecesTable();
                     }
-                    QuickMessageBox.ShowInformation(Language.GetString("MessageBox_Client_Ajouté"));
+                    QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Ajouté);
                     // fermeture de la fenêtre
                     this.Close();
                 }
@@ -198,25 +199,25 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = Language.GetString("Ajouter_Client_Win_Name");
+            this.Text = LocalizedStrings.Ajouter_Client_Win_Name;
             // Labels et GroupBoxs
-            ClientGroupBox.Text = Language.GetString("Ajouter_Client_Client_GroupBox");
-            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
-            SexeLabel.Text = Language.GetString("Ajouter_Client_Sexe_Label");
-            TravailLabel.Text = Language.GetString("Ajouter_Client_Travail_Label");
-            DateNaissanceLabel.Text = Language.GetString("Ajouter_Client_Date_Naissance_Label");
-            NumeroTelLabel.Text = Language.GetString("Ajouter_Client_Numero_Tel_Label");
-            EmailLabel.Text = Language.GetString("Ajouter_Client_Email_Label");
-            PhotoGroupBox.Text = Language.GetString("Ajouter_Client_Photo_GroupBox");
+            ClientGroupBox.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            SexeLabel.Text = LocalizedStrings.Ajouter_Client_Sexe_Label;
+            TravailLabel.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            DateNaissanceLabel.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
+            NumeroTelLabel.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
+            EmailLabel.Text = LocalizedStrings.Ajouter_Client_Email_Label;
+            PhotoGroupBox.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
             // combobox
-            HommeFemmeCombo.Items[0] = Language.GetString("Sexe_Homme");
-            HommeFemmeCombo.Items[1] = Language.GetString("Sexe_Femme");
+            HommeFemmeCombo.Items[0] = LocalizedStrings.Sexe_Homme;
+            HommeFemmeCombo.Items[1] = LocalizedStrings.Sexe_Femme;
             // Buttons
-            NouveauTravailBtn.Text = Language.GetString("Ajouter_Client_Nouveau_Travail_Button");
-            AjouterModifierPhotoBtn.Text = Language.GetString("Ajouter_Client_Ajouter_Modifier_Photo_Button");
-            AjouterClientBtn.Text = Language.GetString("Ajouter_Client_Ajouter_Button");
+            NouveauTravailBtn.Text = LocalizedStrings.Ajouter_Client_Nouveau_Travail_Button;
+            AjouterModifierPhotoBtn.Text = LocalizedStrings.Ajouter_Client_Ajouter_Modifier_Photo_Button;
+            AjouterClientBtn.Text = LocalizedStrings.Ajouter_Client_Ajouter_Button;
             // openFileDialog1
-            openFileDialog1.Title = Language.GetString("openFileDialog_Title");
+            openFileDialog1.Title = LocalizedStrings.openFileDialog_Title;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -17,7 +18,7 @@ namespace GestionClient
             // si le nom est vide
             if (NomTextBox.Text.Length == 0)
             {
-                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Nom_Obligatoire"));
+                QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
                 NomTextBox.Focus();
             }
             else
@@ -35,7 +36,7 @@ namespace GestionClient
                 }
 
                 // si nn
-                QuickMessageBox.ShowWarning(Language.GetString("MessageBox_Client_Non_trouvé"));
+                QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Client_Non_trouvé);
             }
         }
 
@@ -52,12 +53,12 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = Language.GetString("Rechercher_Client_Win_Name");
+            this.Text = LocalizedStrings.Rechercher_Client_Win_Name;
             // Labels et GroupBoxs
-            ClientGroupBox.Text = Language.GetString("Ajouter_Client_Client_GroupBox");
-            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
+            ClientGroupBox.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
             // Buttons
-            RechercherBtn.Text = Language.GetString("Rechercher_Client_Rechercher_Button");
+            RechercherBtn.Text = LocalizedStrings.Rechercher_Client_Rechercher_Button;
         }
     }
 }

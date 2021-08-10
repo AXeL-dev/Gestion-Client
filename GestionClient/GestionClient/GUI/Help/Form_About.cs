@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -18,12 +19,12 @@ namespace GestionClient
             AppNameGroupBox.Text = App.Name;
 
             // On affiche les informations de l'app.
-            AppInfosTextBox.Text = Language.GetString("About_Version") + "\r\n\r\n" +
-                                   Language.GetString("About_Dev") + "\r\n\r\n" +
-                                   Language.GetString("About_DotNet_Version") + "\r\n\r\n" +
-                                   Language.GetString("About_Compatibilité") + "\r\n\r\n" +
-                                   Language.GetString("About_Copyright") + "\r\n\r\n" +
-                                   Language.GetString("About_End");
+            AppInfosTextBox.Text = LocalizedStrings.About_Version + "\r\n\r\n" +
+                                   LocalizedStrings.About_Dev + "\r\n\r\n" +
+                                   LocalizedStrings.About_DotNet_Version + "\r\n\r\n" +
+                                   LocalizedStrings.About_Compatibilité + "\r\n\r\n" +
+                                   LocalizedStrings.About_Copyright + "\r\n\r\n" +
+                                   LocalizedStrings.About_End;
 
             // On bouge le curseur de séléction au début (0), car on obtient un texte completement séléctionné au départ
             AppInfosTextBox.Select(0, 0);

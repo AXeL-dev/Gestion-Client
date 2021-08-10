@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
+using GestionClient.Localization;
 
 namespace GestionClient
 {
@@ -26,7 +27,7 @@ namespace GestionClient
                 {
                     // si la dataTable Client est vide
                     if (Database.MainDataSet.Tables["Client"].Rows.Count == 0)
-                        throw new Exception(Language.GetString("MessageBox_Aucun_Client"));
+                        throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
                     TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
@@ -55,7 +56,7 @@ namespace GestionClient
                 }
                 else
                 {
-                    throw new Exception(Language.GetString("MessageBox_Connexion_Non_Etablie"));
+                    throw new Exception(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
                 }
             }
             catch (Exception exception)
@@ -119,7 +120,7 @@ namespace GestionClient
         {
             try
             {
-                DataGridViewPrinter.Print(dataGridView1, e, Language.GetString("Liste_Client_Win_Name"));
+                DataGridViewPrinter.Print(dataGridView1, e, LocalizedStrings.Liste_Client_Win_Name);
             }
             catch (Exception exc)
             {
@@ -160,26 +161,26 @@ namespace GestionClient
         private void setDataGridViewFormat()
         {
             // Headers Text
-            dataGridView1.Columns["nom"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Nom");
-            dataGridView1.Columns["sexe"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Sexe");
-            dataGridView1.Columns["travail"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Travail");
-            dataGridView1.Columns["age"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Age");
-            dataGridView1.Columns["date de naissance"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Date_Naissance");
-            dataGridView1.Columns["numéro tél"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Numero_Tel");
-            dataGridView1.Columns["email"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Email");
-            dataGridView1.Columns["montant payé"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Montant_Payé");
-            dataGridView1.Columns["ajouté le"].HeaderText = Language.GetString("Liste_Client_DataGridView_Column_Ajouté_Le");
+            dataGridView1.Columns["nom"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
+            dataGridView1.Columns["sexe"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
+            dataGridView1.Columns["travail"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
+            dataGridView1.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
+            dataGridView1.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
+            dataGridView1.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
+            dataGridView1.Columns["email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
+            dataGridView1.Columns["montant payé"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
+            dataGridView1.Columns["ajouté le"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
 
             // ajout de 'ans' dans toutes les lignes de la colonne 'age'
             NumberFormatInfo formatAge = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            formatAge.CurrencySymbol = Language.GetString("Liste_Client_DataGridView_Column_Age_Devise");
+            formatAge.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Age_Devise;
             formatAge.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["age"].DefaultCellStyle.FormatProvider = formatAge;
             dataGridView1.Columns["age"].DefaultCellStyle.Format = "c";
 
             // ajout de la devise dans toutes les lignes de la colonne 'montant payé'
             NumberFormatInfo formatMontant = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            formatMontant.CurrencySymbol = Language.GetString("Liste_Client_DataGridView_Column_Montant_Payé_Devise");
+            formatMontant.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé_Devise;
             formatMontant.CurrencyDecimalDigits = 0;
             dataGridView1.Columns["montant payé"].DefaultCellStyle.FormatProvider = formatMontant;
             dataGridView1.Columns["montant payé"].DefaultCellStyle.Format = "c";
@@ -189,16 +190,16 @@ namespace GestionClient
         private void switchLanguage()
         {
             // Window Name
-            this.Text = Language.GetString("Liste_Client_Win_Name");
+            this.Text = LocalizedStrings.Liste_Client_Win_Name;
             // Labels et GroupBoxs
-            FiltrerClientGroupBox.Text = Language.GetString("Liste_Client_Filtrer_GroupBox");
-            NomLabel.Text = Language.GetString("Ajouter_Client_Nom_Label");
-            TravailLabel.Text = Language.GetString("Ajouter_Client_Travail_Label");
-            FiltrerTravailCheckBox.Text = Language.GetString("Liste_Client_Filtrer_CheckBox");
-            ListeClientGroupBox.Text = Language.GetString("Liste_Client_Liste_GroupBox");
+            FiltrerClientGroupBox.Text = LocalizedStrings.Liste_Client_Filtrer_GroupBox;
+            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            TravailLabel.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            FiltrerTravailCheckBox.Text = LocalizedStrings.Liste_Client_Filtrer_CheckBox;
+            ListeClientGroupBox.Text = LocalizedStrings.Liste_Client_Liste_GroupBox;
             // Buttons
-            ActualiserBtn.Text = Language.GetString("Liste_Client_Actualiser_Button");
-            ImprimerBtn.Text = Language.GetString("Liste_Client_Imprimer_Button");
+            ActualiserBtn.Text = LocalizedStrings.Liste_Client_Actualiser_Button;
+            ImprimerBtn.Text = LocalizedStrings.Liste_Client_Imprimer_Button;
             // format de la DataGridView
             setDataGridViewFormat();
         }
