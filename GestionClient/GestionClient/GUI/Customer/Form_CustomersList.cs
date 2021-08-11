@@ -16,6 +16,7 @@ namespace GestionClient
         public Form_CustomersList()
         {
             InitializeComponent();
+            Language.Changed += this.LanguageChangedHandler;
         }
 
         // event. Load du formulaire
@@ -69,8 +70,6 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.CustomerListFormOpened = false;
-            Form_Main parent = (Form_Main)this.MdiParent;
             Language.Changed -= this.LanguageChangedHandler;
         }
 

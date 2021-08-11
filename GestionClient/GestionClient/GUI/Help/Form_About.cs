@@ -6,10 +6,11 @@ namespace GestionClient
 {
     public partial class Form_About : Form
     {
-        // constr.
         public Form_About()
         {
             InitializeComponent();
+            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+            this.Text = LocalizedStrings.A_propos_Sub_Menu;
         }
 
         // event. Load du formulaire

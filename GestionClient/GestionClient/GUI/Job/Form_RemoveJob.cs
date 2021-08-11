@@ -10,6 +10,7 @@ namespace GestionClient
         public Form_RemoveJob()
         {
             InitializeComponent();
+            Language.Changed += this.LanguageChangedHandler;
         }
 
         // event. Load du formulaire
@@ -36,7 +37,6 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void SupprimerTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.RemoveJobFormOpened = false;
             Language.Changed -= this.LanguageChangedHandler;
         }
 

@@ -13,6 +13,7 @@ namespace GestionClient
         public Form_AddJob()
         {
             InitializeComponent();
+            Language.Changed += this.LanguageChangedHandler;
         }
 
         // constr. surchargé
@@ -78,10 +79,8 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterTravail_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.AddJobFormOpened = false;
             if (showConfirmationMsg) // si l'appel a été fait par la fenêtre mère et non une autre fenêtre comme AjouterClient
             {
-                Form_Main parent = (Form_Main)this.MdiParent;
                 Language.Changed -= this.LanguageChangedHandler;
             }
         }

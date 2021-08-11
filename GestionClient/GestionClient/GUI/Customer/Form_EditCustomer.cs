@@ -22,16 +22,12 @@ namespace GestionClient
         public Form_EditCustomer()
         {
             InitializeComponent();
+            Language.Changed += this.LanguageChangedHandler;
         }
-
-        //============================================================================================================
-        //                                                Events.
-        //============================================================================================================
 
         // event. FormClosed du formulaire
         private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.EditCustomerFormOpened = false;
             Language.Changed -= this.LanguageChangedHandler;
         }
 

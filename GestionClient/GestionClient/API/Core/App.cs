@@ -12,15 +12,6 @@ namespace GestionClient
         public static readonly string AssetsFolderPath = Path.Combine(DatabaseFolderName, "Pieces");
         #endregion
 
-        #region Forms-Tracking-Properties
-        public static bool AddCustomerFormOpened = false;
-        public static bool EditCustomerFormOpened = false;
-        public static bool CustomerListFormOpened = false;
-        public static bool AddJobFormOpened = false;
-        public static bool RemoveJobFormOpened = false;
-
-        #endregion
-
         #region Search-Tracking-Properties
         public static int SearchResultIndex;
         #endregion

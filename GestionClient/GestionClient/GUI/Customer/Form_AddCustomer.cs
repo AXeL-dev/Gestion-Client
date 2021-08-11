@@ -8,12 +8,14 @@ namespace GestionClient
     public partial class Form_AddCustomer : Form
     {
         // attributs
+        private Form_AddJob _form_addJob;
         private bool isImageChoosed = false;
 
         // constr.
         public Form_AddCustomer()
         {
             InitializeComponent();
+            Language.Changed += this.LanguageChangedHandler;
         }
 
         // event. Load du formulaire
@@ -54,7 +56,6 @@ namespace GestionClient
         // event. FormClosed du formulaire
         private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
         {
-            App.AddCustomerFormOpened = false;
             Language.Changed -= this.LanguageChangedHandler;
         }
 
@@ -139,15 +140,14 @@ namespace GestionClient
         private void NouveauTravailBtn_Click(object sender, EventArgs e)
         {
             // on ouvre l'interface de création de travail
-            if (!App.AddJobFormOpened)
+            if (_form_addJob == null || _form_addJob.IsDisposed)
             {
                 // on sauvegarde le nombre d'item actuel dans la 'TravailCombo'
                 int travailItemsNbr = TravailCombo.Items.Count;
                 // on ouvre la fenêtre d'ajout de travail
-                App.AddJobFormOpened = true;
-                Form fen = new Form_AddJob(false);
-                fen.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-                fen.ShowDialog();
+                _form_addJob = new Form_AddJob(false);
+                _form_addJob.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+                _form_addJob.ShowDialog();
                 // après fermeture
                 if (TravailCombo.Items.Count > travailItemsNbr) // si un travail a été ajouté, on le séléctionne
                     TravailCombo.SelectedIndex = TravailCombo.Items.Count - 1;

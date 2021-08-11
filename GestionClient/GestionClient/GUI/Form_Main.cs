@@ -10,6 +10,13 @@ namespace GestionClient
 {
     public partial class Form_Main : Form
     {
+        private Form_AddCustomer _form_addCustomer;
+        private Form_EditCustomer _form_editCustomer;
+        private Form_CustomersList _form_customersList;
+        private Form_AddJob _form_addJob;
+        private Form_RemoveJob _form_removeJob;
+        private Form_About _form_about;
+
         public Form_Main()
         {
             InitializeComponent();
@@ -58,7 +65,7 @@ namespace GestionClient
             saveFileDialog_main.Title = LocalizedStrings.saveFileDialog_Title;
         }
 
-        public void FillLanguageMenuItem()
+        private void FillLanguageMenuItem()
         {
             menuItem_language.DropDownItems.Clear();
             foreach (KeyValuePair<string, string> languageEntry in Language.GetAvailableLanguages())
@@ -73,7 +80,7 @@ namespace GestionClient
             }
         }
 
-        public void ConnectToDatabase()
+        private void ConnectToDatabase()
         {
             try
             {
@@ -89,6 +96,11 @@ namespace GestionClient
                 statusLabel_main.ForeColor = Color.Red;
                 statusLabel_main.Image = Resources._false;
             }
+        }
+
+        private bool GetFormIsNullOrDisposed(Form form)
+        {
+            return (form == null || form.IsDisposed);
         }
         #endregion
 
@@ -183,37 +195,31 @@ namespace GestionClient
         #region Menu/Customer
         private void menuItem_addCustomer_Click(object sender, EventArgs e)
         {
-            if (!App.AddCustomerFormOpened)
+            if (GetFormIsNullOrDisposed(_form_addCustomer))
             {
-                Form_AddCustomer form_addCustomer = new Form_AddCustomer();
-                form_addCustomer.MdiParent = this;
-                Language.Changed += form_addCustomer.LanguageChangedHandler;
-                form_addCustomer.Show();
-                App.AddCustomerFormOpened = true;
+                _form_addCustomer = new Form_AddCustomer();
+                _form_addCustomer.MdiParent = this;
+                _form_addCustomer.Show();
             }
         }
 
         private void menuItem_editCustomer_Click(object sender, EventArgs e)
         {
-            if (!App.EditCustomerFormOpened)
+            if (GetFormIsNullOrDisposed(_form_editCustomer))
             {
-                Form_EditCustomer form_editCustomer = new Form_EditCustomer();
-                form_editCustomer.MdiParent = this;
-                Language.Changed += form_editCustomer.LanguageChangedHandler;
-                form_editCustomer.Show();
-                App.EditCustomerFormOpened = true;
+                _form_editCustomer = new Form_EditCustomer();
+                _form_editCustomer.MdiParent = this;
+                _form_editCustomer.Show();
             }
         }
 
         private void menuItem_customersList_Click(object sender, EventArgs e)
         {
-            if (!App.CustomerListFormOpened)
+            if (GetFormIsNullOrDisposed(_form_customersList))
             {
-                Form_CustomersList form_customersList = new Form_CustomersList();
-                form_customersList.MdiParent = this;
-                Language.Changed += form_customersList.LanguageChangedHandler;
-                form_customersList.Show();
-                App.CustomerListFormOpened = true;
+                _form_customersList = new Form_CustomersList();
+                _form_customersList.MdiParent = this;
+                _form_customersList.Show();
             }
         }
         #endregion
@@ -221,25 +227,21 @@ namespace GestionClient
         #region Menu/Job
         private void menuItem_addJob_Click(object sender, EventArgs e)
         {
-            if (!App.AddJobFormOpened)
+            if (GetFormIsNullOrDisposed(_form_addJob))
             {
-                Form_AddJob form_addJob = new Form_AddJob();
-                form_addJob.MdiParent = this;
-                Language.Changed += form_addJob.LanguageChangedHandler;
-                form_addJob.Show();
-                App.AddJobFormOpened = true;
+                _form_addJob = new Form_AddJob();
+                _form_addJob.MdiParent = this;
+                _form_addJob.Show();
             }
         }
 
         private void menuItem_removeJob_Click(object sender, EventArgs e)
         {
-            if (!App.RemoveJobFormOpened)
+            if (GetFormIsNullOrDisposed(_form_removeJob))
             {
-                Form_RemoveJob form_removeJob = new Form_RemoveJob();
-                form_removeJob.MdiParent = this;
-                Language.Changed += form_removeJob.LanguageChangedHandler;
-                form_removeJob.Show();
-                App.RemoveJobFormOpened = true;
+                _form_removeJob = new Form_RemoveJob();
+                _form_removeJob.MdiParent = this;
+                _form_removeJob.Show();
             }
         }
         #endregion
@@ -247,10 +249,11 @@ namespace GestionClient
         #region Menu/Help
         private void menuItem_about_Click(object sender, EventArgs e)
         {
-            Form_About form_about = new Form_About();
-            form_about.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-            form_about.Text = LocalizedStrings.A_propos_Sub_Menu;
-            form_about.ShowDialog();
+            if (GetFormIsNullOrDisposed(_form_about))
+            {
+                _form_about = new Form_About();
+                _form_about.ShowDialog();
+            }
         }
         #endregion
         #endregion
