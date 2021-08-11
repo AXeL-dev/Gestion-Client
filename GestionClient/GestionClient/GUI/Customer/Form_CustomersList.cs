@@ -31,9 +31,9 @@ namespace GestionClient
                         throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
-                    TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
-                    TravailCombo.DisplayMember = "description";
-                    TravailCombo.ValueMember = "id";
+                    comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                    comboBox_job.DisplayMember = "description";
+                    comboBox_job.ValueMember = "id";
 
                     // on récupère la dataTable ClientTravailPaiement
                     Database.FetchClientTravailPaiementTable();
@@ -42,14 +42,14 @@ namespace GestionClient
                     dv = new DataView(Database.MainDataSet.Tables["ClientTravailPaiement"]);
 
                     // font/police de la dataGridView
-                    dataGridView1.Font = new Font("Times New Roman", 11.0F, FontStyle.Italic);
+                    dataGridView_customers.Font = new Font("Times New Roman", 11.0F, FontStyle.Italic);
 
                     // remplissage de la dataGridView
-                    dataGridView1.DataSource = dv;
+                    dataGridView_customers.DataSource = dv;
                     setDataGridViewFormat();
 
                     // on remplace les valeurs null par '-'
-                    dataGridView1.DefaultCellStyle.NullValue = "-";
+                    dataGridView_customers.DefaultCellStyle.NullValue = "-";
 
                     // on change la langue si l'arabe est séléctionné
                     if (Language.IsRightToLeft)
@@ -76,14 +76,14 @@ namespace GestionClient
         // event. SelectedIndexChanged de la combobox 'TravailCombo'
         private void TravailCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (FiltrerTravailCheckBox.Checked)
+            if (checkBox_filterByJob.Checked)
                 doFilter();
         }
 
         // event. CheckedChanged de la checkbox 'FiltrerTravailCheckBox'
         private void FiltrerTravailCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            TravailCombo.Enabled = FiltrerTravailCheckBox.Checked;
+            comboBox_job.Enabled = checkBox_filterByJob.Checked;
             doFilter();
         }
 
@@ -100,12 +100,12 @@ namespace GestionClient
             {
                 // Création de la boîte de dialogue d'impression
                 PrintDialog printDialog = new PrintDialog();
-                printDialog.Document = printDocument1;
+                printDialog.Document = printDocument_main;
                 //printDialog.UseEXDialog = true;
                 // affichage
                 if (printDialog.ShowDialog() == DialogResult.OK) // Si l'utilisateur confirme l'impression
                 {
-                    printDocument1.Print();
+                    printDocument_main.Print();
                 }
             }
             catch (Exception exception)
@@ -119,7 +119,7 @@ namespace GestionClient
         {
             try
             {
-                DataGridViewPrinter.Print(dataGridView1, e, LocalizedStrings.Liste_Client_Win_Name);
+                DataGridViewPrinter.Print(dataGridView_customers, e, LocalizedStrings.Liste_Client_Win_Name);
             }
             catch (Exception exc)
             {
@@ -150,39 +150,39 @@ namespace GestionClient
         // doFilter() : filtre les clients
         private void doFilter()
         {
-            if (!FiltrerTravailCheckBox.Checked)
-                dv.RowFilter = "nom LIKE '" + NomTextBox.Text + "%'";
+            if (!checkBox_filterByJob.Checked)
+                dv.RowFilter = "nom LIKE '" + textBox_name.Text + "%'";
             else
-                dv.RowFilter = "nom LIKE '" + NomTextBox.Text + "%' AND travail = '" + TravailCombo.Text + "'";
+                dv.RowFilter = "nom LIKE '" + textBox_name.Text + "%' AND travail = '" + comboBox_job.Text + "'";
         }
 
         // setDataGridviewFormat() : applique les changements de format nécéssaires à la DataGridView
         private void setDataGridViewFormat()
         {
             // Headers Text
-            dataGridView1.Columns["nom"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
-            dataGridView1.Columns["sexe"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
-            dataGridView1.Columns["travail"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
-            dataGridView1.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
-            dataGridView1.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
-            dataGridView1.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
-            dataGridView1.Columns["email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
-            dataGridView1.Columns["montant payé"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
-            dataGridView1.Columns["ajouté le"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
+            dataGridView_customers.Columns["nom"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
+            dataGridView_customers.Columns["sexe"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
+            dataGridView_customers.Columns["travail"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
+            dataGridView_customers.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
+            dataGridView_customers.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
+            dataGridView_customers.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
+            dataGridView_customers.Columns["email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
+            dataGridView_customers.Columns["montant payé"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
+            dataGridView_customers.Columns["ajouté le"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
 
             // ajout de 'ans' dans toutes les lignes de la colonne 'age'
             NumberFormatInfo formatAge = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             formatAge.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Age_Devise;
             formatAge.CurrencyDecimalDigits = 0;
-            dataGridView1.Columns["age"].DefaultCellStyle.FormatProvider = formatAge;
-            dataGridView1.Columns["age"].DefaultCellStyle.Format = "c";
+            dataGridView_customers.Columns["age"].DefaultCellStyle.FormatProvider = formatAge;
+            dataGridView_customers.Columns["age"].DefaultCellStyle.Format = "c";
 
             // ajout de la devise dans toutes les lignes de la colonne 'montant payé'
             NumberFormatInfo formatMontant = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             formatMontant.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé_Devise;
             formatMontant.CurrencyDecimalDigits = 0;
-            dataGridView1.Columns["montant payé"].DefaultCellStyle.FormatProvider = formatMontant;
-            dataGridView1.Columns["montant payé"].DefaultCellStyle.Format = "c";
+            dataGridView_customers.Columns["montant payé"].DefaultCellStyle.FormatProvider = formatMontant;
+            dataGridView_customers.Columns["montant payé"].DefaultCellStyle.Format = "c";
         }
 
         // switchLanguage() : charge la traduction des propriétés Text, ... des controls
@@ -191,14 +191,14 @@ namespace GestionClient
             // Window Name
             this.Text = LocalizedStrings.Liste_Client_Win_Name;
             // Labels et GroupBoxs
-            FiltrerClientGroupBox.Text = LocalizedStrings.Liste_Client_Filtrer_GroupBox;
-            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
-            TravailLabel.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
-            FiltrerTravailCheckBox.Text = LocalizedStrings.Liste_Client_Filtrer_CheckBox;
-            ListeClientGroupBox.Text = LocalizedStrings.Liste_Client_Liste_GroupBox;
+            groupBox_filterCustomers.Text = LocalizedStrings.Liste_Client_Filtrer_GroupBox;
+            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            label_job.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            checkBox_filterByJob.Text = LocalizedStrings.Liste_Client_Filtrer_CheckBox;
+            groupBox_customersList.Text = LocalizedStrings.Liste_Client_Liste_GroupBox;
             // Buttons
-            ActualiserBtn.Text = LocalizedStrings.Liste_Client_Actualiser_Button;
-            ImprimerBtn.Text = LocalizedStrings.Liste_Client_Imprimer_Button;
+            button_refresh.Text = LocalizedStrings.Liste_Client_Actualiser_Button;
+            button_print.Text = LocalizedStrings.Liste_Client_Imprimer_Button;
             // format de la DataGridView
             setDataGridViewFormat();
         }

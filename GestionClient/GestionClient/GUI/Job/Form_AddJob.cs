@@ -29,22 +29,22 @@ namespace GestionClient
             try
             {
                 // si la description est vide
-                if (DescriptionTextBox.Text.Length == 0)
+                if (textBox_description.Text.Length == 0)
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Description_Obligatoire);
-                    DescriptionTextBox.Focus();
+                    textBox_description.Focus();
                 }
                 // si nn si travail en double
-                else if (checkDoubleTravailDescription(DescriptionTextBox.Text))
+                else if (checkDoubleTravailDescription(textBox_description.Text))
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Description_Double);
-                    DescriptionTextBox.SelectAll(); // on séléctionne la description au cas l'utilisateur veut bien la supprimer
-                    DescriptionTextBox.Focus();
+                    textBox_description.SelectAll(); // on séléctionne la description au cas l'utilisateur veut bien la supprimer
+                    textBox_description.Focus();
                 }
                 else // si nn, c'est bon
                 {
                     // ajout du travail
-                    Database.MainDataSet.Tables["Travail"].Rows.Add(null, DescriptionTextBox.Text);
+                    Database.MainDataSet.Tables["Travail"].Rows.Add(null, textBox_description.Text);
                     Database.ApplyChanges(Database.TravailDataAdapter, "Travail");
                     if (showConfirmationMsg)
                         QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Travail_Ajouté);
@@ -117,11 +117,11 @@ namespace GestionClient
             // Window Name
             this.Text = LocalizedStrings.Ajouter_Travail_Win_Name;
             // GroupBox 'Travail'
-            groupBox1.Text = LocalizedStrings.Ajouter_Travail_1st_GroupBox;
+            groupBox_job.Text = LocalizedStrings.Ajouter_Travail_1st_GroupBox;
             // Label 'Description'
-            label1.Text = LocalizedStrings.Ajouter_Travail_1st_Label;
+            label_description.Text = LocalizedStrings.Ajouter_Travail_1st_Label;
             // Button 'Ajouter'
-            AjouterBtn.Text = LocalizedStrings.Ajouter_Travail_Ajouter_Button;
+            button_add.Text = LocalizedStrings.Ajouter_Travail_Ajouter_Button;
         }
     }
 }

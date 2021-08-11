@@ -16,10 +16,10 @@ namespace GestionClient
         private void RechercherBtn_Click(object sender, EventArgs e)
         {
             // si le nom est vide
-            if (NomTextBox.Text.Length == 0)
+            if (textBox_name.Text.Length == 0)
             {
                 QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
-                NomTextBox.Focus();
+                textBox_name.Focus();
             }
             else
             {
@@ -27,7 +27,7 @@ namespace GestionClient
                 for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
                 {
                     // si nom du client trouvé
-                    if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(NomTextBox.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
                     {
                         App.SearchResultIndex = i;
                         this.Close(); // fermeture de la fenêtre
@@ -55,10 +55,10 @@ namespace GestionClient
             // Window Name
             this.Text = LocalizedStrings.Rechercher_Client_Win_Name;
             // Labels et GroupBoxs
-            ClientGroupBox.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
-            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
             // Buttons
-            RechercherBtn.Text = LocalizedStrings.Rechercher_Client_Rechercher_Button;
+            button_search.Text = LocalizedStrings.Rechercher_Client_Rechercher_Button;
         }
     }
 }

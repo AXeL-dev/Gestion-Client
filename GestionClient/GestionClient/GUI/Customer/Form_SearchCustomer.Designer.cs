@@ -29,106 +29,106 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_SearchCustomer));
-            this.ClientGroupBox = new System.Windows.Forms.GroupBox();
-            this.NomTextBox = new System.Windows.Forms.TextBox();
-            this.NomLabel = new System.Windows.Forms.Label();
-            this.RechercherBtn = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.ClientGroupBox.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox_customer = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel_main = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_name = new System.Windows.Forms.TextBox();
+            this.label_name = new System.Windows.Forms.Label();
+            this.button_search = new System.Windows.Forms.Button();
+            this.groupBox_customer.SuspendLayout();
+            this.tableLayoutPanel_main.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ClientGroupBox
+            // groupBox_customer
             // 
-            this.ClientGroupBox.Controls.Add(this.tableLayoutPanel1);
-            this.ClientGroupBox.Font = new System.Drawing.Font("Monotype Corsiva", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClientGroupBox.Location = new System.Drawing.Point(13, 13);
-            this.ClientGroupBox.Name = "ClientGroupBox";
-            this.ClientGroupBox.Size = new System.Drawing.Size(372, 115);
-            this.ClientGroupBox.TabIndex = 0;
-            this.ClientGroupBox.TabStop = false;
-            this.ClientGroupBox.Text = "Client";
+            this.groupBox_customer.Controls.Add(this.tableLayoutPanel_main);
+            this.groupBox_customer.Font = new System.Drawing.Font("Monotype Corsiva", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_customer.Location = new System.Drawing.Point(13, 13);
+            this.groupBox_customer.Name = "groupBox_customer";
+            this.groupBox_customer.Size = new System.Drawing.Size(372, 115);
+            this.groupBox_customer.TabIndex = 0;
+            this.groupBox_customer.TabStop = false;
+            this.groupBox_customer.Text = "Customer";
             // 
-            // NomTextBox
+            // tableLayoutPanel_main
             // 
-            this.NomTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.NomTextBox.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NomTextBox.Location = new System.Drawing.Point(82, 33);
-            this.NomTextBox.Name = "NomTextBox";
-            this.NomTextBox.Size = new System.Drawing.Size(271, 25);
-            this.NomTextBox.TabIndex = 1;
+            this.tableLayoutPanel_main.ColumnCount = 2;
+            this.tableLayoutPanel_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel_main.Controls.Add(this.textBox_name, 1, 0);
+            this.tableLayoutPanel_main.Controls.Add(this.label_name, 0, 0);
+            this.tableLayoutPanel_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel_main.Location = new System.Drawing.Point(3, 20);
+            this.tableLayoutPanel_main.Name = "tableLayoutPanel_main";
+            this.tableLayoutPanel_main.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.tableLayoutPanel_main.RowCount = 1;
+            this.tableLayoutPanel_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tableLayoutPanel_main.Size = new System.Drawing.Size(366, 92);
+            this.tableLayoutPanel_main.TabIndex = 2;
             // 
-            // NomLabel
+            // textBox_name
             // 
-            this.NomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.NomLabel.AutoSize = true;
-            this.NomLabel.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NomLabel.Location = new System.Drawing.Point(13, 37);
-            this.NomLabel.Name = "NomLabel";
-            this.NomLabel.Size = new System.Drawing.Size(63, 17);
-            this.NomLabel.TabIndex = 0;
-            this.NomLabel.Text = "Nom :";
+            this.textBox_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_name.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_name.Location = new System.Drawing.Point(82, 33);
+            this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Size = new System.Drawing.Size(271, 25);
+            this.textBox_name.TabIndex = 1;
             // 
-            // RechercherBtn
+            // label_name
             // 
-            this.RechercherBtn.Font = new System.Drawing.Font("Monotype Corsiva", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RechercherBtn.Image = global::GestionClient.Properties.Resources.search;
-            this.RechercherBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RechercherBtn.Location = new System.Drawing.Point(122, 147);
-            this.RechercherBtn.Name = "RechercherBtn";
-            this.RechercherBtn.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.RechercherBtn.Size = new System.Drawing.Size(158, 44);
-            this.RechercherBtn.TabIndex = 5;
-            this.RechercherBtn.Text = "Rechercher";
-            this.RechercherBtn.UseVisualStyleBackColor = true;
-            this.RechercherBtn.Click += new System.EventHandler(this.RechercherBtn_Click);
+            this.label_name.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_name.AutoSize = true;
+            this.label_name.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_name.Location = new System.Drawing.Point(13, 37);
+            this.label_name.Name = "label_name";
+            this.label_name.Size = new System.Drawing.Size(63, 17);
+            this.label_name.TabIndex = 0;
+            this.label_name.Text = "Name :";
             // 
-            // tableLayoutPanel1
+            // button_search
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.Controls.Add(this.NomTextBox, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.NomLabel, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 20);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(366, 92);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.button_search.Font = new System.Drawing.Font("Monotype Corsiva", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_search.Image = global::GestionClient.Properties.Resources.search;
+            this.button_search.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_search.Location = new System.Drawing.Point(122, 147);
+            this.button_search.Name = "button_search";
+            this.button_search.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.button_search.Size = new System.Drawing.Size(158, 44);
+            this.button_search.TabIndex = 5;
+            this.button_search.Text = "Search";
+            this.button_search.UseVisualStyleBackColor = true;
+            this.button_search.Click += new System.EventHandler(this.RechercherBtn_Click);
             // 
-            // RechercherNomClient
+            // Form_SearchCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(397, 212);
-            this.Controls.Add(this.RechercherBtn);
-            this.Controls.Add(this.ClientGroupBox);
+            this.Controls.Add(this.button_search);
+            this.Controls.Add(this.groupBox_customer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "RechercherNomClient";
+            this.Name = "Form_SearchCustomer";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Rechercher un client";
+            this.Text = "Search a customer";
             this.Load += new System.EventHandler(this.RechercherNomClient_Load);
-            this.ClientGroupBox.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.groupBox_customer.ResumeLayout(false);
+            this.tableLayoutPanel_main.ResumeLayout(false);
+            this.tableLayoutPanel_main.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox ClientGroupBox;
-        private System.Windows.Forms.TextBox NomTextBox;
-        private System.Windows.Forms.Label NomLabel;
-        private System.Windows.Forms.Button RechercherBtn;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox groupBox_customer;
+        private System.Windows.Forms.TextBox textBox_name;
+        private System.Windows.Forms.Label label_name;
+        private System.Windows.Forms.Button button_search;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_main;
     }
 }

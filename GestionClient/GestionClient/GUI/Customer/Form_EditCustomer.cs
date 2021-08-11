@@ -43,28 +43,28 @@ namespace GestionClient
                         throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
-                    TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
-                    TravailCombo.DisplayMember = "description";
-                    TravailCombo.ValueMember = "id";
+                    comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                    comboBox_job.DisplayMember = "description";
+                    comboBox_job.ValueMember = "id";
 
                     // initialisation du DataView
                     dv = new DataView(Database.MainDataSet.Tables["Paiement"]);
                     // affichage du DataView dans la DataGridView
-                    dataGridView1.DataSource = dv;
-                    dataGridView1.Columns["id"].Visible = dataGridView1.Columns["id_client"].Visible = false;
+                    dataGridView_payements.DataSource = dv;
+                    dataGridView_payements.Columns["id"].Visible = dataGridView_payements.Columns["id_client"].Visible = false;
                     setDataGridviewFormat();
                     // ajout des bouttons supprimer dans la dataGridView des paiements
                     DeleteButtonColumn supprimerPaiementBtnColumn = new DeleteButtonColumn();
-                    dataGridView1.Columns.Add(supprimerPaiementBtnColumn);
+                    dataGridView_payements.Columns.Add(supprimerPaiementBtnColumn);
 
                     // image initiale de la pictureBox1 (La photo)
-                    pictureBox1.InitialImage = GestionClient.Properties.Resources.load;
+                    pictureBox_photo.InitialImage = GestionClient.Properties.Resources.load;
 
                     // on affiche le premier client
                     move();
 
                     // on séléctionne le boutton 'Suivant'
-                    SuivantBtn.Select();
+                    button_next.Select();
 
                     // on change la langue si l'arabe est séléctionné
                     if (Language.IsRightToLeft)
@@ -110,18 +110,18 @@ namespace GestionClient
             try
             {
                 // si le nom est vide
-                if (NomTextBox.Text.Length == 0)
+                if (textBox_name.Text.Length == 0)
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
-                    NomTextBox.Focus();
+                    textBox_name.Focus();
                 }
                 // si nn si nom en double
-                else if (checkDoubleClientNameNotCurrent(NomTextBox.Text, position))
+                else if (checkDoubleClientNameNotCurrent(textBox_name.Text, position))
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_D_un_Autre_Client);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
-                    NomTextBox.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
-                    NomTextBox.Focus();
+                    textBox_name.SelectAll(); // on séléctionne le nom au cas l'utilisateur veut bien le supprimer
+                    textBox_name.Focus();
                 }
                 else // si nn, c'est bon
                 {
@@ -132,12 +132,12 @@ namespace GestionClient
                         if (Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[i]["id"]) == currentClientId)
                         {
                             // modification
-                            Database.MainDataSet.Tables["Client"].Rows[position]["nom"] = NomTextBox.Text;
-                            Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"] = TravailCombo.SelectedValue;
-                            if (DateNaissMaskedTextBox.MaskCompleted)
-                                Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"] = DateNaissMaskedTextBox.Text;
-                            Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = NumTelMaskedTextBox.Text.Replace(" ", string.Empty);
-                            Database.MainDataSet.Tables["Client"].Rows[position]["email"] = EmailTextBox.Text;
+                            Database.MainDataSet.Tables["Client"].Rows[position]["nom"] = textBox_name.Text;
+                            Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"] = comboBox_job.SelectedValue;
+                            if (maskedTextBox_birthDate.MaskCompleted)
+                                Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"] = maskedTextBox_birthDate.Text;
+                            Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
+                            Database.MainDataSet.Tables["Client"].Rows[position]["email"] = textBox_email.Text;
                             Database.ApplyChanges(Database.ClientDataAdapter, "Client");
                             QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Modifié);
                             break; // on sort de la boucle
@@ -223,15 +223,15 @@ namespace GestionClient
             try
             {
                 // si le montant est vide
-                if (MontantMaskedTextBox.Text.Length == 0)
+                if (maskedTextBox_amount.Text.Length == 0)
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Montant_Obligatoire);
-                    MontantMaskedTextBox.Focus();
+                    maskedTextBox_amount.Focus();
                 }
                 else // si nn, c'est bon
                 {
                     // ajout du paiement
-                    Database.MainDataSet.Tables["Paiement"].Rows.Add(null, Database.MainDataSet.Tables["Client"].Rows[position]["id"], MontantMaskedTextBox.Text, DatePaiementDateTimePicker.Value);
+                    Database.MainDataSet.Tables["Paiement"].Rows.Add(null, Database.MainDataSet.Tables["Client"].Rows[position]["id"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
                     Database.ApplyChanges(Database.PaiementDataAdapter, "Paiement");
                     //QuickMessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
@@ -316,10 +316,10 @@ namespace GestionClient
         {
             try
             {
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                if (openFileDialog_main.ShowDialog() == DialogResult.OK)
                 {
                     // ajout de la pièce
-                    addPieceAs(openFileDialog1.FileName, "Autre");
+                    addPieceAs(openFileDialog_main.FileName, "Autre");
                     // raffraichissement des pieces
                     showPieces(currentClientId);
                 }
@@ -343,7 +343,7 @@ namespace GestionClient
                     if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Paiement) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
-                        int paiementId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
+                        int paiementId = Convert.ToInt32(dataGridView_payements.Rows[e.RowIndex].Cells["id"].Value);
 
                         // on boucle sur la dataTable Paiement
                         for (int i = 0; i < Database.MainDataSet.Tables["Paiement"].Rows.Count; i++)
@@ -371,24 +371,24 @@ namespace GestionClient
         {
             try
             {
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                if (openFileDialog_main.ShowDialog() == DialogResult.OK)
                 {
                     // si le client n'a pas de Photo
-                    if (pictureBox1.ImageLocation == null)
+                    if (pictureBox_photo.ImageLocation == null)
                     {
                         // ajout de la pièce en tant que Photo
-                        addPieceAs(openFileDialog1.FileName, "Photo");
+                        addPieceAs(openFileDialog_main.FileName, "Photo");
                         // on défini le Tag de la dernière image ajoutée, Dans notre cas (le client n'a pas de photo) le Tag est obligatoire, ou on aura une erreur lors de la modification
-                        pictureBox1.Tag = Database.MainDataSet.Tables["Pieces"].Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
+                        pictureBox_photo.Tag = Database.MainDataSet.Tables["Pieces"].Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
                     }
                     // si nn, le client a déjà une photo, on la modifie
                     else
                     {
-                        updatePiece(openFileDialog1.FileName, Convert.ToInt32(pictureBox1.Tag));
+                        updatePiece(openFileDialog_main.FileName, Convert.ToInt32(pictureBox_photo.Tag));
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox1.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[Convert.ToInt32(pictureBox1.Tag)]["emplacement"].ToString();
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[Convert.ToInt32(pictureBox_photo.Tag)]["emplacement"].ToString();
                 }
             }
             catch (Exception exception)
@@ -419,11 +419,11 @@ namespace GestionClient
         {
             currentClientId = Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[position]["id"]);
             setImage(currentClientId);
-            NomTextBox.Text = Database.MainDataSet.Tables["Client"].Rows[position]["nom"].ToString();
-            TravailCombo.SelectedValue = Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"];
-            DateNaissMaskedTextBox.Text = Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"].ToString();
-            NumTelMaskedTextBox.Text = Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"].ToString();
-            EmailTextBox.Text = Database.MainDataSet.Tables["Client"].Rows[position]["email"].ToString();
+            textBox_name.Text = Database.MainDataSet.Tables["Client"].Rows[position]["nom"].ToString();
+            comboBox_job.SelectedValue = Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"];
+            maskedTextBox_birthDate.Text = Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"].ToString();
+            maskedTextBox_phoneNumber.Text = Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"].ToString();
+            textBox_email.Text = Database.MainDataSet.Tables["Client"].Rows[position]["email"].ToString();
             showPaiement(currentClientId);
             showPieces(currentClientId);
         }
@@ -437,8 +437,8 @@ namespace GestionClient
                 // si on trouve que le client à une photo
                 if (Convert.ToInt32(Database.MainDataSet.Tables["Pieces"].Rows[i]["id_client"]) == clientId && Database.MainDataSet.Tables["Pieces"].Rows[i]["type_piece"].ToString() == "Photo")
                 {
-                    pictureBox1.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[i]["emplacement"].ToString();
-                    pictureBox1.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[i]["emplacement"].ToString();
+                    pictureBox_photo.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
             }
@@ -447,11 +447,11 @@ namespace GestionClient
             string sexe = Database.MainDataSet.Tables["Client"].Rows[position]["sexe"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
-                pictureBox1.Image = GestionClient.Properties.Resources.homme;
+                pictureBox_photo.Image = GestionClient.Properties.Resources.homme;
             else // si nn, une 'Femme' alors
-                pictureBox1.Image = GestionClient.Properties.Resources.femme;
+                pictureBox_photo.Image = GestionClient.Properties.Resources.femme;
 
-            pictureBox1.ImageLocation = null; // à ne pas oublier
+            pictureBox_photo.ImageLocation = null; // à ne pas oublier
         }
 
         // showImage() : affiche l'image avec le programme de visionnement par défaut
@@ -481,16 +481,16 @@ namespace GestionClient
         private void setDataGridviewFormat()
         {
             // montant
-            dataGridView1.Columns["montant"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
-            dataGridView1.Columns["montant"].Width = 200;
+            dataGridView_payements.Columns["montant"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
+            dataGridView_payements.Columns["montant"].Width = 200;
             NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             format.CurrencySymbol = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column_Devise; ;
             format.CurrencyDecimalDigits = 0;
-            dataGridView1.Columns["montant"].DefaultCellStyle.FormatProvider = format;
-            dataGridView1.Columns["montant"].DefaultCellStyle.Format = "c";
+            dataGridView_payements.Columns["montant"].DefaultCellStyle.FormatProvider = format;
+            dataGridView_payements.Columns["montant"].DefaultCellStyle.Format = "c";
             // date paiement
-            dataGridView1.Columns["date_paiement"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
-            dataGridView1.Columns["date_paiement"].Width = 200;
+            dataGridView_payements.Columns["date_paiement"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
+            dataGridView_payements.Columns["date_paiement"].Width = 200;
         }
 
         // showPieces() : affiche les pieces du client
@@ -502,9 +502,9 @@ namespace GestionClient
             DataRow[] drs = Database.MainDataSet.Tables["Pieces"].Select("id_client = " + clientId + "AND type_piece = 'Autre'");
 
             // on vide le TableLayoutPanel
-            PiecesTableLayoutPanel.Controls.Clear();
-            PiecesTableLayoutPanel.ColumnStyles.Clear();
-            PiecesTableLayoutPanel.ColumnCount = 1;
+            tableLayoutPanel_assets.Controls.Clear();
+            tableLayoutPanel_assets.ColumnStyles.Clear();
+            tableLayoutPanel_assets.ColumnCount = 1;
 
             // on vide la liste des images/pictureboxs
             piecesPbList.Clear();
@@ -513,7 +513,7 @@ namespace GestionClient
             {
                 // on divise/tranche le TableLayoutPanel en partie égale selon le nombre d'image trouvé
                 float pieceSize = (float)100 / drs.Length;
-                PiecesTableLayoutPanel.ColumnCount = drs.Length;
+                tableLayoutPanel_assets.ColumnCount = drs.Length;
 
                 // affichage
                 for (int i = 0; i < drs.Length; i++)
@@ -532,8 +532,8 @@ namespace GestionClient
                     // ajout à la liste des images/pictureboxs
                     piecesPbList.Add(pb);
                     // ajout au TableLayoutPanel
-                    PiecesTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, pieceSize));
-                    PiecesTableLayoutPanel.Controls.Add(piecesPbList[i], i, 0);
+                    tableLayoutPanel_assets.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, pieceSize));
+                    tableLayoutPanel_assets.Controls.Add(piecesPbList[i], i, 0);
                 }
             }
         }
@@ -592,30 +592,30 @@ namespace GestionClient
             // Window Name
             this.Text = LocalizedStrings.Modifier_Client_Win_Name;
             // Labels et GroupBoxs
-            ClientGroupBox.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
-            NomLabel.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
-            TravailLabel.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
-            DateNaissanceLabel.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
-            NumeroTelLabel.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
-            EmailLabel.Text = LocalizedStrings.Ajouter_Client_Email_Label;
-            PhotoGroupBox.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
-            PaiementGroupBox.Text = LocalizedStrings.Modifier_Client_Paiement_GroupBox;
-            NouveauPaiementGroupBox.Text = LocalizedStrings.Modifier_Client_Nouveau_Paiement_GroupBox;
-            MontantLabel.Text = LocalizedStrings.Modifier_Client_Montant_Label;
-            DatePaiementLabel.Text = LocalizedStrings.Modifier_Client_Date_Paiement_Label;
-            PiecesGroupBox.Text = LocalizedStrings.Modifier_Client_Pieces_GroupBox;
-            toolTip1.SetToolTip(SupprimerPieceBtn, LocalizedStrings.Modifier_Client_Supprimer_Piece_ToolTip);
-            toolTip1.SetToolTip(AjouterPieceBtn, LocalizedStrings.Modifier_Client_Ajouter_Piece_ToolTip);
+            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            label_job.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            label_birthDate.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
+            label_phoneNumber.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
+            label_email.Text = LocalizedStrings.Ajouter_Client_Email_Label;
+            groupBox_photo.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
+            groupBox_payement.Text = LocalizedStrings.Modifier_Client_Paiement_GroupBox;
+            groupBox_newPayement.Text = LocalizedStrings.Modifier_Client_Nouveau_Paiement_GroupBox;
+            label_amount.Text = LocalizedStrings.Modifier_Client_Montant_Label;
+            label_payementDate.Text = LocalizedStrings.Modifier_Client_Date_Paiement_Label;
+            groupBox_assets.Text = LocalizedStrings.Modifier_Client_Pieces_GroupBox;
+            toolTip_main.SetToolTip(button_removeAsset, LocalizedStrings.Modifier_Client_Supprimer_Piece_ToolTip);
+            toolTip_main.SetToolTip(button_addAsset, LocalizedStrings.Modifier_Client_Ajouter_Piece_ToolTip);
             // Buttons
-            SuivantBtn.Text = LocalizedStrings.Modifier_Client_Suivant_Button;
-            PrécédentBtn.Text = LocalizedStrings.Modifier_Client_Précédent_Button;
-            ModifierBtn.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
-            SupprimerBtn.Text = LocalizedStrings.Modifier_Client_Supprimer_Button;
-            RechercherBtn.Text = LocalizedStrings.Modifier_Client_Rechercher_Button;
-            ModifierPhotoBtn.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
-            EnregistrerPaiementBtn.Text = LocalizedStrings.Modifier_Client_Enregistrer_Paiement_Button;
+            button_next.Text = LocalizedStrings.Modifier_Client_Suivant_Button;
+            button_previous.Text = LocalizedStrings.Modifier_Client_Précédent_Button;
+            button_update.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            button_remove.Text = LocalizedStrings.Modifier_Client_Supprimer_Button;
+            button_search.Text = LocalizedStrings.Modifier_Client_Rechercher_Button;
+            button_changePhoto.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            button_savePayement.Text = LocalizedStrings.Modifier_Client_Enregistrer_Paiement_Button;
             // openFileDialog1
-            openFileDialog1.Title = LocalizedStrings.openFileDialog_Title;
+            openFileDialog_main.Title = LocalizedStrings.openFileDialog_Title;
             // on raffraichie le format de la liste des paiements (pour changer la langue de la liste aussi)
             setDataGridviewFormat();
         }

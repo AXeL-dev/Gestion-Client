@@ -19,9 +19,9 @@ namespace GestionClient
             if (Database.ConnectedToDatabase) // si on est connecté à la base de données
             {
                 // remplissage de la combobox 'TravailCombo'
-                TravailCombo.DataSource = Database.MainDataSet.Tables["Travail"];
-                TravailCombo.DisplayMember = "description";
-                TravailCombo.ValueMember = "id";
+                comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                comboBox_job.DisplayMember = "description";
+                comboBox_job.ValueMember = "id";
 
                 // on change la langue si l'arabe est séléctionné
                 if (Language.IsRightToLeft)
@@ -46,7 +46,7 @@ namespace GestionClient
             try
             {
                 // si jamais la combobox est vide
-                if (TravailCombo.Items.Count == 0)
+                if (comboBox_job.Items.Count == 0)
                     throw new Exception(LocalizedStrings.MessageBox_Rien_A_Supprimer);
                 else if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Travail) == DialogResult.Yes)
                 {
@@ -54,7 +54,7 @@ namespace GestionClient
                     for (int i = 0; i < Database.MainDataSet.Tables["Travail"].Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Database.MainDataSet.Tables["Travail"].Rows[i]["id"].ToString() == TravailCombo.SelectedValue.ToString())
+                        if (Database.MainDataSet.Tables["Travail"].Rows[i]["id"].ToString() == comboBox_job.SelectedValue.ToString())
                         {
                             // suppression
                             Database.MainDataSet.Tables["Travail"].Rows[i].Delete();
@@ -93,11 +93,11 @@ namespace GestionClient
             // Window Name
             this.Text = LocalizedStrings.Supprimer_Travail_Win_Name;
             // Label 'Travail'
-            label1.Text = LocalizedStrings.Supprimer_Travail_1st_Label;
+            label_job.Text = LocalizedStrings.Supprimer_Travail_1st_Label;
             // Label '(*)...'
-            label2.Text = LocalizedStrings.Supprimer_Travail_2nd_Label;
+            label_warning.Text = LocalizedStrings.Supprimer_Travail_2nd_Label;
             // Button 'Supprimer'
-            SupprimerBtn.Text = LocalizedStrings.Supprimer_Travail_Supprimer_Button;
+            button_remove.Text = LocalizedStrings.Supprimer_Travail_Supprimer_Button;
         }
     }
 }

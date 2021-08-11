@@ -29,89 +29,89 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_About));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.AppNameGroupBox = new System.Windows.Forms.GroupBox();
-            this.AppInfosTextBox = new System.Windows.Forms.TextBox();
-            this.OkBtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.AppNameGroupBox.SuspendLayout();
+            this.pictureBox_logo = new System.Windows.Forms.PictureBox();
+            this.groupBox_name = new System.Windows.Forms.GroupBox();
+            this.textBox_infos = new System.Windows.Forms.TextBox();
+            this.button_ok = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).BeginInit();
+            this.groupBox_name.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBox_logo
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(131, 28);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(96, 96);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox_logo.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_logo.Image")));
+            this.pictureBox_logo.Location = new System.Drawing.Point(131, 28);
+            this.pictureBox_logo.Name = "pictureBox_logo";
+            this.pictureBox_logo.Size = new System.Drawing.Size(96, 96);
+            this.pictureBox_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_logo.TabIndex = 0;
+            this.pictureBox_logo.TabStop = false;
             // 
-            // AppNameGroupBox
+            // groupBox_name
             // 
-            this.AppNameGroupBox.Controls.Add(this.AppInfosTextBox);
-            this.AppNameGroupBox.Controls.Add(this.pictureBox1);
-            this.AppNameGroupBox.Font = new System.Drawing.Font("Monotype Corsiva", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppNameGroupBox.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.AppNameGroupBox.Location = new System.Drawing.Point(12, 12);
-            this.AppNameGroupBox.Name = "AppNameGroupBox";
-            this.AppNameGroupBox.Size = new System.Drawing.Size(350, 268);
-            this.AppNameGroupBox.TabIndex = 1;
-            this.AppNameGroupBox.TabStop = false;
-            this.AppNameGroupBox.Text = "AppName";
+            this.groupBox_name.Controls.Add(this.textBox_infos);
+            this.groupBox_name.Controls.Add(this.pictureBox_logo);
+            this.groupBox_name.Font = new System.Drawing.Font("Monotype Corsiva", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox_name.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.groupBox_name.Location = new System.Drawing.Point(12, 12);
+            this.groupBox_name.Name = "groupBox_name";
+            this.groupBox_name.Size = new System.Drawing.Size(350, 268);
+            this.groupBox_name.TabIndex = 1;
+            this.groupBox_name.TabStop = false;
+            this.groupBox_name.Text = "AppName";
             // 
-            // AppInfosTextBox
+            // textBox_infos
             // 
-            this.AppInfosTextBox.BackColor = System.Drawing.Color.White;
-            this.AppInfosTextBox.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppInfosTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.AppInfosTextBox.Location = new System.Drawing.Point(15, 141);
-            this.AppInfosTextBox.Multiline = true;
-            this.AppInfosTextBox.Name = "AppInfosTextBox";
-            this.AppInfosTextBox.ReadOnly = true;
-            this.AppInfosTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.AppInfosTextBox.Size = new System.Drawing.Size(320, 112);
-            this.AppInfosTextBox.TabIndex = 1;
+            this.textBox_infos.BackColor = System.Drawing.Color.White;
+            this.textBox_infos.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_infos.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox_infos.Location = new System.Drawing.Point(15, 141);
+            this.textBox_infos.Multiline = true;
+            this.textBox_infos.Name = "textBox_infos";
+            this.textBox_infos.ReadOnly = true;
+            this.textBox_infos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox_infos.Size = new System.Drawing.Size(320, 112);
+            this.textBox_infos.TabIndex = 1;
             // 
-            // OkBtn
+            // button_ok
             // 
-            this.OkBtn.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OkBtn.Location = new System.Drawing.Point(143, 292);
-            this.OkBtn.Name = "OkBtn";
-            this.OkBtn.Size = new System.Drawing.Size(96, 28);
-            this.OkBtn.TabIndex = 2;
-            this.OkBtn.Text = "Ok";
-            this.OkBtn.UseVisualStyleBackColor = true;
-            this.OkBtn.Click += new System.EventHandler(this.OkBtn_Click);
+            this.button_ok.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_ok.Location = new System.Drawing.Point(143, 292);
+            this.button_ok.Name = "button_ok";
+            this.button_ok.Size = new System.Drawing.Size(96, 28);
+            this.button_ok.TabIndex = 2;
+            this.button_ok.Text = "Ok";
+            this.button_ok.UseVisualStyleBackColor = true;
+            this.button_ok.Click += new System.EventHandler(this.OkBtn_Click);
             // 
-            // About
+            // Form_About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 332);
-            this.Controls.Add(this.OkBtn);
-            this.Controls.Add(this.AppNameGroupBox);
+            this.Controls.Add(this.button_ok);
+            this.Controls.Add(this.groupBox_name);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "About";
+            this.Name = "Form_About";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "À propos";
+            this.Text = "About";
             this.Load += new System.EventHandler(this.About_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.AppNameGroupBox.ResumeLayout(false);
-            this.AppNameGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).EndInit();
+            this.groupBox_name.ResumeLayout(false);
+            this.groupBox_name.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.GroupBox AppNameGroupBox;
-        private System.Windows.Forms.TextBox AppInfosTextBox;
-        private System.Windows.Forms.Button OkBtn;
+        private System.Windows.Forms.PictureBox pictureBox_logo;
+        private System.Windows.Forms.GroupBox groupBox_name;
+        private System.Windows.Forms.TextBox textBox_infos;
+        private System.Windows.Forms.Button button_ok;
     }
 }

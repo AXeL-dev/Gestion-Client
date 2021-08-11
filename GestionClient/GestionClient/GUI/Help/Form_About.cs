@@ -17,10 +17,10 @@ namespace GestionClient
         private void About_Load(object sender, EventArgs e)
         {
             // On affiche le nom de l'application
-            AppNameGroupBox.Text = App.Name;
+            groupBox_name.Text = App.Name;
 
             // On affiche les informations de l'app.
-            AppInfosTextBox.Text = LocalizedStrings.About_Version + "\r\n\r\n" +
+            textBox_infos.Text = LocalizedStrings.About_Version + "\r\n\r\n" +
                                    LocalizedStrings.About_Dev + "\r\n\r\n" +
                                    LocalizedStrings.About_DotNet_Version + "\r\n\r\n" +
                                    LocalizedStrings.About_Compatibilité + "\r\n\r\n" +
@@ -28,7 +28,7 @@ namespace GestionClient
                                    LocalizedStrings.About_End;
 
             // On bouge le curseur de séléction au début (0), car on obtient un texte completement séléctionné au départ
-            AppInfosTextBox.Select(0, 0);
+            textBox_infos.Select(0, 0);
         }
 
         // event. Click du boutton 'OkBtn'
