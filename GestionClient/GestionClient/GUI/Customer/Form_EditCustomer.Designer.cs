@@ -204,7 +204,7 @@
             this.groupBox_customer.Size = new System.Drawing.Size(705, 219);
             this.groupBox_customer.TabIndex = 1;
             this.groupBox_customer.TabStop = false;
-            this.groupBox_customer.Text = "Customer";
+            this.groupBox_customer.Text = "Customers";
             // 
             // tableLayoutPanel5
             // 

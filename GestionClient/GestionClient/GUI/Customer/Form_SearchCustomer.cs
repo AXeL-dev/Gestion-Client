@@ -24,10 +24,10 @@ namespace GestionClient
             else
             {
                 // on parcourt la dataTable Client
-                for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+                for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                 {
                     // si nom du client trouvé
-                    if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
                     {
                         App.SearchResultIndex = i;
                         this.Close(); // fermeture de la fenêtre

@@ -19,7 +19,7 @@ namespace GestionClient
             if (Database.ConnectedToDatabase) // si on est connecté à la base de données
             {
                 // remplissage de la combobox 'TravailCombo'
-                comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                comboBox_job.DataSource = Database.Jobs.Table;
                 comboBox_job.DisplayMember = "description";
                 comboBox_job.ValueMember = "id";
 
@@ -51,17 +51,17 @@ namespace GestionClient
                 else if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Travail) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Travail
-                    for (int i = 0; i < Database.MainDataSet.Tables["Travail"].Rows.Count; i++)
+                    for (int i = 0; i < Database.Jobs.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Database.MainDataSet.Tables["Travail"].Rows[i]["id"].ToString() == comboBox_job.SelectedValue.ToString())
+                        if (Database.Jobs.Table.Rows[i]["id"].ToString() == comboBox_job.SelectedValue.ToString())
                         {
                             // suppression
-                            Database.MainDataSet.Tables["Travail"].Rows[i].Delete();
-                            Database.ApplyChanges(Database.TravailDataAdapter, "Travail");
+                            Database.Jobs.Table.Rows[i].Delete();
+                            Database.Jobs.ApplyChanges();
                             QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Travail_Supprimé);
                             // mise à jour de la dataTable Client (pour supprimer les clients en relation avec ce travail)
-                            Database.FetchClientTable();
+                            Database.Customers.FetchTable();
                             break; // on sort de la boucle for
                         }
                     }

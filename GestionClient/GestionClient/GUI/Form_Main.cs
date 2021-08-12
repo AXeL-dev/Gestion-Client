@@ -84,7 +84,6 @@ namespace GestionClient
         {
             try
             {
-                Database.FetchAllTables();
                 statusLabel_main.Text = LocalizedStrings.Connexion_To_DB_Success;
                 statusLabel_main.ForeColor = Color.Green;
                 statusLabel_main.Image = Resources._true;

@@ -24,7 +24,7 @@ namespace GestionClient
                 // séléction d'Homme dans la combobox
                 comboBox_gender.SelectedIndex = 0;
                 // remplissage de la combobox 'TravailCombo'
-                comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                comboBox_job.DataSource = Database.Jobs.Table;
                 comboBox_job.DisplayMember = "description";
                 comboBox_job.ValueMember = "id";
 
@@ -98,10 +98,10 @@ namespace GestionClient
                     string dateNaissance = null;
                     if (maskedTextBox_birthDate.MaskCompleted)
                         dateNaissance = maskedTextBox_birthDate.Text;
-                    Database.MainDataSet.Tables["Client"].Rows.Add(null, textBox_name.Text, comboBox_gender.Text, comboBox_job.SelectedValue, dateNaissance, maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty), textBox_email.Text, DateTime.Now.ToString());
-                    Database.ApplyChanges(Database.ClientDataAdapter, "Client");
+                    Database.Customers.Table.Rows.Add(null, textBox_name.Text, comboBox_gender.Text, comboBox_job.SelectedValue, dateNaissance, maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty), textBox_email.Text, DateTime.Now.ToString());
+                    Database.Customers.ApplyChanges();
                     // mise à jour de la dataTable Client (pour avoir les bon ids)
-                    Database.FetchClientTable();
+                    Database.Customers.FetchTable();
                     // on récupère l'id du client
                     int clientId = getClientIdByName(textBox_name.Text);
                     // on récupère le chemin ou on va pouvoir stocker l'image
@@ -118,10 +118,10 @@ namespace GestionClient
                         string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
                         File.Copy(pictureBox_photo.ImageLocation, App.FolderPath + "\\" + destinationFileName, true);
                         // on ajoute la photo en tant que Piece ('Photo')
-                        Database.MainDataSet.Tables["Pieces"].Rows.Add(null, clientId, destinationFileName, "Photo");
-                        Database.ApplyChanges(Database.PiecesDataAdapter, "Pieces");
+                        Database.Assets.Table.Rows.Add(null, clientId, destinationFileName, "Photo");
+                        Database.Assets.ApplyChanges();
                         // mise à jour de la dataTable Pieces (pour avoir les bon ids, afin de pouvoir modifier la photo après)
-                        Database.FetchPiecesTable();
+                        Database.Assets.FetchTable();
                     }
                     QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Ajouté);
                     // fermeture de la fenêtre
@@ -170,10 +170,10 @@ namespace GestionClient
         private int getClientIdByName(string clientName)
         {
             // on parcourt la dataTable Client
-            for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString() == clientName)
-                    return Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[i]["id"]);
+                if (Database.Customers.Table.Rows[i]["nom"].ToString() == clientName)
+                    return Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]);
             }
 
             // si on ne le trouve pas on retourne un -1
@@ -183,9 +183,9 @@ namespace GestionClient
         // checkDoubleClientName(...) : vérifie si le nom du client entré existe déjà (return true) ou pas (return false)
         private bool checkDoubleClientName(string name)
         {
-            for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 

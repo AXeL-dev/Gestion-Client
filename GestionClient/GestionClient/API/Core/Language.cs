@@ -75,8 +75,7 @@ namespace GestionClient
         /// <returns></returns>
         public static string GetCurrentLanguage()
         {
-            Database.FetchLangueTable();
-            return Database.MainDataSet.Tables["Langue"].Rows[0]["abrv"].ToString();
+            return Database.Language.Table.Rows[0]["abrv"].ToString();
         }
 
         /// <summary>
@@ -87,8 +86,8 @@ namespace GestionClient
         {
             LocalizedStrings.Culture = CultureInfo.CreateSpecificCulture(language);
             LocalizeMessageBoxes();
-            Database.MainDataSet.Tables["Langue"].Rows[0]["abrv"] = language;
-            Database.ApplyChanges(Database.LangueDataAdapter, "Langue");
+            Database.Language.Table.Rows[0]["abrv"] = language;
+            Database.Language.ApplyChanges();
             // Trigger LanguageChanged event to let subscribers handle it.
             if (Changed != null)
             {

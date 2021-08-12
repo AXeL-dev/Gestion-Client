@@ -57,8 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Core\App.cs" />
-    <Compile Include="API\Core\Database.cs" />
+    <Compile Include="API\Database\Database.cs" />
     <Compile Include="API\Core\Language.cs" />
+    <Compile Include="API\Database\TableAccessor.cs" />
     <Compile Include="API\UI Elements\QuickMessageBox.cs" />
     <Compile Include="API\Miscellaneous\WinRar.cs" />
     <Compile Include="GUI\Help\Form_About.cs">
@@ -184,6 +185,7 @@
     <EmbeddedResource Include="GUI\Job\Form_RemoveJob.resx">
       <DependentUpon>Form_RemoveJob.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

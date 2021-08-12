@@ -27,19 +27,19 @@ namespace GestionClient
                 if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
                 {
                     // si la dataTable Client est vide
-                    if (Database.MainDataSet.Tables["Client"].Rows.Count == 0)
+                    if (Database.Customers.Table.Rows.Count == 0)
                         throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
-                    comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                    comboBox_job.DataSource = Database.Jobs.Table;
                     comboBox_job.DisplayMember = "description";
                     comboBox_job.ValueMember = "id";
 
                     // on récupère la dataTable ClientTravailPaiement
-                    Database.FetchClientTravailPaiementTable();
+                    Database.CustomersJobsPayments.FetchTable();
 
                     // on crée un DataView pour pouvoir filtrer
-                    dv = new DataView(Database.MainDataSet.Tables["ClientTravailPaiement"]);
+                    dv = new DataView(Database.CustomersJobsPayments.Table);
 
                     // font/police de la dataGridView
                     dataGridView_customers.Font = new Font("Times New Roman", 11.0F, FontStyle.Italic);
@@ -130,7 +130,7 @@ namespace GestionClient
         // event. Click sur le boutton 'ActualiserBtn'
         private void ActualiserBtn_Click(object sender, EventArgs e)
         {
-            Database.FetchClientTravailPaiementTable();
+            Database.CustomersJobsPayments.FetchTable();
         }
 
         // event. LanguageChanged du formulaire (enfant)
@@ -162,7 +162,7 @@ namespace GestionClient
             // Headers Text
             dataGridView_customers.Columns["nom"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
             dataGridView_customers.Columns["sexe"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
-            dataGridView_customers.Columns["travail"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
+            dataGridView_customers.Columns["Jobs"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
             dataGridView_customers.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
             dataGridView_customers.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
             dataGridView_customers.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;

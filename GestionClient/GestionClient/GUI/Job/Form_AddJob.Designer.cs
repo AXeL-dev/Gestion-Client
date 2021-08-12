@@ -117,7 +117,7 @@
             this.button_add.TabIndex = 1;
             this.button_add.Text = "Add";
             this.button_add.UseVisualStyleBackColor = true;
-            this.button_add.Click += new System.EventHandler(this.AjouterBtn_Click);
+            this.button_add.Click += new System.EventHandler(this.button_add_Click);
             // 
             // Form_AddJob
             // 
@@ -137,7 +137,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a job";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AjouterTravail_FormClosed);
-            this.Load += new System.EventHandler(this.AjouterTravail_Load);
+            this.Load += new System.EventHandler(this.Form_AddJob_Load);
             this.groupBox_job.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

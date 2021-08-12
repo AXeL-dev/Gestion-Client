@@ -39,16 +39,16 @@ namespace GestionClient
                 if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
                 {
                     // si la dataTable Client est vide
-                    if (Database.MainDataSet.Tables["Client"].Rows.Count == 0)
+                    if (Database.Customers.Table.Rows.Count == 0)
                         throw new Exception(LocalizedStrings.MessageBox_Aucun_Client);
 
                     // remplissage de la combobox 'TravailCombo'
-                    comboBox_job.DataSource = Database.MainDataSet.Tables["Travail"];
+                    comboBox_job.DataSource = Database.Jobs.Table;
                     comboBox_job.DisplayMember = "description";
                     comboBox_job.ValueMember = "id";
 
                     // initialisation du DataView
-                    dv = new DataView(Database.MainDataSet.Tables["Paiement"]);
+                    dv = new DataView(Database.Payments.Table);
                     // affichage du DataView dans la DataGridView
                     dataGridView_payements.DataSource = dv;
                     dataGridView_payements.Columns["id"].Visible = dataGridView_payements.Columns["id_client"].Visible = false;
@@ -87,8 +87,8 @@ namespace GestionClient
         {
             // on avance
             position++;
-            if (position > Database.MainDataSet.Tables["Client"].Rows.Count - 1)
-                position = Database.MainDataSet.Tables["Client"].Rows.Count - 1;
+            if (position > Database.Customers.Table.Rows.Count - 1)
+                position = Database.Customers.Table.Rows.Count - 1;
             // on affiche le client
             move();
         }
@@ -126,19 +126,19 @@ namespace GestionClient
                 else // si nn, c'est bon
                 {
                     // on parcourt la dataTable Client
-                    for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+                    for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvée
-                        if (Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]) == currentClientId)
                         {
                             // modification
-                            Database.MainDataSet.Tables["Client"].Rows[position]["nom"] = textBox_name.Text;
-                            Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"] = comboBox_job.SelectedValue;
+                            Database.Customers.Table.Rows[position]["nom"] = textBox_name.Text;
+                            Database.Customers.Table.Rows[position]["id_travail"] = comboBox_job.SelectedValue;
                             if (maskedTextBox_birthDate.MaskCompleted)
-                                Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"] = maskedTextBox_birthDate.Text;
-                            Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
-                            Database.MainDataSet.Tables["Client"].Rows[position]["email"] = textBox_email.Text;
-                            Database.ApplyChanges(Database.ClientDataAdapter, "Client");
+                                Database.Customers.Table.Rows[position]["date_naissance"] = maskedTextBox_birthDate.Text;
+                            Database.Customers.Table.Rows[position]["numero_telephone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
+                            Database.Customers.Table.Rows[position]["email"] = textBox_email.Text;
+                            Database.Customers.ApplyChanges();
                             QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Modifié);
                             break; // on sort de la boucle
                         }
@@ -159,20 +159,20 @@ namespace GestionClient
                 if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Client) == DialogResult.Yes)
                 {
                     // on boucle sur la dataTable Client
-                    for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+                    for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]) == currentClientId)
                         {
                             // suppression du client
-                            Database.MainDataSet.Tables["Client"].Rows[i].Delete();
-                            Database.ApplyChanges(Database.ClientDataAdapter, "Client");
+                            Database.Customers.Table.Rows[i].Delete();
+                            Database.Customers.ApplyChanges();
                             // suppression du dossier du client (!@ avec tout son contenu)
                             string clientFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";
                             if (Directory.Exists(clientFolderName))
                                 Directory.Delete(clientFolderName, true);
                             // si on peu faire un retour en arrière
-                            if (Database.MainDataSet.Tables["Client"].Rows.Count > 0)
+                            if (Database.Customers.Table.Rows.Count > 0)
                             {
                                 // on revient en arrière (simulation d'un click sur 'Précédent')
                                 PrécédentBtn_Click(sender, e);
@@ -231,11 +231,11 @@ namespace GestionClient
                 else // si nn, c'est bon
                 {
                     // ajout du paiement
-                    Database.MainDataSet.Tables["Paiement"].Rows.Add(null, Database.MainDataSet.Tables["Client"].Rows[position]["id"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
-                    Database.ApplyChanges(Database.PaiementDataAdapter, "Paiement");
+                    Database.Payments.Table.Rows.Add(null, Database.Customers.Table.Rows[position]["id"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
+                    Database.Payments.ApplyChanges();
                     //QuickMessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
-                    Database.FetchPaiementTable();
+                    Database.Payments.FetchTable();
                 }
             }
             catch (Exception exception)
@@ -279,16 +279,16 @@ namespace GestionClient
                             if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Piece) == DialogResult.Yes)
                             {
                                 // on parcourt la dataTable 'Pieces'
-                                for (int p = 0; p < Database.MainDataSet.Tables["Pieces"].Rows.Count; p++)
+                                for (int p = 0; p < Database.Assets.Table.Rows.Count; p++)
                                 {
                                     // si on trouve que la clé primaire (id) == tag de l'image ou on a sauvegardé l'id nous aussi
-                                    if (Database.MainDataSet.Tables["Pieces"].Rows[p]["id"].ToString() == piecesPbList[i].Tag.ToString())
+                                    if (Database.Assets.Table.Rows[p]["id"].ToString() == piecesPbList[i].Tag.ToString())
                                     {
                                         // suppression de l'image
                                         File.Delete(piecesPbList[i].ImageLocation);
                                         // suppression de la piece de la table 'Pieces'
-                                        Database.MainDataSet.Tables["Pieces"].Rows[p].Delete();
-                                        Database.ApplyChanges(Database.PiecesDataAdapter, "Pieces");
+                                        Database.Assets.Table.Rows[p].Delete();
+                                        Database.Assets.ApplyChanges();
                                         // raffraichissement des pieces
                                         showPieces(currentClientId);
                                         break; // on sort de la 2ème boucle
@@ -346,14 +346,14 @@ namespace GestionClient
                         int paiementId = Convert.ToInt32(dataGridView_payements.Rows[e.RowIndex].Cells["id"].Value);
 
                         // on boucle sur la dataTable Paiement
-                        for (int i = 0; i < Database.MainDataSet.Tables["Paiement"].Rows.Count; i++)
+                        for (int i = 0; i < Database.Payments.Table.Rows.Count; i++)
                         {
                             // si clé primaire trouvé
-                            if (Convert.ToInt32(Database.MainDataSet.Tables["Paiement"].Rows[i]["id"]) == paiementId)
+                            if (Convert.ToInt32(Database.Payments.Table.Rows[i]["id"]) == paiementId)
                             {
                                 // suppression du paiement
-                                Database.MainDataSet.Tables["Paiement"].Rows[i].Delete();
-                                Database.ApplyChanges(Database.PaiementDataAdapter, "Paiement");
+                                Database.Payments.Table.Rows[i].Delete();
+                                Database.Payments.ApplyChanges();
                                 break; // on sort de la boucle for
                             }
                         }
@@ -379,7 +379,7 @@ namespace GestionClient
                         // ajout de la pièce en tant que Photo
                         addPieceAs(openFileDialog_main.FileName, "Photo");
                         // on défini le Tag de la dernière image ajoutée, Dans notre cas (le client n'a pas de photo) le Tag est obligatoire, ou on aura une erreur lors de la modification
-                        pictureBox_photo.Tag = Database.MainDataSet.Tables["Pieces"].Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
+                        pictureBox_photo.Tag = Database.Assets.Table.Rows.Count - 1; // rappelez-vous le Tag sert à nous simplifier la modification de la Photo
                     }
                     // si nn, le client a déjà une photo, on la modifie
                     else
@@ -388,7 +388,7 @@ namespace GestionClient
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[Convert.ToInt32(pictureBox_photo.Tag)]["emplacement"].ToString();
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["emplacement"].ToString();
                 }
             }
             catch (Exception exception)
@@ -417,13 +417,13 @@ namespace GestionClient
         // move() : gère les déplacements des clients
         private void move()
         {
-            currentClientId = Convert.ToInt32(Database.MainDataSet.Tables["Client"].Rows[position]["id"]);
+            currentClientId = Convert.ToInt32(Database.Customers.Table.Rows[position]["id"]);
             setImage(currentClientId);
-            textBox_name.Text = Database.MainDataSet.Tables["Client"].Rows[position]["nom"].ToString();
-            comboBox_job.SelectedValue = Database.MainDataSet.Tables["Client"].Rows[position]["id_travail"];
-            maskedTextBox_birthDate.Text = Database.MainDataSet.Tables["Client"].Rows[position]["date_naissance"].ToString();
-            maskedTextBox_phoneNumber.Text = Database.MainDataSet.Tables["Client"].Rows[position]["numero_telephone"].ToString();
-            textBox_email.Text = Database.MainDataSet.Tables["Client"].Rows[position]["email"].ToString();
+            textBox_name.Text = Database.Customers.Table.Rows[position]["nom"].ToString();
+            comboBox_job.SelectedValue = Database.Customers.Table.Rows[position]["id_travail"];
+            maskedTextBox_birthDate.Text = Database.Customers.Table.Rows[position]["date_naissance"].ToString();
+            maskedTextBox_phoneNumber.Text = Database.Customers.Table.Rows[position]["numero_telephone"].ToString();
+            textBox_email.Text = Database.Customers.Table.Rows[position]["email"].ToString();
             showPaiement(currentClientId);
             showPieces(currentClientId);
         }
@@ -432,19 +432,19 @@ namespace GestionClient
         private void setImage(int clientId)
         {
             // on parcourt la dataTable 'Pieces'
-            for (int i = 0; i < Database.MainDataSet.Tables["Pieces"].Rows.Count; i++)
+            for (int i = 0; i < Database.Assets.Table.Rows.Count; i++)
             {
                 // si on trouve que le client à une photo
-                if (Convert.ToInt32(Database.MainDataSet.Tables["Pieces"].Rows[i]["id_client"]) == clientId && Database.MainDataSet.Tables["Pieces"].Rows[i]["type_piece"].ToString() == "Photo")
+                if (Convert.ToInt32(Database.Assets.Table.Rows[i]["id_client"]) == clientId && Database.Assets.Table.Rows[i]["type_piece"].ToString() == "Photo")
                 {
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[i]["emplacement"].ToString();
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[i]["emplacement"].ToString();
                     pictureBox_photo.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
             }
 
             // si nn
-            string sexe = Database.MainDataSet.Tables["Client"].Rows[position]["sexe"].ToString();
+            string sexe = Database.Customers.Table.Rows[position]["sexe"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
                 pictureBox_photo.Image = GestionClient.Properties.Resources.homme;
@@ -497,9 +497,9 @@ namespace GestionClient
         private void showPieces(int clientId)
         {
             // filtrage
-            //DataView dv = new DataView(ClassGlobal.ds.Tables["Pieces"]);
+            //DataView dv = new DataView(ClassGlobal.ds.Tables["Assets"]);
             //dv.RowFilter = "id_client = " + clientId + "AND type_piece = 'Autre'";
-            DataRow[] drs = Database.MainDataSet.Tables["Pieces"].Select("id_client = " + clientId + "AND type_piece = 'Autre'");
+            DataRow[] drs = Database.Assets.Table.Select("id_client = " + clientId + "AND type_piece = 'Autre'");
 
             // on vide le TableLayoutPanel
             tableLayoutPanel_assets.Controls.Clear();
@@ -541,9 +541,9 @@ namespace GestionClient
         // checkDoubleClientNameNotCurrent(...) : vérifie si le nom du client entré existe déjà + ne prend pas en compte le client en cours (dont on change le nom)
         private bool checkDoubleClientNameNotCurrent(string name, int currentClientPosition)
         {
-            for (int i = 0; i < Database.MainDataSet.Tables["Client"].Rows.Count; i++)
+            for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (i != currentClientPosition && Database.MainDataSet.Tables["Client"].Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (i != currentClientPosition && Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 
@@ -561,10 +561,10 @@ namespace GestionClient
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(emplacementPiece, App.FolderPath + "\\" + destinationFileName, true);
             // on ajoute la photo en tant que Piece
-            Database.MainDataSet.Tables["Pieces"].Rows.Add(null, currentClientId, destinationFileName, typePiece);
-            Database.ApplyChanges(Database.PiecesDataAdapter, "Pieces");
+            Database.Assets.Table.Rows.Add(null, currentClientId, destinationFileName, typePiece);
+            Database.Assets.ApplyChanges();
             // mise à jour de la dataTable 'Pieces' (pour avoir les bon ids des pièces)
-            Database.FetchPiecesTable();
+            Database.Assets.FetchTable();
         }
 
         // updatePiece(...) : met à jour une pièce, en la copyant dans la bdd et en changeant son emplacement + suppression de l'ancienne
@@ -578,12 +578,12 @@ namespace GestionClient
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(nouveauEmplacement, App.FolderPath + "\\" + destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
-            string oldImage = App.FolderPath + "\\" + Database.MainDataSet.Tables["Pieces"].Rows[pieceIndex]["emplacement"].ToString();
+            string oldImage = App.FolderPath + "\\" + Database.Assets.Table.Rows[pieceIndex]["emplacement"].ToString();
             if (File.Exists(oldImage))
                 File.Delete(oldImage);
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces
-            Database.MainDataSet.Tables["Pieces"].Rows[pieceIndex]["emplacement"] = destinationFileName;
-            Database.ApplyChanges(Database.PiecesDataAdapter, "Pieces");
+            Database.Assets.Table.Rows[pieceIndex]["emplacement"] = destinationFileName;
+            Database.Assets.ApplyChanges();
         }
 
         // switchLanguage() : charge la traduction des propriétés Text, ... des controls

@@ -22,3 +22,4 @@ C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\D
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.fr.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ja.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ar.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe.config
