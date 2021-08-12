@@ -26,13 +26,13 @@ namespace GestionClient
         /// <summary>
         /// Checks if a job already exists.
         /// </summary>
-        /// <param name="description"></param>
+        /// <param name="Description"></param>
         /// <returns>True if job exists.</returns>
         private bool GetJobExists(string description)
         {
             for (int i = 0; i < Database.Jobs.Table.Rows.Count; i++)
             {
-                if (Database.Jobs.Table.Rows[i]["description"].ToString().ToUpper() == description.ToUpper()) // ToUpper() pour gérer la casse
+                if (Database.Jobs.Table.Rows[i]["Description"].ToString().ToUpper() == description.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
             return false;

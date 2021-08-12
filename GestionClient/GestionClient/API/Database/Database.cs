@@ -17,18 +17,18 @@ namespace GestionClient
         static Database()
         {
             Customers = new TableAccessor("Customers");
-            Customers.Table.DefaultView.Sort = "nom";
+            Customers.Table.DefaultView.Sort = "FullName";
             Assets = new TableAccessor("Assets");
-            Payments = new TableAccessor("Payment");
+            Payments = new TableAccessor("Payments");
             Jobs = new TableAccessor("Jobs");
             CustomersJobsPayments = new TableAccessor(@"
-                SELECT nom, sexe, description AS [travail], 
-                DateDiff('yyyy', date_naissance, Date()) AS [age], 
-                date_naissance AS [date de naissance], numero_telephone AS [numéro tél], email, 
-                SUM(montant) AS [montant payé], date_ajout AS [ajouté le] 
-                FROM ((Client INNER JOIN Travail ON Travail.id = Client.id_travail)
-                LEFT OUTER JOIN Paiement ON Paiement.id_client = Client.id) 
-                GROUP BY nom, sexe, description, date_naissance, numero_telephone, email, date_ajout",
+                SELECT Name, Gender, Description AS [Job], 
+                DateDiff('yyyy', BirthDate, Date()) AS [Age], 
+                BirthDate AS [Birth Date], Phone AS [Phone Number], Email, 
+                SUM(Amount) AS [Paid Amount], CreateDate AS [Added At] 
+                FROM ((Customers INNER JOIN Jobs ON Jobs.id = Customers.JobID)
+                LEFT OUTER JOIN Payments ON Payments.CustomerID = Customer.ID) 
+                GROUP BY Name, Gender, Description, BirthDate, Phone, Email, CreateDate",
                 "CustomersJobsPayments", query: true);
             Language = new TableAccessor("Language");
             ConnectedToDatabase = true;

@@ -40,12 +40,10 @@ namespace GestionClient
         public TableAccessor(string tableNameOrQuery, string dataTableName = null,
             bool query = false, bool fetch = true)
         {
-            using (OleDbCommand command = new OleDbCommand(tableNameOrQuery, s_connection))
-            {
-                command.CommandType = query ? CommandType.Text : CommandType.TableDirect;
-                _adapter = new OleDbDataAdapter(command);
-                new OleDbCommandBuilder(_adapter).Dispose();
-            }
+            OleDbCommand command = new OleDbCommand(tableNameOrQuery, s_connection);
+            command.CommandType = query ? CommandType.Text : CommandType.TableDirect;
+            _adapter = new OleDbDataAdapter(command);
+            new OleDbCommandBuilder(_adapter).Dispose();
             if (!query && string.IsNullOrEmpty(dataTableName))
             {
                 dataTableName = tableNameOrQuery;

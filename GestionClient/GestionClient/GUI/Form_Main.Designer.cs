@@ -225,7 +225,6 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customer Management";
-            this.Load += new System.EventHandler(this.Form_Main_Load);
             this.menuStrip_main.ResumeLayout(false);
             this.menuStrip_main.PerformLayout();
             this.statusStrip_main.ResumeLayout(false);

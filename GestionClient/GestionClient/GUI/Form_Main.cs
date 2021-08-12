@@ -21,6 +21,18 @@ namespace GestionClient
         {
             InitializeComponent();
             Language.Changed += (s, args) => SwitchLanguage();
+
+            //try
+            //{
+            App.CreateAssetsFolder();
+            FillLanguageMenuItem();
+            //}
+            //catch (Exception exception)
+            //{
+            //    QuickMessageBox.ShowError(exception.Message);
+            //}
+
+            ConnectToDatabase();
         }
 
         #region Common-Methods
@@ -102,21 +114,6 @@ namespace GestionClient
             return (form == null || form.IsDisposed);
         }
         #endregion
-
-        private void Form_Main_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                App.CreateAssetsFolder();
-                FillLanguageMenuItem();
-            }
-            catch (Exception exception)
-            {
-                QuickMessageBox.ShowError(exception.Message);
-            }
-
-            ConnectToDatabase();
-        }
 
         #region Menu-Events-Handlers
         #region Menu/Application

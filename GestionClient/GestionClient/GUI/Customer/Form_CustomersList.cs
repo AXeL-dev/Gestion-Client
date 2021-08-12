@@ -32,8 +32,8 @@ namespace GestionClient
 
                     // remplissage de la combobox 'TravailCombo'
                     comboBox_job.DataSource = Database.Jobs.Table;
-                    comboBox_job.DisplayMember = "description";
-                    comboBox_job.ValueMember = "id";
+                    comboBox_job.DisplayMember = "Description";
+                    comboBox_job.ValueMember = "ID";
 
                     // on récupère la dataTable ClientTravailPaiement
                     Database.CustomersJobsPayments.FetchTable();
@@ -160,13 +160,13 @@ namespace GestionClient
         private void setDataGridViewFormat()
         {
             // Headers Text
-            dataGridView_customers.Columns["nom"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
-            dataGridView_customers.Columns["sexe"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
+            dataGridView_customers.Columns["FullName"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
+            dataGridView_customers.Columns["Gender"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
             dataGridView_customers.Columns["Jobs"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
             dataGridView_customers.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
             dataGridView_customers.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
             dataGridView_customers.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
-            dataGridView_customers.Columns["email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
+            dataGridView_customers.Columns["Email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
             dataGridView_customers.Columns["montant payé"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
             dataGridView_customers.Columns["ajouté le"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
 

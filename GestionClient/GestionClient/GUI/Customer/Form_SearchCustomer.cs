@@ -27,7 +27,7 @@ namespace GestionClient
                 for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                 {
                     // si nom du client trouvé
-                    if (Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (Database.Customers.Table.Rows[i]["FullName"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
                     {
                         App.SearchResultIndex = i;
                         this.Close(); // fermeture de la fenêtre

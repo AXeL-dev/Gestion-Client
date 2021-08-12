@@ -44,14 +44,14 @@ namespace GestionClient
 
                     // remplissage de la combobox 'TravailCombo'
                     comboBox_job.DataSource = Database.Jobs.Table;
-                    comboBox_job.DisplayMember = "description";
-                    comboBox_job.ValueMember = "id";
+                    comboBox_job.DisplayMember = "Description";
+                    comboBox_job.ValueMember = "ID";
 
                     // initialisation du DataView
                     dv = new DataView(Database.Payments.Table);
                     // affichage du DataView dans la DataGridView
                     dataGridView_payements.DataSource = dv;
-                    dataGridView_payements.Columns["id"].Visible = dataGridView_payements.Columns["id_client"].Visible = false;
+                    dataGridView_payements.Columns["ID"].Visible = dataGridView_payements.Columns["CustomerID"].Visible = false;
                     setDataGridviewFormat();
                     // ajout des bouttons supprimer dans la dataGridView des paiements
                     DeleteButtonColumn supprimerPaiementBtnColumn = new DeleteButtonColumn();
@@ -129,15 +129,15 @@ namespace GestionClient
                     for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvée
-                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == currentClientId)
                         {
                             // modification
-                            Database.Customers.Table.Rows[position]["nom"] = textBox_name.Text;
-                            Database.Customers.Table.Rows[position]["id_travail"] = comboBox_job.SelectedValue;
+                            Database.Customers.Table.Rows[position]["FullName"] = textBox_name.Text;
+                            Database.Customers.Table.Rows[position]["JobID"] = comboBox_job.SelectedValue;
                             if (maskedTextBox_birthDate.MaskCompleted)
-                                Database.Customers.Table.Rows[position]["date_naissance"] = maskedTextBox_birthDate.Text;
-                            Database.Customers.Table.Rows[position]["numero_telephone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
-                            Database.Customers.Table.Rows[position]["email"] = textBox_email.Text;
+                                Database.Customers.Table.Rows[position]["BirthDate"] = maskedTextBox_birthDate.Text;
+                            Database.Customers.Table.Rows[position]["Phone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
+                            Database.Customers.Table.Rows[position]["Email"] = textBox_email.Text;
                             Database.Customers.ApplyChanges();
                             QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Modifié);
                             break; // on sort de la boucle
@@ -162,7 +162,7 @@ namespace GestionClient
                     for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == currentClientId)
                         {
                             // suppression du client
                             Database.Customers.Table.Rows[i].Delete();
@@ -231,7 +231,7 @@ namespace GestionClient
                 else // si nn, c'est bon
                 {
                     // ajout du paiement
-                    Database.Payments.Table.Rows.Add(null, Database.Customers.Table.Rows[position]["id"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
+                    Database.Payments.Table.Rows.Add(null, Database.Customers.Table.Rows[position]["ID"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
                     Database.Payments.ApplyChanges();
                     //QuickMessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
@@ -282,7 +282,7 @@ namespace GestionClient
                                 for (int p = 0; p < Database.Assets.Table.Rows.Count; p++)
                                 {
                                     // si on trouve que la clé primaire (id) == tag de l'image ou on a sauvegardé l'id nous aussi
-                                    if (Database.Assets.Table.Rows[p]["id"].ToString() == piecesPbList[i].Tag.ToString())
+                                    if (Database.Assets.Table.Rows[p]["ID"].ToString() == piecesPbList[i].Tag.ToString())
                                     {
                                         // suppression de l'image
                                         File.Delete(piecesPbList[i].ImageLocation);
@@ -343,13 +343,13 @@ namespace GestionClient
                     if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Paiement) == DialogResult.Yes)
                     {
                         // on récupère l'id du paiement séléctionné
-                        int paiementId = Convert.ToInt32(dataGridView_payements.Rows[e.RowIndex].Cells["id"].Value);
+                        int paiementId = Convert.ToInt32(dataGridView_payements.Rows[e.RowIndex].Cells["ID"].Value);
 
                         // on boucle sur la dataTable Paiement
                         for (int i = 0; i < Database.Payments.Table.Rows.Count; i++)
                         {
                             // si clé primaire trouvé
-                            if (Convert.ToInt32(Database.Payments.Table.Rows[i]["id"]) == paiementId)
+                            if (Convert.ToInt32(Database.Payments.Table.Rows[i]["ID"]) == paiementId)
                             {
                                 // suppression du paiement
                                 Database.Payments.Table.Rows[i].Delete();
@@ -388,7 +388,7 @@ namespace GestionClient
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["emplacement"].ToString();
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["FilePath"].ToString();
                 }
             }
             catch (Exception exception)
@@ -417,13 +417,13 @@ namespace GestionClient
         // move() : gère les déplacements des clients
         private void move()
         {
-            currentClientId = Convert.ToInt32(Database.Customers.Table.Rows[position]["id"]);
+            currentClientId = Convert.ToInt32(Database.Customers.Table.Rows[position]["ID"]);
             setImage(currentClientId);
-            textBox_name.Text = Database.Customers.Table.Rows[position]["nom"].ToString();
-            comboBox_job.SelectedValue = Database.Customers.Table.Rows[position]["id_travail"];
-            maskedTextBox_birthDate.Text = Database.Customers.Table.Rows[position]["date_naissance"].ToString();
-            maskedTextBox_phoneNumber.Text = Database.Customers.Table.Rows[position]["numero_telephone"].ToString();
-            textBox_email.Text = Database.Customers.Table.Rows[position]["email"].ToString();
+            textBox_name.Text = Database.Customers.Table.Rows[position]["FullName"].ToString();
+            comboBox_job.SelectedValue = Database.Customers.Table.Rows[position]["JobID"];
+            maskedTextBox_birthDate.Text = Database.Customers.Table.Rows[position]["BirthDate"].ToString();
+            maskedTextBox_phoneNumber.Text = Database.Customers.Table.Rows[position]["Phone"].ToString();
+            textBox_email.Text = Database.Customers.Table.Rows[position]["Email"].ToString();
             showPaiement(currentClientId);
             showPieces(currentClientId);
         }
@@ -435,16 +435,16 @@ namespace GestionClient
             for (int i = 0; i < Database.Assets.Table.Rows.Count; i++)
             {
                 // si on trouve que le client à une photo
-                if (Convert.ToInt32(Database.Assets.Table.Rows[i]["id_client"]) == clientId && Database.Assets.Table.Rows[i]["type_piece"].ToString() == "Photo")
+                if (Convert.ToInt32(Database.Assets.Table.Rows[i]["CustomerID"]) == clientId && Database.Assets.Table.Rows[i]["AssetType"].ToString() == "Photo")
                 {
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[i]["emplacement"].ToString();
+                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[i]["FilePath"].ToString();
                     pictureBox_photo.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
             }
 
             // si nn
-            string sexe = Database.Customers.Table.Rows[position]["sexe"].ToString();
+            string sexe = Database.Customers.Table.Rows[position]["Gender"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
                 pictureBox_photo.Image = GestionClient.Properties.Resources.homme;
@@ -474,23 +474,23 @@ namespace GestionClient
         private void showPaiement(int clientId)
         {
             // filtrage
-            dv.RowFilter = "id_client = " + clientId;
+            dv.RowFilter = "CustomerID = " + clientId;
         }
 
         // setDataGridviewFormat() : applique les changements de format nécéssaires à la DataGridView
         private void setDataGridviewFormat()
         {
             // montant
-            dataGridView_payements.Columns["montant"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
-            dataGridView_payements.Columns["montant"].Width = 200;
+            dataGridView_payements.Columns["Amount"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
+            dataGridView_payements.Columns["Amount"].Width = 200;
             NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             format.CurrencySymbol = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column_Devise; ;
             format.CurrencyDecimalDigits = 0;
-            dataGridView_payements.Columns["montant"].DefaultCellStyle.FormatProvider = format;
-            dataGridView_payements.Columns["montant"].DefaultCellStyle.Format = "c";
+            dataGridView_payements.Columns["Amount"].DefaultCellStyle.FormatProvider = format;
+            dataGridView_payements.Columns["Amount"].DefaultCellStyle.Format = "c";
             // date paiement
-            dataGridView_payements.Columns["date_paiement"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
-            dataGridView_payements.Columns["date_paiement"].Width = 200;
+            dataGridView_payements.Columns["PaymentDate"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
+            dataGridView_payements.Columns["PaymentDate"].Width = 200;
         }
 
         // showPieces() : affiche les pieces du client
@@ -498,8 +498,8 @@ namespace GestionClient
         {
             // filtrage
             //DataView dv = new DataView(ClassGlobal.ds.Tables["Assets"]);
-            //dv.RowFilter = "id_client = " + clientId + "AND type_piece = 'Autre'";
-            DataRow[] drs = Database.Assets.Table.Select("id_client = " + clientId + "AND type_piece = 'Autre'");
+            //dv.RowFilter = "CustomerID = " + clientId + "AND type_piece = 'Autre'";
+            DataRow[] drs = Database.Assets.Table.Select("CustomerID = " + clientId + "AND type_piece = 'Autre'");
 
             // on vide le TableLayoutPanel
             tableLayoutPanel_assets.Controls.Clear();
@@ -520,13 +520,13 @@ namespace GestionClient
                 {
                     // création de l'image/la picturebox
                     PictureBox pb = new PictureBox();
-                    pb.Tag = drs[i]["id"].ToString(); // on sauvegarde l'id de la pièce, pour nous simplifier la suppression
+                    pb.Tag = drs[i]["ID"].ToString(); // on sauvegarde l'id de la pièce, pour nous simplifier la suppression
                     pb.SizeMode = PictureBoxSizeMode.StretchImage;
                     pb.Cursor = Cursors.Hand;
                     pb.Dock = DockStyle.Fill;
                     pb.InitialImage = GestionClient.Properties.Resources.load;
                     //pb.ErrorImage = GestionClient.Properties.Resources._false;
-                    pb.ImageLocation = App.FolderPath + "\\" + drs[i]["emplacement"].ToString();
+                    pb.ImageLocation = App.FolderPath + "\\" + drs[i]["FilePath"].ToString();
                     pb.DoubleClick += pictureBox1_Click;
                     pb.Click += pictureBoxsSingle_Click;
                     // ajout à la liste des images/pictureboxs
@@ -543,7 +543,7 @@ namespace GestionClient
         {
             for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (i != currentClientPosition && Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (i != currentClientPosition && Database.Customers.Table.Rows[i]["FullName"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 
@@ -578,11 +578,11 @@ namespace GestionClient
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(nouveauEmplacement, App.FolderPath + "\\" + destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
-            string oldImage = App.FolderPath + "\\" + Database.Assets.Table.Rows[pieceIndex]["emplacement"].ToString();
+            string oldImage = App.FolderPath + "\\" + Database.Assets.Table.Rows[pieceIndex]["FilePath"].ToString();
             if (File.Exists(oldImage))
                 File.Delete(oldImage);
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces
-            Database.Assets.Table.Rows[pieceIndex]["emplacement"] = destinationFileName;
+            Database.Assets.Table.Rows[pieceIndex]["FilePath"] = destinationFileName;
             Database.Assets.ApplyChanges();
         }
 

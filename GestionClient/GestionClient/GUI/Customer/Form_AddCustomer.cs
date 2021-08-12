@@ -25,8 +25,8 @@ namespace GestionClient
                 comboBox_gender.SelectedIndex = 0;
                 // remplissage de la combobox 'TravailCombo'
                 comboBox_job.DataSource = Database.Jobs.Table;
-                comboBox_job.DisplayMember = "description";
-                comboBox_job.ValueMember = "id";
+                comboBox_job.DisplayMember = "Description";
+                comboBox_job.ValueMember = "ID";
 
                 // on change la langue si l'arabe est séléctionné
                 if (Language.IsRightToLeft)
@@ -172,8 +172,8 @@ namespace GestionClient
             // on parcourt la dataTable Client
             for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (Database.Customers.Table.Rows[i]["nom"].ToString() == clientName)
-                    return Convert.ToInt32(Database.Customers.Table.Rows[i]["id"]);
+                if (Database.Customers.Table.Rows[i]["FullName"].ToString() == clientName)
+                    return Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]);
             }
 
             // si on ne le trouve pas on retourne un -1
@@ -185,7 +185,7 @@ namespace GestionClient
         {
             for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
             {
-                if (Database.Customers.Table.Rows[i]["nom"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
+                if (Database.Customers.Table.Rows[i]["FullName"].ToString().ToUpper() == name.ToUpper()) // ToUpper() pour gérer la casse
                     return true;
             }
 

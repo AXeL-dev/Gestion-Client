@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Text;
+using System.Threading;
 
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 namespace System.Windows.Forms
@@ -126,7 +127,7 @@ namespace System.Windows.Forms
         {
             if (hHook != IntPtr.Zero)
                 throw new NotSupportedException("One hook per thread allowed.");
-            hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, hookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            hHook = SetWindowsHookEx(WH_CALLWNDPROCRET, hookProc, IntPtr.Zero, Thread.CurrentThread.ManagedThreadId);
         }
 
         /// <summary>

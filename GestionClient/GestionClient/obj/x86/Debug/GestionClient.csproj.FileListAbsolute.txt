@@ -1,3 +1,4 @@
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe.config
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.pdb
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\fr\GestionClient.resources.dll
@@ -9,17 +10,16 @@ C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\D
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_CustomersList.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_EditCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_Main.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Properties.Resources.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_SearchCustomer.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Form_RemoveJob.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.fr.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ja.resources
+C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ar.resources
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.csproj.GenerateResource.Cache
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\fr\GestionClient.resources.dll
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\ja\GestionClient.resources.dll
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\ar\GestionClient.resources.dll
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.exe
 C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.pdb
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.fr.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ja.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\obj\x86\Debug\GestionClient.Localization.LocalizedStrings.ar.resources
-C:\Users\Abdelhakim\Desktop\Gestion-Client\GestionClient\GestionClient\bin\Debug\GestionClient.exe.config

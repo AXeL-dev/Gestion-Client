@@ -20,8 +20,8 @@ namespace GestionClient
             {
                 // remplissage de la combobox 'TravailCombo'
                 comboBox_job.DataSource = Database.Jobs.Table;
-                comboBox_job.DisplayMember = "description";
-                comboBox_job.ValueMember = "id";
+                comboBox_job.DisplayMember = "Description";
+                comboBox_job.ValueMember = "ID";
 
                 // on change la langue si l'arabe est séléctionné
                 if (Language.IsRightToLeft)
@@ -54,7 +54,7 @@ namespace GestionClient
                     for (int i = 0; i < Database.Jobs.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Database.Jobs.Table.Rows[i]["id"].ToString() == comboBox_job.SelectedValue.ToString())
+                        if (Database.Jobs.Table.Rows[i]["ID"].ToString() == comboBox_job.SelectedValue.ToString())
                         {
                             // suppression
                             Database.Jobs.Table.Rows[i].Delete();

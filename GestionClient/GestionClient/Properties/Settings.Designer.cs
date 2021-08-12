@@ -26,8 +26,8 @@ namespace GestionClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=data\\gestionClient.mdb;User Id=admin" +
-            ";Password=;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Data\\Database.mdb;User Id=admin;Pass" +
+            "word=;")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
