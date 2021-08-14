@@ -22,9 +22,9 @@ namespace GestionClient
         // event. Load du formulaire
         private void ListeClients_Load(object sender, EventArgs e)
         {
-            try
-            {
-                if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
+            //try
+            //{
+                if (Database.IsFetched) // si on est déjà connecté à la base de données
                 {
                     // si la dataTable Client est vide
                     if (Database.Customers.Table.Rows.Count == 0)
@@ -59,12 +59,12 @@ namespace GestionClient
                 {
                     throw new Exception(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
                 }
-            }
-            catch (Exception exception)
-            {
-                QuickMessageBox.ShowError(exception.Message);
-                this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
-            }
+            //}
+            //catch (Exception exception)
+            //{
+            //    QuickMessageBox.ShowError(exception.Message);
+            //    this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
+            //}
         }
 
         // event. FormClosed du formulaire
@@ -151,9 +151,9 @@ namespace GestionClient
         private void doFilter()
         {
             if (!checkBox_filterByJob.Checked)
-                dv.RowFilter = "nom LIKE '" + textBox_name.Text + "%'";
+                dv.RowFilter = "FullName LIKE '" + textBox_name.Text + "%'";
             else
-                dv.RowFilter = "nom LIKE '" + textBox_name.Text + "%' AND travail = '" + comboBox_job.Text + "'";
+                dv.RowFilter = "FullName LIKE '" + textBox_name.Text + "%' AND Job = '" + comboBox_job.Text + "'";
         }
 
         // setDataGridviewFormat() : applique les changements de format nécéssaires à la DataGridView
@@ -162,27 +162,27 @@ namespace GestionClient
             // Headers Text
             dataGridView_customers.Columns["FullName"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Nom;
             dataGridView_customers.Columns["Gender"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Sexe;
-            dataGridView_customers.Columns["Jobs"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
-            dataGridView_customers.Columns["age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
-            dataGridView_customers.Columns["date de naissance"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
-            dataGridView_customers.Columns["numéro tél"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
+            dataGridView_customers.Columns["Job"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Travail;
+            dataGridView_customers.Columns["Age"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Age;
+            dataGridView_customers.Columns["Birth Date"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Date_Naissance;
+            dataGridView_customers.Columns["Phone Number"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Numero_Tel;
             dataGridView_customers.Columns["Email"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Email;
-            dataGridView_customers.Columns["montant payé"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
-            dataGridView_customers.Columns["ajouté le"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
+            dataGridView_customers.Columns["Paid Amount"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé;
+            dataGridView_customers.Columns["Added At"].HeaderText = LocalizedStrings.Liste_Client_DataGridView_Column_Ajouté_Le;
 
             // ajout de 'ans' dans toutes les lignes de la colonne 'age'
             NumberFormatInfo formatAge = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             formatAge.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Age_Devise;
             formatAge.CurrencyDecimalDigits = 0;
-            dataGridView_customers.Columns["age"].DefaultCellStyle.FormatProvider = formatAge;
-            dataGridView_customers.Columns["age"].DefaultCellStyle.Format = "c";
+            dataGridView_customers.Columns["Age"].DefaultCellStyle.FormatProvider = formatAge;
+            dataGridView_customers.Columns["Age"].DefaultCellStyle.Format = "c";
 
             // ajout de la devise dans toutes les lignes de la colonne 'montant payé'
             NumberFormatInfo formatMontant = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
             formatMontant.CurrencySymbol = LocalizedStrings.Liste_Client_DataGridView_Column_Montant_Payé_Devise;
             formatMontant.CurrencyDecimalDigits = 0;
-            dataGridView_customers.Columns["montant payé"].DefaultCellStyle.FormatProvider = formatMontant;
-            dataGridView_customers.Columns["montant payé"].DefaultCellStyle.Format = "c";
+            dataGridView_customers.Columns["Paid Amount"].DefaultCellStyle.FormatProvider = formatMontant;
+            dataGridView_customers.Columns["Paid Amount"].DefaultCellStyle.Format = "c";
         }
 
         // switchLanguage() : charge la traduction des propriétés Text, ... des controls

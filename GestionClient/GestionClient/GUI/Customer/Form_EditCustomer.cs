@@ -36,7 +36,7 @@ namespace GestionClient
         {
             try
             {
-                if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
+                if (Database.IsFetched) // si on est déjà connecté à la base de données
                 {
                     // si la dataTable Client est vide
                     if (Database.Customers.Table.Rows.Count == 0)
@@ -498,8 +498,8 @@ namespace GestionClient
         {
             // filtrage
             //DataView dv = new DataView(ClassGlobal.ds.Tables["Assets"]);
-            //dv.RowFilter = "CustomerID = " + clientId + "AND type_piece = 'Autre'";
-            DataRow[] drs = Database.Assets.Table.Select("CustomerID = " + clientId + "AND type_piece = 'Autre'");
+            //dv.RowFilter = "CustomerID = " + clientId + "AND AssetType = 'Autre'";
+            DataRow[] drs = Database.Assets.Table.Select("CustomerID = " + clientId + "AND AssetType = 'Autre'");
 
             // on vide le TableLayoutPanel
             tableLayoutPanel_assets.Controls.Clear();

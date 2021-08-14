@@ -22,15 +22,15 @@ namespace GestionClient
             InitializeComponent();
             Language.Changed += (s, args) => SwitchLanguage();
 
-            //try
-            //{
-            App.CreateAssetsFolder();
-            FillLanguageMenuItem();
-            //}
-            //catch (Exception exception)
-            //{
-            //    QuickMessageBox.ShowError(exception.Message);
-            //}
+            try
+            {
+                App.CreateAssetsFolder();
+                FillLanguageMenuItem();
+            }
+            catch (Exception exception)
+            {
+                QuickMessageBox.ShowError(exception.Message);
+            }
 
             ConnectToDatabase();
         }
@@ -69,7 +69,7 @@ namespace GestionClient
             menuItem_about.Text = LocalizedStrings.A_propos_Sub_Menu;
 
             // Connection Status
-            statusLabel_main.Text = Database.ConnectedToDatabase
+            statusLabel_main.Text = Database.IsFetched
                 ? LocalizedStrings.Connexion_To_DB_Success
                 : LocalizedStrings.Connexion_To_DB_Error;
 
@@ -119,7 +119,7 @@ namespace GestionClient
         #region Menu/Application
         private void menuItem_application_DropDownOpened(object sender, EventArgs e)
         {
-            menuItem_connect.Enabled = Database.ConnectedToDatabase ? false : true;
+            menuItem_connect.Enabled = Database.IsFetched ? false : true;
         }
 
         private void menuItem_connect_Click(object sender, EventArgs e)

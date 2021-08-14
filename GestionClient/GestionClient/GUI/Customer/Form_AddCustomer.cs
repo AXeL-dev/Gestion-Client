@@ -19,7 +19,7 @@ namespace GestionClient
         // event. Load du formulaire
         private void AjouterClient_Load(object sender, EventArgs e)
         {
-            if (Database.ConnectedToDatabase) // si on est déjà connecté à la base de données
+            if (Database.IsFetched) // si on est déjà connecté à la base de données
             {
                 // séléction d'Homme dans la combobox
                 comboBox_gender.SelectedIndex = 0;

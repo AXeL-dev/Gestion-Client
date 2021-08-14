@@ -11,8 +11,8 @@ namespace GestionClient
         public static readonly TableAccessor Payments;
         public static readonly TableAccessor Jobs;
         public static readonly TableAccessor CustomersJobsPayments;
-        public static readonly TableAccessor Language;
-        public static bool ConnectedToDatabase { get; set; }
+        public static readonly TableAccessor CurrentLanguage;
+        public static bool IsFetched { get; set; }
 
         static Database()
         {
@@ -22,16 +22,16 @@ namespace GestionClient
             Payments = new TableAccessor("Payments");
             Jobs = new TableAccessor("Jobs");
             CustomersJobsPayments = new TableAccessor(@"
-                SELECT Name, Gender, Description AS [Job], 
+                SELECT FullName, Gender, Description AS [Job], 
                 DateDiff('yyyy', BirthDate, Date()) AS [Age], 
                 BirthDate AS [Birth Date], Phone AS [Phone Number], Email, 
                 SUM(Amount) AS [Paid Amount], CreateDate AS [Added At] 
                 FROM ((Customers INNER JOIN Jobs ON Jobs.id = Customers.JobID)
-                LEFT OUTER JOIN Payments ON Payments.CustomerID = Customer.ID) 
-                GROUP BY Name, Gender, Description, BirthDate, Phone, Email, CreateDate",
-                "CustomersJobsPayments", query: true);
-            Language = new TableAccessor("Language");
-            ConnectedToDatabase = true;
+                LEFT OUTER JOIN Payments ON Payments.CustomerID = Customers.ID) 
+                GROUP BY FullName, Gender, Description, BirthDate, Phone, Email, CreateDate",
+                "CustomersJobsPayments", useTableName: false);
+            CurrentLanguage = new TableAccessor("CurrentLanguage");
+            IsFetched = true;
         }
     }
 }

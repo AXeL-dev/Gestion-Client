@@ -40,7 +40,7 @@ namespace GestionClient
 
         private void Form_AddJob_Load(object sender, EventArgs e)
         {
-            if (Database.ConnectedToDatabase)
+            if (Database.IsFetched)
             {
                 UpdateLocalization();
             }

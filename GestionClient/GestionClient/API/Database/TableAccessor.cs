@@ -13,41 +13,55 @@ namespace GestionClient
     class TableAccessor
     {
         private static readonly OleDbConnection s_connection;
-        private OleDbDataAdapter _adapter;
+        //private readonly OleDbCommand _command;
+        private readonly OleDbDataAdapter _adapter;
+        //private readonly OleDbCommandBuilder _commandBuilder;
 
-        public DataTable Table { get; set; }
+        public readonly DataTable Table;
 
         static TableAccessor()
         {
             s_connection = new OleDbConnection(Settings.Default.ConnectionString);
         }
 
+        #region Private-Methods
+        private OleDbCommand CreateSelectCommand(string tableNameOrSelectQuery, bool useTableName)
+        {
+            string commandText = useTableName
+                ? string.Format("SELECT * FROM {0}", tableNameOrSelectQuery)
+                : tableNameOrSelectQuery;
+            return new OleDbCommand(commandText, s_connection);
+        }
+
+        private OleDbDataAdapter CreateDataAdapter(OleDbCommand selectCommand)
+        {
+            OleDbDataAdapter adapter = new OleDbDataAdapter(selectCommand);
+            OleDbCommandBuilder commandBuilder = new OleDbCommandBuilder(adapter);
+            return adapter;
+        }
+        #endregion
+
         /// <summary>
         /// Creates a new instance of TableAccessor.
         /// </summary>
-        /// <param name="tableNameOrQuery">
+        /// <param name="tableNameOrSelectQuery">
         /// Name of the table to retrieve from database or a custom select SQL query.
         /// If the argument is a query, the argument for the query parameter must be true.
         /// </param>
         /// <param name="dataTableName">Name for the underlying DataTable object.</param>
-        /// <param name="query">
-        /// If true, the tableNameOrQuery parameter will be interpreted as a query not a table name.
-        /// Default: false
+        /// <param name="useTableName">
+        /// If true, the tableNameOrQuery parameter will be interpreted as table name.
+        /// Default: true
         /// </param>
         /// <param name="fetch">
         /// If true, call the FetchTable method after instantiation logic.
         /// </param>
-        public TableAccessor(string tableNameOrQuery, string dataTableName = null,
-            bool query = false, bool fetch = true)
+        public TableAccessor(string tableNameOrSelectQuery, string dataTableName = null,
+            bool useTableName = true, bool fetch = true)
         {
-            OleDbCommand command = new OleDbCommand(tableNameOrQuery, s_connection);
-            command.CommandType = query ? CommandType.Text : CommandType.TableDirect;
-            _adapter = new OleDbDataAdapter(command);
-            new OleDbCommandBuilder(_adapter).Dispose();
-            if (!query && string.IsNullOrEmpty(dataTableName))
-            {
-                dataTableName = tableNameOrQuery;
-            }
+            _adapter = CreateDataAdapter(CreateSelectCommand(tableNameOrSelectQuery, useTableName));
+            dataTableName = (string.IsNullOrEmpty(dataTableName) && useTableName)
+                ? tableNameOrSelectQuery : dataTableName;
             Table = new DataTable(dataTableName);
             if (fetch)
             {

@@ -16,7 +16,7 @@ namespace GestionClient
         // event. Load du formulaire
         private void Form_RemoveJob_Load(object sender, EventArgs e)
         {
-            if (Database.ConnectedToDatabase) // si on est connecté à la base de données
+            if (Database.IsFetched) // si on est connecté à la base de données
             {
                 // remplissage de la combobox 'TravailCombo'
                 comboBox_job.DataSource = Database.Jobs.Table;
