@@ -82,7 +82,7 @@
             this.button_ok.TabIndex = 2;
             this.button_ok.Text = "Ok";
             this.button_ok.UseVisualStyleBackColor = true;
-            this.button_ok.Click += new System.EventHandler(this.OkBtn_Click);
+            this.button_ok.Click += new System.EventHandler(this.button_ok_Click);
             // 
             // Form_About
             // 
@@ -99,7 +99,8 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
-            this.Load += new System.EventHandler(this.About_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_About_FormClosed);
+            this.Load += new System.EventHandler(this.Form_About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).EndInit();
             this.groupBox_name.ResumeLayout(false);
             this.groupBox_name.PerformLayout();

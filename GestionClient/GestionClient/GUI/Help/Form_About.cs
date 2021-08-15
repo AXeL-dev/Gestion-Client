@@ -9,30 +9,55 @@ namespace GestionClient
         public Form_About()
         {
             InitializeComponent();
-            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-            this.Text = LocalizedStrings.A_propos_Sub_Menu;
+            Language.Changed += (s, args) => this.UpdateLocalization();
         }
 
-        // event. Load du formulaire
-        private void About_Load(object sender, EventArgs e)
+        #region Common-Methods
+        private void UpdateLocalization()
         {
-            // On affiche le nom de l'application
+            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+
+            this.Text = LocalizedStrings.A_propos_Sub_Menu;
+
+            textBox_infos.Clear();
+
+            textBox_infos.AppendText(LocalizedStrings.About_Version);
+            textBox_infos.AppendText(Environment.NewLine);
+            textBox_infos.AppendText(Environment.NewLine);
+
+            textBox_infos.AppendText(LocalizedStrings.About_Dev);
+            textBox_infos.AppendText(Environment.NewLine);
+            textBox_infos.AppendText(Environment.NewLine);
+
+            textBox_infos.AppendText(LocalizedStrings.About_DotNet_Version);
+            textBox_infos.AppendText(Environment.NewLine);
+            textBox_infos.AppendText(Environment.NewLine);
+
+            textBox_infos.AppendText(LocalizedStrings.About_Compatibilité);
+            textBox_infos.AppendText(Environment.NewLine);
+            textBox_infos.AppendText(Environment.NewLine);
+
+            textBox_infos.AppendText(LocalizedStrings.About_Copyright);
+            textBox_infos.AppendText(Environment.NewLine);
+            textBox_infos.AppendText(Environment.NewLine);
+
+            textBox_infos.AppendText(LocalizedStrings.About_End);
+        }
+        #endregion
+
+        private void Form_About_Load(object sender, EventArgs e)
+        {
             groupBox_name.Text = App.Name;
-
-            // On affiche les informations de l'app.
-            textBox_infos.Text = LocalizedStrings.About_Version + "\r\n\r\n" +
-                                   LocalizedStrings.About_Dev + "\r\n\r\n" +
-                                   LocalizedStrings.About_DotNet_Version + "\r\n\r\n" +
-                                   LocalizedStrings.About_Compatibilité + "\r\n\r\n" +
-                                   LocalizedStrings.About_Copyright + "\r\n\r\n" +
-                                   LocalizedStrings.About_End;
-
-            // On bouge le curseur de séléction au début (0), car on obtient un texte completement séléctionné au départ
+            UpdateLocalization();
             textBox_infos.Select(0, 0);
         }
 
-        // event. Click du boutton 'OkBtn'
-        private void OkBtn_Click(object sender, EventArgs e)
+        private void Form_About_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Language.Changed -= (s, args) => this.UpdateLocalization();
+        }
+
+        private void button_ok_Click(object sender, EventArgs e)
         {
             this.Close();
         }

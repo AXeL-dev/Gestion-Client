@@ -16,7 +16,6 @@ namespace GestionClient
             Language.Changed += this.LanguageChangedHandler;
         }
 
-        // event. Load du formulaire
         private void AjouterClient_Load(object sender, EventArgs e)
         {
             if (Database.IsFetched) // si on est déjà connecté à la base de données

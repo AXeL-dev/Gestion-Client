@@ -6,64 +6,61 @@ namespace GestionClient
 {
     public partial class Form_RemoveJob : Form
     {
-        // constr.
         public Form_RemoveJob()
         {
             InitializeComponent();
-            Language.Changed += this.LanguageChangedHandler;
+            Language.Changed += (s, args) => this.UpdateLocalization();
         }
 
-        // event. Load du formulaire
+        #region Common-Methods
+        private void UpdateLocalization()
+        {
+            this.Text = LocalizedStrings.Supprimer_Travail_Win_Name;
+            label_job.Text = LocalizedStrings.Supprimer_Travail_1st_Label;
+            label_warning.Text = LocalizedStrings.Supprimer_Travail_2nd_Label;
+            button_remove.Text = LocalizedStrings.Supprimer_Travail_Supprimer_Button;
+        }
+        #endregion
+
         private void Form_RemoveJob_Load(object sender, EventArgs e)
         {
-            if (Database.IsFetched) // si on est connecté à la base de données
+            if (Database.IsFetched)
             {
-                // remplissage de la combobox 'TravailCombo'
+                UpdateLocalization();
                 comboBox_job.DataSource = Database.Jobs.Table;
                 comboBox_job.DisplayMember = "Description";
                 comboBox_job.ValueMember = "ID";
-
-                // on change la langue si l'arabe est séléctionné
-                if (Language.IsRightToLeft)
-                    switchLanguage();
             }
             else
             {
                 QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Connexion_Non_Etablie);
-                this.BeginInvoke(new MethodInvoker(this.Close)); // on empêche l'ouverture de la fenêtre
+                this.BeginInvoke(new MethodInvoker(this.Close));
             }
         }
 
-        // event. FormClosed du formulaire
-        private void SupprimerTravail_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form_RemoveJob_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Language.Changed -= this.LanguageChangedHandler;
+            Language.Changed -= (s, args) => this.UpdateLocalization();
         }
 
-        // event. Click sur le boutton 'SupprimerBtn'
-        private void SupprimerBtn_Click(object sender, EventArgs e)
+        private void button_remove_Click(object sender, EventArgs e)
         {
             try
             {
-                // si jamais la combobox est vide
                 if (comboBox_job.Items.Count == 0)
+                {
                     throw new Exception(LocalizedStrings.MessageBox_Rien_A_Supprimer);
+                }
                 else if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Travail) == DialogResult.Yes)
                 {
-                    // on boucle sur la dataTable Travail
-                    for (int i = 0; i < Database.Jobs.Table.Rows.Count; i++)
+                    string jobID = comboBox_job.SelectedValue.ToString();
+                    var jobRow = Database.Jobs.GetFirstRowWhere("ID = {0}", jobID);
+                    if (jobRow != null)
                     {
-                        // si clé primaire trouvé
-                        if (Database.Jobs.Table.Rows[i]["ID"].ToString() == comboBox_job.SelectedValue.ToString())
-                        {
-                            // suppression
-                            Database.Jobs.Table.Rows[i].Delete();
-                            Database.Jobs.ApplyChanges();
-                            QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Travail_Supprimé);
-                            // mise à jour de la dataTable Client (pour supprimer les clients en relation avec ce travail)
-                            Database.Customers.FetchTable();
-                            break; // on sort de la boucle for
-                        }
+                        jobRow.Delete();
+                        Database.Jobs.ApplyChanges();
+                        QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Travail_Supprimé);
+                        Database.Customers.FetchTable();
                     }
                 }
             }
@@ -71,33 +68,6 @@ namespace GestionClient
             {
                 QuickMessageBox.ShowError(exception.Message);
             }
-        }
-
-        // event. LanguageChanged du formulaire (enfant)
-        public void LanguageChangedHandler(object sender, EventArgs e)
-        {
-            try
-            {
-                switchLanguage();
-            }
-            catch (Exception exception)
-            {
-                QuickMessageBox.ShowError(exception.Message);
-            }
-        }
-
-        // méthodes
-        // switchLanguage() : charge la traduction des propriétés Text, ... des controls
-        private void switchLanguage()
-        {
-            // Window Name
-            this.Text = LocalizedStrings.Supprimer_Travail_Win_Name;
-            // Label 'Travail'
-            label_job.Text = LocalizedStrings.Supprimer_Travail_1st_Label;
-            // Label '(*)...'
-            label_warning.Text = LocalizedStrings.Supprimer_Travail_2nd_Label;
-            // Button 'Supprimer'
-            button_remove.Text = LocalizedStrings.Supprimer_Travail_Supprimer_Button;
         }
     }
 }

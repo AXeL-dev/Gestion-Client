@@ -63,7 +63,7 @@
             this.button_remove.TabIndex = 1;
             this.button_remove.Text = "Remove";
             this.button_remove.UseVisualStyleBackColor = true;
-            this.button_remove.Click += new System.EventHandler(this.SupprimerBtn_Click);
+            this.button_remove.Click += new System.EventHandler(this.button_remove_Click);
             // 
             // label_job
             // 
@@ -128,7 +128,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Remove a job";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SupprimerTravail_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_RemoveJob_FormClosed);
             this.Load += new System.EventHandler(this.Form_RemoveJob_Load);
             this.groupBox1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);

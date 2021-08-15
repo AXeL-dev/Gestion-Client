@@ -18,9 +18,13 @@ namespace GestionClient
         {
             Customers = new TableAccessor("Customers");
             Customers.Table.DefaultView.Sort = "FullName";
+
             Assets = new TableAccessor("Assets");
+
             Payments = new TableAccessor("Payments");
+
             Jobs = new TableAccessor("Jobs");
+
             CustomersJobsPayments = new TableAccessor(@"
                 SELECT FullName, Gender, Description AS [Job], 
                 DateDiff('yyyy', BirthDate, Date()) AS [Age], 
@@ -30,7 +34,9 @@ namespace GestionClient
                 LEFT OUTER JOIN Payments ON Payments.CustomerID = Customers.ID) 
                 GROUP BY FullName, Gender, Description, BirthDate, Phone, Email, CreateDate",
                 "CustomersJobsPayments", useTableName: false);
+
             CurrentLanguage = new TableAccessor("CurrentLanguage");
+
             IsFetched = true;
         }
     }

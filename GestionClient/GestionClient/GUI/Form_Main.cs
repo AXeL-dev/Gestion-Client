@@ -197,6 +197,10 @@ namespace GestionClient
                 _form_addCustomer.MdiParent = this;
                 _form_addCustomer.Show();
             }
+            else
+            {
+                _form_addCustomer.Activate();
+            }
         }
 
         private void menuItem_editCustomer_Click(object sender, EventArgs e)
@@ -207,6 +211,10 @@ namespace GestionClient
                 _form_editCustomer.MdiParent = this;
                 _form_editCustomer.Show();
             }
+            else
+            {
+                _form_editCustomer.Activate();
+            }
         }
 
         private void menuItem_customersList_Click(object sender, EventArgs e)
@@ -216,6 +224,10 @@ namespace GestionClient
                 _form_customersList = new Form_CustomersList();
                 _form_customersList.MdiParent = this;
                 _form_customersList.Show();
+            }
+            else
+            {
+                _form_customersList.Activate();
             }
         }
         #endregion
@@ -229,6 +241,10 @@ namespace GestionClient
                 _form_addJob.MdiParent = this;
                 _form_addJob.Show();
             }
+            else
+            {
+                _form_addJob.Activate();
+            }
         }
 
         private void menuItem_removeJob_Click(object sender, EventArgs e)
@@ -239,6 +255,10 @@ namespace GestionClient
                 _form_removeJob.MdiParent = this;
                 _form_removeJob.Show();
             }
+            else
+            {
+                _form_removeJob.Activate();
+            }
         }
         #endregion
 
@@ -248,8 +268,9 @@ namespace GestionClient
             if (GetFormIsNullOrDisposed(_form_about))
             {
                 _form_about = new Form_About();
-                _form_about.ShowDialog();
+
             }
+            _form_about.ShowDialog();
         }
         #endregion
         #endregion

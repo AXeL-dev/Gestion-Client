@@ -13,9 +13,7 @@ namespace GestionClient
     class TableAccessor
     {
         private static readonly OleDbConnection s_connection;
-        //private readonly OleDbCommand _command;
         private readonly OleDbDataAdapter _adapter;
-        //private readonly OleDbCommandBuilder _commandBuilder;
 
         public readonly DataTable Table;
 
@@ -84,6 +82,42 @@ namespace GestionClient
         public void ApplyChanges()
         {
             _adapter.Update(Table);
+        }
+
+        /// <summary>
+        /// Gets an array of all System.Data.DataRow objects that match 
+        /// the filter criteria in the order of the primary key 
+        /// (or if absent, in the order they were added).
+        /// </summary>
+        /// <param name="filterExpression">Criteria to use to filter the rows.</param>
+        /// <param name="args">
+        /// System.Object array containing zero or more objects 
+        /// to format in the filter expression.
+        /// </param>
+        /// <returns>Array of System.Data.DataRow objects.</returns>
+        public DataRow[] GetRowsWhere(string filterExpression, params object[] args)
+        {
+            return Table.Select(string.Format(filterExpression, args));
+        }
+
+        public DataRow GetFirstRowWhere(string filterExpression, params object[] args)
+        {
+            DataRow[] rows = Table.Select(string.Format(filterExpression, args));
+            return rows.Length > 0 ? rows[0] : null;
+        }
+
+        /// <summary>
+        /// Checks for the existence of a row that matches the filter criteria.
+        /// </summary>
+        /// <param name="filterExpression">Criteria to use to filter the rows.</param>
+        /// <param name="args">
+        /// System.Object array containing zero or more objects 
+        /// to format in the filter expression.
+        /// </param>
+        /// <returns>Array of System.Data.DataRow objects.</returns>
+        public bool HasRowsWhere(string expression, params object[] args)
+        {
+            return Table.Select(string.Format(expression, args)).Length > 0;
         }
     }
 }

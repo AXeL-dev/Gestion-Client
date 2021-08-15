@@ -318,7 +318,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)Data" "$(TargetDir)Data" /e /y /i /r</PostBuildEvent>
+    <PostBuildEvent>rmdir "$(TargetDir)Data" /s /q
+xcopy "$(ProjectDir)Data" "$(TargetDir)Data" /e /y /i /r</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

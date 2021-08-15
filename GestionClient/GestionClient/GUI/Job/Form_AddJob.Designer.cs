@@ -136,7 +136,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a job";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AjouterTravail_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_AddJob_FormClosed);
             this.Load += new System.EventHandler(this.Form_AddJob_Load);
             this.groupBox_job.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
