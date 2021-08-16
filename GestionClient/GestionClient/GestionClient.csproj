@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Core\App.cs" />
+    <Compile Include="API\Core\Assets.cs" />
     <Compile Include="API\Database\Database.cs" />
     <Compile Include="API\Core\Language.cs" />
     <Compile Include="API\Database\TableAccessor.cs" />
@@ -169,14 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="GUI\Customer\Form_SearchCustomer.resx">
       <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
@@ -192,6 +188,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -208,19 +209,19 @@
     <None Include="Resources\picture_photo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\homme.png" />
+    <None Include="Resources\man.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\femme.png" />
+    <None Include="Resources\woman.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\database.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\true.png" />
+    <None Include="Resources\accept.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\false.png" />
+    <None Include="Resources\decline.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\exit.png" />

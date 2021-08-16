@@ -6,6 +6,7 @@ namespace GestionClient
 {
     static class Database
     {
+        public const string FolderPath = @"Data";
         public static readonly TableAccessor Customers;
         public static readonly TableAccessor Assets;
         public static readonly TableAccessor Payments;

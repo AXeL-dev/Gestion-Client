@@ -168,7 +168,7 @@ namespace GestionClient
                             Database.Customers.Table.Rows[i].Delete();
                             Database.Customers.ApplyChanges();
                             // suppression du dossier du client (!@ avec tout son contenu)
-                            string clientFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";
+                            string clientFolderName = Assets.FolderPath + "\\" + currentClientId + "_" + textBox_name.Text;
                             if (Directory.Exists(clientFolderName))
                                 Directory.Delete(clientFolderName, true);
                             // si on peu faire un retour en arrière
@@ -388,7 +388,7 @@ namespace GestionClient
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["FilePath"].ToString();
+                    pictureBox_photo.ImageLocation = Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["FilePath"].ToString();
                 }
             }
             catch (Exception exception)
@@ -437,7 +437,7 @@ namespace GestionClient
                 // si on trouve que le client à une photo
                 if (Convert.ToInt32(Database.Assets.Table.Rows[i]["CustomerID"]) == clientId && Database.Assets.Table.Rows[i]["AssetType"].ToString() == "Photo")
                 {
-                    pictureBox_photo.ImageLocation = App.FolderPath + "\\" + Database.Assets.Table.Rows[i]["FilePath"].ToString();
+                    pictureBox_photo.ImageLocation = Database.Assets.Table.Rows[i]["FilePath"].ToString();
                     pictureBox_photo.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
@@ -447,9 +447,9 @@ namespace GestionClient
             string sexe = Database.Customers.Table.Rows[position]["Gender"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
-                pictureBox_photo.Image = GestionClient.Properties.Resources.homme;
+                pictureBox_photo.Image = GestionClient.Properties.Resources.man;
             else // si nn, une 'Femme' alors
-                pictureBox_photo.Image = GestionClient.Properties.Resources.femme;
+                pictureBox_photo.Image = GestionClient.Properties.Resources.woman;
 
             pictureBox_photo.ImageLocation = null; // à ne pas oublier
         }
@@ -526,7 +526,7 @@ namespace GestionClient
                     pb.Dock = DockStyle.Fill;
                     pb.InitialImage = GestionClient.Properties.Resources.load;
                     //pb.ErrorImage = GestionClient.Properties.Resources._false;
-                    pb.ImageLocation = App.FolderPath + "\\" + drs[i]["FilePath"].ToString();
+                    pb.ImageLocation = drs[i]["FilePath"].ToString();
                     pb.DoubleClick += pictureBox1_Click;
                     pb.Click += pictureBoxsSingle_Click;
                     // ajout à la liste des images/pictureboxs
@@ -554,12 +554,12 @@ namespace GestionClient
         private void addPieceAs(string emplacementPiece, string typePiece)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = Assets.FolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = emplacementPiece.Remove(0, emplacementPiece.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
-            File.Copy(emplacementPiece, App.FolderPath + "\\" + destinationFileName, true);
+            File.Copy(emplacementPiece, destinationFileName, true);
             // on ajoute la photo en tant que Piece
             Database.Assets.Table.Rows.Add(null, currentClientId, destinationFileName, typePiece);
             Database.Assets.ApplyChanges();
@@ -571,14 +571,14 @@ namespace GestionClient
         private void updatePiece(string nouveauEmplacement, int pieceIndex)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = App.AssetsFolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = Assets.FolderPath + "\\" + currentClientId + "_" + textBox_name.Text;
             // on récupère le nom de l'image
             string imageFileName = nouveauEmplacement.Remove(0, nouveauEmplacement.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
-            File.Copy(nouveauEmplacement, App.FolderPath + "\\" + destinationFileName, true);
+            File.Copy(nouveauEmplacement, destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
-            string oldImage = App.FolderPath + "\\" + Database.Assets.Table.Rows[pieceIndex]["FilePath"].ToString();
+            string oldImage = Database.Assets.Table.Rows[pieceIndex]["FilePath"].ToString();
             if (File.Exists(oldImage))
                 File.Delete(oldImage);
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces

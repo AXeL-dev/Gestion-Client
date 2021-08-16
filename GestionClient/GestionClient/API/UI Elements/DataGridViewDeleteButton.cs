@@ -19,7 +19,7 @@ namespace GestionClient
             imageCellBounds.Y += 4;
             imageCellBounds.Width -= 9;
             imageCellBounds.Height -= 9;
-            graphics.DrawImage(Resources._false, imageCellBounds);
+            graphics.DrawImage(Resources.decline, imageCellBounds);
         }
     }
 

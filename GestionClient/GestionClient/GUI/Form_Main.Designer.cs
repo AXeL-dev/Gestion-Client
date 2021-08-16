@@ -79,7 +79,7 @@
             // 
             // menuItem_connect
             // 
-            this.menuItem_connect.Image = global::GestionClient.Properties.Resources._true;
+            this.menuItem_connect.Image = global::GestionClient.Properties.Resources.accept;
             this.menuItem_connect.Name = "menuItem_connect";
             this.menuItem_connect.Size = new System.Drawing.Size(218, 22);
             this.menuItem_connect.Text = "Connection to database";

@@ -18,6 +18,7 @@ namespace GestionClient
         #region Common-Methods
         private void UpdateLocalization()
         {
+            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
             this.Text = LocalizedStrings.Ajouter_Travail_Win_Name;
             groupBox_job.Text = LocalizedStrings.Ajouter_Travail_1st_GroupBox;
             label_description.Text = LocalizedStrings.Ajouter_Travail_1st_Label;

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_AddCustomer));
-            this.PhotoGroupBox = new System.Windows.Forms.GroupBox();
+            this.groupBox_photo = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel_photo = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox_photo = new System.Windows.Forms.PictureBox();
             this.button_selectPhoto = new System.Windows.Forms.Button();
@@ -55,7 +55,7 @@
             this.button_newJob = new System.Windows.Forms.Button();
             this.openFileDialog_main = new System.Windows.Forms.OpenFileDialog();
             this.button_add = new System.Windows.Forms.Button();
-            this.PhotoGroupBox.SuspendLayout();
+            this.groupBox_photo.SuspendLayout();
             this.tableLayoutPanel_photo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_photo)).BeginInit();
             this.groupBox_customer.SuspendLayout();
@@ -64,18 +64,18 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // PhotoGroupBox
+            // groupBox_photo
             // 
-            this.PhotoGroupBox.Controls.Add(this.tableLayoutPanel_photo);
-            this.PhotoGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PhotoGroupBox.Location = new System.Drawing.Point(476, 5);
-            this.PhotoGroupBox.Margin = new System.Windows.Forms.Padding(5, 5, 5, 20);
-            this.PhotoGroupBox.Name = "PhotoGroupBox";
-            this.PhotoGroupBox.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
-            this.PhotoGroupBox.Size = new System.Drawing.Size(245, 294);
-            this.PhotoGroupBox.TabIndex = 1;
-            this.PhotoGroupBox.TabStop = false;
-            this.PhotoGroupBox.Text = "Photo";
+            this.groupBox_photo.Controls.Add(this.tableLayoutPanel_photo);
+            this.groupBox_photo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_photo.Location = new System.Drawing.Point(476, 5);
+            this.groupBox_photo.Margin = new System.Windows.Forms.Padding(5, 5, 5, 20);
+            this.groupBox_photo.Name = "groupBox_photo";
+            this.groupBox_photo.Padding = new System.Windows.Forms.Padding(2, 5, 2, 5);
+            this.groupBox_photo.Size = new System.Drawing.Size(245, 294);
+            this.groupBox_photo.TabIndex = 1;
+            this.groupBox_photo.TabStop = false;
+            this.groupBox_photo.Text = "Photo";
             // 
             // tableLayoutPanel_photo
             // 
@@ -117,7 +117,7 @@
             this.button_selectPhoto.TabIndex = 1;
             this.button_selectPhoto.Text = "Add/Change";
             this.button_selectPhoto.UseVisualStyleBackColor = true;
-            this.button_selectPhoto.Click += new System.EventHandler(this.AjouterModifierPhotoBtn_Click);
+            this.button_selectPhoto.Click += new System.EventHandler(this.button_selectPhoto_Click);
             // 
             // groupBox_customer
             // 
@@ -136,7 +136,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tableLayoutPanel2.Controls.Add(this.PhotoGroupBox, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.groupBox_photo, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 22);
@@ -341,14 +341,14 @@
             this.comboBox_gender.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_gender.FormattingEnabled = true;
             this.comboBox_gender.Items.AddRange(new object[] {
-            "Homme",
-            "Femme"});
+            "Man",
+            "Woman"});
             this.comboBox_gender.Location = new System.Drawing.Point(165, 71);
             this.comboBox_gender.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.comboBox_gender.Name = "comboBox_gender";
             this.comboBox_gender.Size = new System.Drawing.Size(293, 25);
             this.comboBox_gender.TabIndex = 5;
-            this.comboBox_gender.SelectedIndexChanged += new System.EventHandler(this.HommeFemmeCombo_SelectedIndexChanged);
+            this.comboBox_gender.SelectedIndexChanged += new System.EventHandler(this.comboBox_gender_SelectedIndexChanged);
             // 
             // tableLayoutPanel4
             // 
@@ -392,7 +392,7 @@
             this.button_newJob.TabIndex = 17;
             this.button_newJob.Text = "New";
             this.button_newJob.UseVisualStyleBackColor = true;
-            this.button_newJob.Click += new System.EventHandler(this.NouveauTravailBtn_Click);
+            this.button_newJob.Click += new System.EventHandler(this.button_newJob_Click);
             // 
             // openFileDialog_main
             // 
@@ -411,7 +411,7 @@
             this.button_add.TabIndex = 3;
             this.button_add.Text = "Add";
             this.button_add.UseVisualStyleBackColor = true;
-            this.button_add.Click += new System.EventHandler(this.AjouterClientBtn_Click);
+            this.button_add.Click += new System.EventHandler(this.button_add_Click);
             // 
             // Form_AddCustomer
             // 
@@ -431,8 +431,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a customer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AjouterClient_FormClosed);
-            this.Load += new System.EventHandler(this.AjouterClient_Load);
-            this.PhotoGroupBox.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.Form_AddCustomer_Load);
+            this.groupBox_photo.ResumeLayout(false);
             this.tableLayoutPanel_photo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_photo)).EndInit();
             this.groupBox_customer.ResumeLayout(false);
@@ -447,7 +447,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox_photo;
-        private System.Windows.Forms.GroupBox PhotoGroupBox;
+        private System.Windows.Forms.GroupBox groupBox_photo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_photo;
         private System.Windows.Forms.Button button_selectPhoto;
         private System.Windows.Forms.GroupBox groupBox_customer;

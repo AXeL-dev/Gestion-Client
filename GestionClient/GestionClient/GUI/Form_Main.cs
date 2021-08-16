@@ -24,7 +24,7 @@ namespace GestionClient
 
             try
             {
-                App.CreateAssetsFolder();
+                Assets.CreateFolder();
                 FillLanguageMenuItem();
             }
             catch (Exception exception)
@@ -38,42 +38,40 @@ namespace GestionClient
         #region Common-Methods
         private void SwitchLanguage()
         {
-            // Reading Direction
+            // Form
             this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-
-            // Form Title
             this.Text = App.Name = LocalizedStrings.App_Name;
 
-            // Main Menu Items
+            // Menu
             menuItem_application.Text = LocalizedStrings.Application_Menu;
             menuItem_customer.Text = LocalizedStrings.Client_Menu;
             menuItem_job.Text = LocalizedStrings.Travail_Menu;
             menuItem_help.Text = LocalizedStrings.Question_Menu;
 
-            // Application Menu Items
+            // Menu / Application
             menuItem_connect.Text = LocalizedStrings.Connexion_DB_Sub_Menu;
             menuItem_backup.Text = LocalizedStrings.Sauvegarder_DB_Sub_Menu;
             menuItem_language.Text = LocalizedStrings.Langue_Sub_Menu;
             menuItem_quit.Text = LocalizedStrings.Quitter_Menu;
 
-            // Customer Menu Items
+            // Menu / Customer
             menuItem_addCustomer.Text = LocalizedStrings.Ajouter_Client_Sub_Menu;
             menuItem_editCustomer.Text = LocalizedStrings.Modifier_Supprimer_Client_Sub_Menu;
             menuItem_customersList.Text = LocalizedStrings.Liste_Client_Sub_Menu;
 
-            // Job Menu Items
+            // Menu / Job
             menuItem_addJob.Text = LocalizedStrings.Ajouter_Travail_Sub_Menu;
             menuItem_removeJob.Text = LocalizedStrings.Supprimer_Travail_Sub_Menu;
 
-            // Help Menu Items
+            // Menu / Help
             menuItem_about.Text = LocalizedStrings.A_propos_Sub_Menu;
 
-            // Connection Status
+            // Status Bar
             statusLabel_main.Text = Database.IsFetched
                 ? LocalizedStrings.Connexion_To_DB_Success
                 : LocalizedStrings.Connexion_To_DB_Error;
 
-            // Save File Dialog Title
+            // Save File Dialog
             saveFileDialog_main.Title = LocalizedStrings.saveFileDialog_Title;
         }
 
@@ -98,14 +96,14 @@ namespace GestionClient
             {
                 statusLabel_main.Text = LocalizedStrings.Connexion_To_DB_Success;
                 statusLabel_main.ForeColor = Color.Green;
-                statusLabel_main.Image = Resources._true;
+                statusLabel_main.Image = Resources.accept;
             }
             catch (Exception exception)
             {
                 statusLabel_main.Text = LocalizedStrings.Connexion_To_DB_Error;
                 statusLabel_main.ToolTipText = exception.Message;
                 statusLabel_main.ForeColor = Color.Red;
-                statusLabel_main.Image = Resources._false;
+                statusLabel_main.Image = Resources.decline;
             }
         }
 
@@ -139,7 +137,7 @@ namespace GestionClient
                     using (WinRar winrar = new WinRar())
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        winrar.Compress(saveFileDialog_main.FileName, App.DatabaseFolderName);
+                        winrar.Compress(saveFileDialog_main.FileName, Database.FolderPath);
                         this.Cursor = Cursors.Default;
                     }
 
