@@ -290,28 +290,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Database.mdb" />
-    <Content Include="Data\Assets\27_\30-10-2015_02-03-12_female_default.jpg" />
-    <Content Include="Data\Assets\27_\30-10-2015_02-03-14_femme.png" />
-    <Content Include="Data\Assets\27_\30-10-2015_02-03-16_male_default.jpg" />
-    <Content Include="Data\Assets\27_\30-10-2015_12-31-22_homme.png" />
-    <Content Include="Data\Assets\27_\31-10-2015_19-22-38_database.png" />
-    <Content Include="Data\Assets\30_\30-10-2015 01-58-40_female_default.jpg" />
-    <Content Include="Data\Assets\30_\30-10-2015_02-04-27_femme.png" />
-    <Content Include="Data\Assets\30_\30-10-2015_12-27-17_homme.png" />
-    <Content Include="Data\Assets\30_\31-10-2015_19-23-51_female_default.jpg" />
-    <Content Include="Data\Assets\37_\04-11-2015_18-58-02_database.png" />
-    <Content Include="Data\Assets\46_\06-11-2015_12-46-52_Desert.jpg" />
-    <Content Include="Data\Assets\46_\06-11-2015_12-46-55_Penguins.jpg" />
-    <Content Include="Data\Assets\46_\06-11-2015_12-47-03_Koala.jpg" />
-    <Content Include="Data\Assets\46_\06-11-2015_12-47-06_Lighthouse.jpg" />
-    <Content Include="Data\Assets\46_\06-11-2015_12-49-07_Tulips.jpg" />
-    <Content Include="Data\Assets\47_\06-11-2015_12-48-11_Lighthouse.jpg" />
-    <Content Include="Data\Assets\47_\06-11-2015_12-48-19_Desert.jpg" />
-    <Content Include="Data\Assets\51_\08-08-2021_16-15-12_avatar3.png" />
-    <Content Include="Data\Assets\51_\08-08-2021_16-16-46_avatar2.png" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-12_female_default.jpg" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-14_femme.png" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-16_male_default.jpg" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_12-31-22_homme.png" />
+    <Content Include="Data\Assets\27_Ahmed\31-10-2015_19-22-38_database.png" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015 01-58-40_female_default.jpg" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015_02-04-27_femme.png" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015_12-27-17_homme.png" />
+    <Content Include="Data\Assets\30_Samira\31-10-2015_19-23-51_female_default.jpg" />
+    <Content Include="Data\Assets\37_Said ta3iss\04-11-2015_18-58-02_database.png" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-46-52_Desert.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-46-55_Penguins.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-47-03_Koala.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-47-06_Lighthouse.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-49-07_Tulips.jpg" />
+    <Content Include="Data\Assets\47_chateau\06-11-2015_12-48-11_Lighthouse.jpg" />
+    <Content Include="Data\Assets\47_chateau\06-11-2015_12-48-19_Desert.jpg" />
+    <Content Include="Data\Assets\51_محمد\08-08-2021_16-15-12_avatar3.png" />
+    <Content Include="Data\Assets\51_محمد\08-08-2021_16-16-46_avatar2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Assets\50_\" />
+    <Folder Include="Data\Assets\50_خالد بن الوليد\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

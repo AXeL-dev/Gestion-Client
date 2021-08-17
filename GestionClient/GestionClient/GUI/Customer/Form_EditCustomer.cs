@@ -12,13 +12,11 @@ namespace GestionClient
 {
     public partial class Form_EditCustomer : Form
     {
-        // attributs
-        private int position = 0;
-        private int currentClientId;
-        private List<PictureBox> piecesPbList = new List<PictureBox>();
-        private DataView dv;
+        private int _position = 0;
+        private int _currentCustomerID;
+        private List<PictureBox> _assetsPictureBoxes = new List<PictureBox>();
+        private DataView _dataView;
 
-        // constr.
         public Form_EditCustomer()
         {
             InitializeComponent();
@@ -48,9 +46,9 @@ namespace GestionClient
                     comboBox_job.ValueMember = "ID";
 
                     // initialisation du DataView
-                    dv = new DataView(Database.Payments.Table);
+                    _dataView = new DataView(Database.Payments.Table);
                     // affichage du DataView dans la DataGridView
-                    dataGridView_payements.DataSource = dv;
+                    dataGridView_payements.DataSource = _dataView;
                     dataGridView_payements.Columns["ID"].Visible = dataGridView_payements.Columns["CustomerID"].Visible = false;
                     setDataGridviewFormat();
                     // ajout des bouttons supprimer dans la dataGridView des paiements
@@ -86,9 +84,9 @@ namespace GestionClient
         private void SuivantBtn_Click(object sender, EventArgs e)
         {
             // on avance
-            position++;
-            if (position > Database.Customers.Table.Rows.Count - 1)
-                position = Database.Customers.Table.Rows.Count - 1;
+            _position++;
+            if (_position > Database.Customers.Table.Rows.Count - 1)
+                _position = Database.Customers.Table.Rows.Count - 1;
             // on affiche le client
             move();
         }
@@ -97,9 +95,9 @@ namespace GestionClient
         private void PrécédentBtn_Click(object sender, EventArgs e)
         {
             // on retourne au précédent
-            position--;
-            if (position < 0)
-                position = 0;
+            _position--;
+            if (_position < 0)
+                _position = 0;
             // on affiche le client
             move();
         }
@@ -116,7 +114,7 @@ namespace GestionClient
                     textBox_name.Focus();
                 }
                 // si nn si nom en double
-                else if (checkDoubleClientNameNotCurrent(textBox_name.Text, position))
+                else if (checkDoubleClientNameNotCurrent(textBox_name.Text, _position))
                 {
                     QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_D_un_Autre_Client);
                     //NomTextBox.Text = ""; // on vide le textbox du nom
@@ -129,15 +127,15 @@ namespace GestionClient
                     for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvée
-                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == _currentCustomerID)
                         {
                             // modification
-                            Database.Customers.Table.Rows[position]["FullName"] = textBox_name.Text;
-                            Database.Customers.Table.Rows[position]["JobID"] = comboBox_job.SelectedValue;
+                            Database.Customers.Table.Rows[_position]["FullName"] = textBox_name.Text;
+                            Database.Customers.Table.Rows[_position]["JobID"] = comboBox_job.SelectedValue;
                             if (maskedTextBox_birthDate.MaskCompleted)
-                                Database.Customers.Table.Rows[position]["BirthDate"] = maskedTextBox_birthDate.Text;
-                            Database.Customers.Table.Rows[position]["Phone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
-                            Database.Customers.Table.Rows[position]["Email"] = textBox_email.Text;
+                                Database.Customers.Table.Rows[_position]["BirthDate"] = maskedTextBox_birthDate.Text;
+                            Database.Customers.Table.Rows[_position]["Phone"] = maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty);
+                            Database.Customers.Table.Rows[_position]["Email"] = textBox_email.Text;
                             Database.Customers.ApplyChanges();
                             QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Modifié);
                             break; // on sort de la boucle
@@ -162,13 +160,13 @@ namespace GestionClient
                     for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                     {
                         // si clé primaire trouvé
-                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == currentClientId)
+                        if (Convert.ToInt32(Database.Customers.Table.Rows[i]["ID"]) == _currentCustomerID)
                         {
                             // suppression du client
                             Database.Customers.Table.Rows[i].Delete();
                             Database.Customers.ApplyChanges();
                             // suppression du dossier du client (!@ avec tout son contenu)
-                            string clientFolderName = Assets.FolderPath + "\\" + currentClientId + "_" + textBox_name.Text;
+                            string clientFolderName = Assets.RootFolderPath + "\\" + _currentCustomerID + "_" + textBox_name.Text;
                             if (Directory.Exists(clientFolderName))
                                 Directory.Delete(clientFolderName, true);
                             // si on peu faire un retour en arrière
@@ -198,15 +196,15 @@ namespace GestionClient
         private void RechercherBtn_Click(object sender, EventArgs e)
         {
             // on affecte la position actuelle à 'searchFoundedPosition' de la ClassGlobal
-            App.SearchResultIndex = position;
+            App.SearchResultIndex = _position;
             // on affiche la fenêtre de recherche
             Form fen = new Form_SearchCustomer();
             fen.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
             fen.ShowDialog();
             // on affiche le client trouvé, si trouvé biensur
-            if (App.SearchResultIndex != position)
+            if (App.SearchResultIndex != _position)
             {
-                position = App.SearchResultIndex;
+                _position = App.SearchResultIndex;
                 move();
             }
         }
@@ -231,7 +229,7 @@ namespace GestionClient
                 else // si nn, c'est bon
                 {
                     // ajout du paiement
-                    Database.Payments.Table.Rows.Add(null, Database.Customers.Table.Rows[position]["ID"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
+                    Database.Payments.Table.Rows.Add(null, Database.Customers.Table.Rows[_position]["ID"], maskedTextBox_amount.Text, dateTimePicker_payementDate.Value);
                     Database.Payments.ApplyChanges();
                     //QuickMessageBox.Show("Paiement enregistré !", ClassGlobal.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // mise à jour de la dataTable Paiement (pour avoir les bon ids, afin de pouvoir supprimer un paiement)
@@ -248,10 +246,10 @@ namespace GestionClient
         private void pictureBoxsSingle_Click(object sender, EventArgs e)
         {
             // on rend à l'état normal toutes les picturesboxs des pieces
-            foreach (PictureBox curPb in piecesPbList)
+            foreach (PictureBox pictureBox in _assetsPictureBoxes)
             {
-                curPb.BackColor = SystemColors.Control;
-                curPb.Padding = new Padding(0);
+                pictureBox.BackColor = SystemColors.Control;
+                pictureBox.Padding = new Padding(0);
             }
 
             // on séléctionne/met une bordure bleu sur la pictureBoxs/la piece sur laquelle on vien de clicker
@@ -266,15 +264,15 @@ namespace GestionClient
             try
             {
                 // s'il n'y a aucune pièce
-                if (piecesPbList.Count == 0)
+                if (_assetsPictureBoxes.Count == 0)
                     throw new Exception(LocalizedStrings.MessageBox_Aucune_Piece);
                 else // si nn
                 {
                     // on parcourt toutes les pieces
-                    for (int i = 0; i < piecesPbList.Count; i++)
+                    for (int i = 0; i < _assetsPictureBoxes.Count; i++)
                     {
                         // si on trouve qu'une piece est séléctionnée
-                        if (piecesPbList[i].BackColor == SystemColors.Highlight && piecesPbList[i].Padding.All == 3)
+                        if (_assetsPictureBoxes[i].BackColor == SystemColors.Highlight && _assetsPictureBoxes[i].Padding.All == 3)
                         {
                             if (QuickMessageBox.ShowQuestion(LocalizedStrings.MessageBox_Confirmer_Suppression_Piece) == DialogResult.Yes)
                             {
@@ -282,15 +280,15 @@ namespace GestionClient
                                 for (int p = 0; p < Database.Assets.Table.Rows.Count; p++)
                                 {
                                     // si on trouve que la clé primaire (id) == tag de l'image ou on a sauvegardé l'id nous aussi
-                                    if (Database.Assets.Table.Rows[p]["ID"].ToString() == piecesPbList[i].Tag.ToString())
+                                    if (Database.Assets.Table.Rows[p]["ID"].ToString() == _assetsPictureBoxes[i].Tag.ToString())
                                     {
                                         // suppression de l'image
-                                        File.Delete(piecesPbList[i].ImageLocation);
+                                        File.Delete(_assetsPictureBoxes[i].ImageLocation);
                                         // suppression de la piece de la table 'Pieces'
                                         Database.Assets.Table.Rows[p].Delete();
                                         Database.Assets.ApplyChanges();
                                         // raffraichissement des pieces
-                                        showPieces(currentClientId);
+                                        showPieces(_currentCustomerID);
                                         break; // on sort de la 2ème boucle
                                     }
                                 }
@@ -321,7 +319,7 @@ namespace GestionClient
                     // ajout de la pièce
                     addPieceAs(openFileDialog_main.FileName, "Autre");
                     // raffraichissement des pieces
-                    showPieces(currentClientId);
+                    showPieces(_currentCustomerID);
                 }
             }
             catch (Exception exception)
@@ -388,7 +386,7 @@ namespace GestionClient
                     }
 
                     // on affiche la nouvelle Photo
-                    pictureBox_photo.ImageLocation = Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["FilePath"].ToString();
+                    pictureBox_photo.ImageLocation = Database.Assets.Table.Rows[Convert.ToInt32(pictureBox_photo.Tag)]["FileName"].ToString();
                 }
             }
             catch (Exception exception)
@@ -417,15 +415,15 @@ namespace GestionClient
         // move() : gère les déplacements des clients
         private void move()
         {
-            currentClientId = Convert.ToInt32(Database.Customers.Table.Rows[position]["ID"]);
-            setImage(currentClientId);
-            textBox_name.Text = Database.Customers.Table.Rows[position]["FullName"].ToString();
-            comboBox_job.SelectedValue = Database.Customers.Table.Rows[position]["JobID"];
-            maskedTextBox_birthDate.Text = Database.Customers.Table.Rows[position]["BirthDate"].ToString();
-            maskedTextBox_phoneNumber.Text = Database.Customers.Table.Rows[position]["Phone"].ToString();
-            textBox_email.Text = Database.Customers.Table.Rows[position]["Email"].ToString();
-            showPaiement(currentClientId);
-            showPieces(currentClientId);
+            _currentCustomerID = Convert.ToInt32(Database.Customers.Table.Rows[_position]["ID"]);
+            setImage(_currentCustomerID);
+            textBox_name.Text = Database.Customers.Table.Rows[_position]["FullName"].ToString();
+            comboBox_job.SelectedValue = Database.Customers.Table.Rows[_position]["JobID"];
+            maskedTextBox_birthDate.Text = Database.Customers.Table.Rows[_position]["BirthDate"].ToString();
+            maskedTextBox_phoneNumber.Text = Database.Customers.Table.Rows[_position]["Phone"].ToString();
+            textBox_email.Text = Database.Customers.Table.Rows[_position]["Email"].ToString();
+            showPaiement(_currentCustomerID);
+            showPieces(_currentCustomerID);
         }
 
         // setImage() : affiche l'image du client
@@ -437,14 +435,15 @@ namespace GestionClient
                 // si on trouve que le client à une photo
                 if (Convert.ToInt32(Database.Assets.Table.Rows[i]["CustomerID"]) == clientId && Database.Assets.Table.Rows[i]["AssetType"].ToString() == "Photo")
                 {
-                    pictureBox_photo.ImageLocation = Database.Assets.Table.Rows[i]["FilePath"].ToString();
+
+                    pictureBox_photo.Image = Assets.Get(clientId, "Photo");
                     pictureBox_photo.Tag = i; // on utilisera le Tag pour simplifier la modification de la Photo
                     return;
                 }
             }
 
             // si nn
-            string sexe = Database.Customers.Table.Rows[position]["Gender"].ToString();
+            string sexe = Database.Customers.Table.Rows[_position]["Gender"].ToString();
 
             if (sexe == "Homme" || sexe == "ذكر") // si c'est un 'Homme'
                 pictureBox_photo.Image = GestionClient.Properties.Resources.man;
@@ -474,7 +473,7 @@ namespace GestionClient
         private void showPaiement(int clientId)
         {
             // filtrage
-            dv.RowFilter = "CustomerID = " + clientId;
+            _dataView.RowFilter = "CustomerID = " + clientId;
         }
 
         // setDataGridviewFormat() : applique les changements de format nécéssaires à la DataGridView
@@ -507,7 +506,7 @@ namespace GestionClient
             tableLayoutPanel_assets.ColumnCount = 1;
 
             // on vide la liste des images/pictureboxs
-            piecesPbList.Clear();
+            _assetsPictureBoxes.Clear();
 
             if (drs.Length > 0)
             {
@@ -526,14 +525,14 @@ namespace GestionClient
                     pb.Dock = DockStyle.Fill;
                     pb.InitialImage = GestionClient.Properties.Resources.load;
                     //pb.ErrorImage = GestionClient.Properties.Resources._false;
-                    pb.ImageLocation = drs[i]["FilePath"].ToString();
+                    pb.ImageLocation = drs[i]["FileName"].ToString();
                     pb.DoubleClick += pictureBox1_Click;
                     pb.Click += pictureBoxsSingle_Click;
                     // ajout à la liste des images/pictureboxs
-                    piecesPbList.Add(pb);
+                    _assetsPictureBoxes.Add(pb);
                     // ajout au TableLayoutPanel
                     tableLayoutPanel_assets.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, pieceSize));
-                    tableLayoutPanel_assets.Controls.Add(piecesPbList[i], i, 0);
+                    tableLayoutPanel_assets.Controls.Add(_assetsPictureBoxes[i], i, 0);
                 }
             }
         }
@@ -554,14 +553,14 @@ namespace GestionClient
         private void addPieceAs(string emplacementPiece, string typePiece)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = Assets.FolderPath + "\\" + currentClientId + "_";// +NomTextBox.Text;
+            string imageFolderName = Assets.RootFolderPath + "\\" + _currentCustomerID + "_";// +NomTextBox.Text;
             // on récupère le nom de l'image
             string imageFileName = emplacementPiece.Remove(0, emplacementPiece.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(emplacementPiece, destinationFileName, true);
             // on ajoute la photo en tant que Piece
-            Database.Assets.Table.Rows.Add(null, currentClientId, destinationFileName, typePiece);
+            Database.Assets.Table.Rows.Add(null, _currentCustomerID, destinationFileName, typePiece);
             Database.Assets.ApplyChanges();
             // mise à jour de la dataTable 'Pieces' (pour avoir les bon ids des pièces)
             Database.Assets.FetchTable();
@@ -571,18 +570,18 @@ namespace GestionClient
         private void updatePiece(string nouveauEmplacement, int pieceIndex)
         {
             // on récupère le chemin ou on va pouvoir stocker l'image
-            string imageFolderName = Assets.FolderPath + "\\" + currentClientId + "_" + textBox_name.Text;
+            string imageFolderName = Assets.RootFolderPath + "\\" + _currentCustomerID + "_" + textBox_name.Text;
             // on récupère le nom de l'image
             string imageFileName = nouveauEmplacement.Remove(0, nouveauEmplacement.LastIndexOf('\\') + 1);
             // on copie l'image dans le répertoire de notre base de données
             string destinationFileName = imageFolderName + "\\" + DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss") + "_" + imageFileName;
             File.Copy(nouveauEmplacement, destinationFileName, true);
             // suppression de l'ancienne image de notre base de données
-            string oldImage = Database.Assets.Table.Rows[pieceIndex]["FilePath"].ToString();
+            string oldImage = Database.Assets.Table.Rows[pieceIndex]["FileName"].ToString();
             if (File.Exists(oldImage))
                 File.Delete(oldImage);
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces
-            Database.Assets.Table.Rows[pieceIndex]["FilePath"] = destinationFileName;
+            Database.Assets.Table.Rows[pieceIndex]["FileName"] = destinationFileName;
             Database.Assets.ApplyChanges();
         }
 

@@ -24,7 +24,7 @@ namespace GestionClient
 
             try
             {
-                Assets.CreateFolder();
+                Assets.CreateRootFolder();
                 FillLanguageMenuItem();
             }
             catch (Exception exception)
@@ -137,7 +137,7 @@ namespace GestionClient
                     using (WinRar winrar = new WinRar())
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        winrar.Compress(saveFileDialog_main.FileName, Database.FolderPath);
+                        winrar.Compress(saveFileDialog_main.FileName, Database.RootFolderPath);
                         this.Cursor = Cursors.Default;
                     }
 

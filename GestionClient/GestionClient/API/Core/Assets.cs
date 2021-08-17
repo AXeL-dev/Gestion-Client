@@ -3,70 +3,119 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Data;
+using System.Drawing;
 
 namespace GestionClient
 {
     static class Assets
     {
-        public const string FolderPath = @"Data\Assets";
+        public const string RootFolderPath = @"Data\Assets";
 
+        #region Private-Methods
         /// <summary>
-        /// Creates the folder (If it does not exist) that will contain all customers assets.
+        /// Uses columns from a Customer DataRow object to generate 
+        /// the name of the assets subfolder destined to contain all 
+        /// assets associated with the given customer.
         /// </summary>
-        public static void CreateFolder()
+        /// <param name="customerRow">Customer DataRow.</param>
+        /// <returns>Customer assets subfolder name.</returns>
+        private static string GetSubfolderName(DataRow customerRow)
         {
-            if (!Directory.Exists(FolderPath))
-            {
-                Directory.CreateDirectory(FolderPath);
-            }
+            return string.Format("{0}_{1}", customerRow["ID"], customerRow["FullName"]);
         }
 
         /// <summary>
-        /// Creates a sub-folder (If it does not exist) in the 
-        /// assets folder that will contain assets for a customer.
+        /// Generates a new unique file name from a given file path. 
+        /// The generated name is destined to be given to the file  when 
+        /// saved in the assets folder to avoid any potential duplicate names.
         /// </summary>
-        /// <param name="subfolderName">Subfolder Name.</param>
-        public static string CreateSubfolder(string subfolderName)
-        {
-            string path = Path.Combine(FolderPath, subfolderName);
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            return subfolderName;
-        }
-
-        /// <summary>
-        /// Creates a sub-folder (If it does not exist) in the 
-        /// assets folder that will contain assets for a customer
-        /// using a Customer DataRow to generate the folder name.
-        /// </summary>
-        /// <param name="customerRow">Customer Row</param>
-        /// <returns>Created folder name.</returns>
-        public static string CreateSubfolder(DataRow customerRow)
-        {
-            string id = customerRow.Table.Columns.Contains("ID")
-                ? customerRow["ID"].ToString() : string.Empty;
-            string fullName = customerRow.Table.Columns.Contains("FullName")
-                ? customerRow["FullName"].ToString() : string.Empty;
-            string folderName = string.Format("{0}_{1}", id, fullName).Trim();
-            return CreateSubfolder(folderName);
-        }
-
-        /// <summary>
-        /// Copies a given file in the specified folder.
-        /// </summary>
-        /// <param name="sourceFilePath">File to copy.</param>
-        /// <param name="destinationFolderPath">Folder where to copy the file.</param>
-        /// <returns></returns>
-        public static string CreateFile(string sourceFilePath, string destinationFolderPath)
+        /// <param name="filePath">Source file path.</param>
+        /// <returns>Generated new unique file name.</returns>
+        private static string GenerateFileName(string filePath)
         {
             string dateTimeString = DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss");
-            string sourceFileName = Path.GetFileName(sourceFilePath);
-            string destinationFileName = string.Format("{0}_{1}", dateTimeString, sourceFileName);
-            string destinationFilePath = Path.Combine(destinationFolderPath, destinationFileName);
+            string sourceFileName = Path.GetFileName(filePath);
+            return string.Format("{0}_{1}", dateTimeString, sourceFileName);
+        }
+        #endregion
+
+        /// <summary>
+        /// Creates the assets root folder If it does not exist.
+        /// The folder will contain all customers assets.
+        /// </summary>
+        public static void CreateRootFolder()
+        {
+            if (!Directory.Exists(RootFolderPath))
+            {
+                Directory.CreateDirectory(RootFolderPath);
+            }
+        }
+
+        /// <summary>
+        /// Creates a new asset by copying the specified file in a subfolder of the 
+        /// root assets folder associated with the specified customer and adds a new
+        /// row for the created asset in the Assets table in database.
+        /// </summary>
+        /// <param name="sourceFilePath">Path of the file to copy.</param>
+        /// <param name="customerRow">DataRow object of the associated customer.</param>
+        /// <param name="assetType">Type of the asset (Photo or Other).</param>
+        public static void Add(string sourceFilePath, DataRow customerRow, string assetType = "Other")
+        {
+            string subfolderPath = Path.Combine(RootFolderPath, GetSubfolderName(customerRow));
+            string destinationFileName = GenerateFileName(sourceFilePath);
+            string destinationFilePath = Path.Combine(subfolderPath, destinationFileName);
             File.Copy(sourceFilePath, destinationFilePath, true);
-            return destinationFilePath;
+            Database.Assets.Table.Rows.Add(null, customerRow["ID"], destinationFileName, assetType);
+            Database.Assets.ApplyChanges();
+            Database.Assets.FetchTable();
+        }
+
+        /// <summary>
+        /// Creates a new asset by copying the specified file in a subfolder of the 
+        /// root assets folder associated with the specified customer and adds a new
+        /// row for the created asset in the Assets table in database.
+        /// </summary>
+        /// <param name="sourceFilePath">Path of the file to copy.</param>
+        /// <param name="customerID">ID of the associated customer.</param>
+        /// <param name="assetType">Type of the asset (Photo or Other).</param>
+        public static void Add(string sourceFilePath, int customerID, string assetType = "Other")
+        {
+            var customerRow = Database.Customers.GetFirstRowWhere("ID = '{0}'", customerID);
+            Add(sourceFilePath, customerRow, assetType);
+        }
+
+        /// <summary>
+        /// Creates a new asset by copying the specified file in a subfolder of the 
+        /// root assets folder associated with the specified customer and adds a new
+        /// row for the created asset in the Assets table in database.
+        /// </summary>
+        /// <param name="sourceFilePath">Path of the file to copy.</param>
+        /// <param name="customerFullName">FullName of the associated customer.</param>
+        /// <param name="assetType">Type of the asset (Photo or Other).</param>
+        public static void Add(string sourceFilePath, string customerFullName, string assetType = "Other")
+        {
+            var customerRow = Database.Customers.GetFirstRowWhere("FullName = '{0}'", customerFullName);
+            Add(sourceFilePath, customerRow, assetType);
+        }
+
+        /// <summary>
+        /// Gets an Image object containing the asset associated
+        /// with the specified customer and having the specified 
+        /// type (Photo or Other).
+        /// </summary>
+        /// <param name="customerID">ID of the associated customer.</param>
+        /// <param name="assetType">Type of the asset (Photo or Other).</param>
+        /// <returns>Asset Image object.</returns>
+        public static Image Get(int customerID, string assetType = "Other")
+        {
+            var customerRow = Database.Customers.GetFirstRowWhere("ID = '{0}'", customerID);
+            var assetRow = Database.Assets
+                .GetFirstRowWhere("CustomerID = '{0}' AND AssetType = '{1}'", customerID, assetType);
+            string filePath = Path.Combine(
+                GetSubfolderName(customerRow),
+                assetRow["FileName"].ToString());
+            filePath = Path.Combine(RootFolderPath, filePath);
+            return Image.FromFile(filePath);
         }
     }
 }

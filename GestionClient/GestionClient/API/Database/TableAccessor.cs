@@ -119,5 +119,20 @@ namespace GestionClient
         {
             return Table.Select(string.Format(expression, args)).Length > 0;
         }
+
+        /// <summary>
+        /// Creates and adds a new row to the inner DataTable using the 
+        /// specified values. In addition, applies the changes to database 
+        /// and refills the inner DataTable from database.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public DataRow Add(params object[] values)
+        {
+            DataRow addedRow = Table.Rows.Add(values);
+            ApplyChanges();
+            FetchTable();
+            return addedRow;
+        }
     }
 }

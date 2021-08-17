@@ -121,25 +121,15 @@ namespace GestionClient
                     {
                         birthDate = maskedTextBox_birthDate.Text;
                     }
-                    Database.Customers.Table.Rows.Add(
+                    Database.Customers.Add(
                         null, textBox_name.Text.Trim(), comboBox_gender.Text,
                         comboBox_job.SelectedValue, birthDate,
                         maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty),
                         textBox_email.Text, DateTime.Now.ToString());
-                    Database.Customers.ApplyChanges();
-                    Database.Customers.FetchTable();
-
                     if (_photoLoaded)
                     {
-                        var customerRow = Database.Customers.GetFirstRowWhere("FullName = '{0}'", textBox_name.Text.Trim());
-                        string customerAssetsSubfolder = Assets.CreateSubfolder(customerRow);
-                        string photoFilePath = Assets.CreateFile(pictureBox_photo.ImageLocation, customerAssetsSubfolder);
-                        int customerID = Convert.ToInt32(customerRow["ID"]);
-                        Database.Assets.Table.Rows.Add(null, customerID, photoFilePath, "Photo");
-                        Database.Assets.ApplyChanges();
-                        Database.Assets.FetchTable();
+                        Assets.Add(pictureBox_photo.ImageLocation, textBox_name.Text.Trim(), "Photo");
                     }
-
                     QuickMessageBox.ShowInformation(LocalizedStrings.MessageBox_Client_Ajouté);
                     this.Close();
                 }
