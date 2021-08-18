@@ -61,6 +61,8 @@
     <Compile Include="API\Database\Database.cs" />
     <Compile Include="API\Core\Language.cs" />
     <Compile Include="API\Database\TableAccessor.cs" />
+    <Compile Include="API\Miscellaneous\DataTableNavigator.cs" />
+    <Compile Include="API\UI Elements\DataGridViewColumnFormat.cs" />
     <Compile Include="API\UI Elements\QuickMessageBox.cs" />
     <Compile Include="API\Miscellaneous\WinRar.cs" />
     <Compile Include="GUI\Help\Form_About.cs">

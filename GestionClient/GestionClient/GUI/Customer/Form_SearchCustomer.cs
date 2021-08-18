@@ -6,59 +6,55 @@ namespace GestionClient
 {
     public partial class Form_SearchCustomer : Form
     {
-        // constr.
         public Form_SearchCustomer()
         {
             InitializeComponent();
+            Language.Changed += (s, args) => this.UpdateLocalization();
         }
 
-        // event. Click sur le boutton 'Rechercher'
-        private void RechercherBtn_Click(object sender, EventArgs e)
+        #region Common-Methods
+        private void UpdateLocalization()
         {
-            // si le nom est vide
-            if (textBox_name.Text.Length == 0)
+            this.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
+            this.Text = LocalizedStrings.Rechercher_Client_Win_Name;
+            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            button_search.Text = LocalizedStrings.Rechercher_Client_Rechercher_Button;
+        }
+        #endregion
+
+        private void Form_SearchCustomer_Load(object sender, EventArgs e)
+        {
+            UpdateLocalization();
+        }
+
+        private void Form_SearchCustomer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Language.Changed -= (s, args) => this.UpdateLocalization();
+        }
+
+        private void button_search_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_name.Text.Trim()))
             {
                 QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Nom_Obligatoire);
                 textBox_name.Focus();
             }
             else
             {
-                // on parcourt la dataTable Client
+                //var customerRow = Database.Customers.GetFirstRowWhere("FullName LIKE '{0}%'", textBox_name.Text.Trim());
                 for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
                 {
-                    // si nom du client trouvé
-                    if (Database.Customers.Table.Rows[i]["FullName"].ToString().ToUpper().StartsWith(textBox_name.Text.ToUpper())) // ToUpper() pour gérer la casse
+                    if (Database.Customers.Table.Rows[i]["FullName"].ToString()
+                        .ToLower().StartsWith(textBox_name.Text.ToLower()))
                     {
                         App.SearchResultIndex = i;
-                        this.Close(); // fermeture de la fenêtre
-                        return; // on sort de la fonction
+                        this.Close();
+                        return;
                     }
                 }
-
-                // si nn
                 QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Client_Non_trouvé);
             }
-        }
-
-        // event. Load du formulaire
-        private void RechercherNomClient_Load(object sender, EventArgs e)
-        {
-            // on change la langue si l'arabe est séléctionné
-            if (Language.IsRightToLeft)
-                switchLanguage();
-        }
-
-        // méthodes
-        // switchLanguage() : charge la traduction des propriétés Text, ... des controls
-        private void switchLanguage()
-        {
-            // Window Name
-            this.Text = LocalizedStrings.Rechercher_Client_Win_Name;
-            // Labels et GroupBoxs
-            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
-            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
-            // Buttons
-            button_search.Text = LocalizedStrings.Rechercher_Client_Rechercher_Button;
         }
     }
 }

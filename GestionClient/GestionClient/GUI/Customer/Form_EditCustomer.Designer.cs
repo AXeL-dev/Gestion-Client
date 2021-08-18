@@ -466,7 +466,7 @@
             this.button_search.TabIndex = 4;
             this.button_search.Text = "Search";
             this.button_search.UseVisualStyleBackColor = true;
-            this.button_search.Click += new System.EventHandler(this.RechercherBtn_Click);
+            this.button_search.Click += new System.EventHandler(this.button_search_Click);
             // 
             // button_remove
             // 
@@ -787,8 +787,8 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit a customer";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ListeClients_FormClosed);
-            this.Load += new System.EventHandler(this.ListeClients_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_EditCustomer_FormClosed);
+            this.Load += new System.EventHandler(this.Form_EditCustomer_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox_photo.ResumeLayout(false);

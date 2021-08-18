@@ -12,25 +12,73 @@ namespace GestionClient
 {
     public partial class Form_EditCustomer : Form
     {
+        private DataTableNavigator _navigator;
         private int _position = 0;
         private int _currentCustomerID;
         private List<PictureBox> _assetsPictureBoxes = new List<PictureBox>();
-        private DataView _dataView;
+        private DataView _customersDataView;
 
         public Form_EditCustomer()
         {
             InitializeComponent();
-            Language.Changed += this.LanguageChangedHandler;
+            Language.Changed += (s, args) => this.UpdateLocalization();
         }
 
-        // event. FormClosed du formulaire
-        private void ListeClients_FormClosed(object sender, FormClosedEventArgs e)
+        #region Common-Methods
+        private void UpdateLocalization()
         {
-            Language.Changed -= this.LanguageChangedHandler;
+            // Form
+            this.Text = LocalizedStrings.Modifier_Client_Win_Name;
+
+            // Group Boxes
+            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
+            groupBox_photo.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
+            groupBox_payement.Text = LocalizedStrings.Modifier_Client_Paiement_GroupBox;
+            groupBox_newPayement.Text = LocalizedStrings.Modifier_Client_Nouveau_Paiement_GroupBox;
+            groupBox_assets.Text = LocalizedStrings.Modifier_Client_Pieces_GroupBox;
+
+            // Labels
+            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
+            label_job.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
+            label_birthDate.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
+            label_phoneNumber.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
+            label_email.Text = LocalizedStrings.Ajouter_Client_Email_Label;
+            label_amount.Text = LocalizedStrings.Modifier_Client_Montant_Label;
+            label_payementDate.Text = LocalizedStrings.Modifier_Client_Date_Paiement_Label;
+
+            // Tool Tip
+            toolTip_main.SetToolTip(button_removeAsset, LocalizedStrings.Modifier_Client_Supprimer_Piece_ToolTip);
+            toolTip_main.SetToolTip(button_addAsset, LocalizedStrings.Modifier_Client_Ajouter_Piece_ToolTip);
+
+            // Buttons
+            button_next.Text = LocalizedStrings.Modifier_Client_Suivant_Button;
+            button_previous.Text = LocalizedStrings.Modifier_Client_Précédent_Button;
+            button_update.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            button_remove.Text = LocalizedStrings.Modifier_Client_Supprimer_Button;
+            button_search.Text = LocalizedStrings.Modifier_Client_Rechercher_Button;
+            button_changePhoto.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
+            button_savePayement.Text = LocalizedStrings.Modifier_Client_Enregistrer_Paiement_Button;
+
+            // Data Grid View
+            if (dataGridView_payements.Columns.Count > 0)
+            {
+                dataGridView_payements.Columns["Amount"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
+                dataGridView_payements.Columns["PaymentDate"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
+                DataGridViewColumnFormat.Number(dataGridView_payements, "Amount",
+                    LocalizedStrings.Modifier_Client_DataGridView_Montant_Column_Devise);
+            }
+
+            // Open File Dialog
+            openFileDialog_main.Title = LocalizedStrings.openFileDialog_Title;
+        }
+        #endregion
+
+        private void Form_EditCustomer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Language.Changed -= (s, args) => this.UpdateLocalization();
         }
 
-        // event. Load du formulaire
-        private void ListeClients_Load(object sender, EventArgs e)
+        private void Form_EditCustomer_Load(object sender, EventArgs e)
         {
             try
             {
@@ -46,11 +94,12 @@ namespace GestionClient
                     comboBox_job.ValueMember = "ID";
 
                     // initialisation du DataView
-                    _dataView = new DataView(Database.Payments.Table);
+                    _customersDataView = new DataView(Database.Payments.Table);
                     // affichage du DataView dans la DataGridView
-                    dataGridView_payements.DataSource = _dataView;
+                    dataGridView_payements.DataSource = _customersDataView;
                     dataGridView_payements.Columns["ID"].Visible = dataGridView_payements.Columns["CustomerID"].Visible = false;
-                    setDataGridviewFormat();
+                    dataGridView_payements.Columns["Amount"].Width = 200;
+                    dataGridView_payements.Columns["PaymentDate"].Width = 200;
                     // ajout des bouttons supprimer dans la dataGridView des paiements
                     DeleteButtonColumn supprimerPaiementBtnColumn = new DeleteButtonColumn();
                     dataGridView_payements.Columns.Add(supprimerPaiementBtnColumn);
@@ -64,9 +113,8 @@ namespace GestionClient
                     // on séléctionne le boutton 'Suivant'
                     button_next.Select();
 
-                    // on change la langue si l'arabe est séléctionné
-                    if (Language.IsRightToLeft)
-                        switchLanguage();
+                    
+                    UpdateLocalization();
                 }
                 else
                 {
@@ -192,16 +240,11 @@ namespace GestionClient
             }
         }
 
-        // event. Click on boutton 'Rechercher'
-        private void RechercherBtn_Click(object sender, EventArgs e)
+        private void button_search_Click(object sender, EventArgs e)
         {
-            // on affecte la position actuelle à 'searchFoundedPosition' de la ClassGlobal
             App.SearchResultIndex = _position;
-            // on affiche la fenêtre de recherche
-            Form fen = new Form_SearchCustomer();
-            fen.RightToLeft = Language.IsRightToLeft ? RightToLeft.Yes : RightToLeft.No;
-            fen.ShowDialog();
-            // on affiche le client trouvé, si trouvé biensur
+            Form form_searchCustomer = new Form_SearchCustomer();
+            form_searchCustomer.ShowDialog();
             if (App.SearchResultIndex != _position)
             {
                 _position = App.SearchResultIndex;
@@ -400,7 +443,7 @@ namespace GestionClient
         {
             try
             {
-                switchLanguage();
+                UpdateLocalization();
             }
             catch (Exception exception)
             {
@@ -473,23 +516,7 @@ namespace GestionClient
         private void showPaiement(int clientId)
         {
             // filtrage
-            _dataView.RowFilter = "CustomerID = " + clientId;
-        }
-
-        // setDataGridviewFormat() : applique les changements de format nécéssaires à la DataGridView
-        private void setDataGridviewFormat()
-        {
-            // montant
-            dataGridView_payements.Columns["Amount"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column;
-            dataGridView_payements.Columns["Amount"].Width = 200;
-            NumberFormatInfo format = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
-            format.CurrencySymbol = LocalizedStrings.Modifier_Client_DataGridView_Montant_Column_Devise; ;
-            format.CurrencyDecimalDigits = 0;
-            dataGridView_payements.Columns["Amount"].DefaultCellStyle.FormatProvider = format;
-            dataGridView_payements.Columns["Amount"].DefaultCellStyle.Format = "c";
-            // date paiement
-            dataGridView_payements.Columns["PaymentDate"].HeaderText = LocalizedStrings.Modifier_Client_DataGridView_Date_Paiement_Column;
-            dataGridView_payements.Columns["PaymentDate"].Width = 200;
+            _customersDataView.RowFilter = "CustomerID = " + clientId;
         }
 
         // showPieces() : affiche les pieces du client
@@ -583,40 +610,6 @@ namespace GestionClient
             // on modifie l'emplacement de la pièce et on applique les changements à la Table Pieces
             Database.Assets.Table.Rows[pieceIndex]["FileName"] = destinationFileName;
             Database.Assets.ApplyChanges();
-        }
-
-        // switchLanguage() : charge la traduction des propriétés Text, ... des controls
-        private void switchLanguage()
-        {
-            // Window Name
-            this.Text = LocalizedStrings.Modifier_Client_Win_Name;
-            // Labels et GroupBoxs
-            groupBox_customer.Text = LocalizedStrings.Ajouter_Client_Client_GroupBox;
-            label_name.Text = LocalizedStrings.Ajouter_Client_Nom_Label;
-            label_job.Text = LocalizedStrings.Ajouter_Client_Travail_Label;
-            label_birthDate.Text = LocalizedStrings.Ajouter_Client_Date_Naissance_Label;
-            label_phoneNumber.Text = LocalizedStrings.Ajouter_Client_Numero_Tel_Label;
-            label_email.Text = LocalizedStrings.Ajouter_Client_Email_Label;
-            groupBox_photo.Text = LocalizedStrings.Ajouter_Client_Photo_GroupBox;
-            groupBox_payement.Text = LocalizedStrings.Modifier_Client_Paiement_GroupBox;
-            groupBox_newPayement.Text = LocalizedStrings.Modifier_Client_Nouveau_Paiement_GroupBox;
-            label_amount.Text = LocalizedStrings.Modifier_Client_Montant_Label;
-            label_payementDate.Text = LocalizedStrings.Modifier_Client_Date_Paiement_Label;
-            groupBox_assets.Text = LocalizedStrings.Modifier_Client_Pieces_GroupBox;
-            toolTip_main.SetToolTip(button_removeAsset, LocalizedStrings.Modifier_Client_Supprimer_Piece_ToolTip);
-            toolTip_main.SetToolTip(button_addAsset, LocalizedStrings.Modifier_Client_Ajouter_Piece_ToolTip);
-            // Buttons
-            button_next.Text = LocalizedStrings.Modifier_Client_Suivant_Button;
-            button_previous.Text = LocalizedStrings.Modifier_Client_Précédent_Button;
-            button_update.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
-            button_remove.Text = LocalizedStrings.Modifier_Client_Supprimer_Button;
-            button_search.Text = LocalizedStrings.Modifier_Client_Rechercher_Button;
-            button_changePhoto.Text = LocalizedStrings.Modifier_Client_Modifier_Button;
-            button_savePayement.Text = LocalizedStrings.Modifier_Client_Enregistrer_Paiement_Button;
-            // openFileDialog1
-            openFileDialog_main.Title = LocalizedStrings.openFileDialog_Title;
-            // on raffraichie le format de la liste des paiements (pour changer la langue de la liste aussi)
-            setDataGridviewFormat();
         }
     }
 }

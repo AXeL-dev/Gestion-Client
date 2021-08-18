@@ -66,7 +66,7 @@ namespace GestionClient
             }
         }
 
-        private void AjouterClient_FormClosed(object sender, FormClosedEventArgs e)
+        private void Form_AddCustomer_FormClosed(object sender, FormClosedEventArgs e)
         {
             Language.Changed -= (s, args) => this.UpdateLocalization();
         }

@@ -46,6 +46,7 @@
             this.button_print = new System.Windows.Forms.Button();
             this.button_refresh = new System.Windows.Forms.Button();
             this.printDocument_main = new System.Drawing.Printing.PrintDocument();
+            this.printDialog_main = new System.Windows.Forms.PrintDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox_customersList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_customers)).BeginInit();
@@ -176,7 +177,7 @@
             this.textBox_name.Name = "textBox_name";
             this.textBox_name.Size = new System.Drawing.Size(234, 25);
             this.textBox_name.TabIndex = 1;
-            this.textBox_name.TextChanged += new System.EventHandler(this.NomTextBox_TextChanged);
+            this.textBox_name.TextChanged += new System.EventHandler(this.textBox_name_TextChanged);
             // 
             // checkBox_filterByJob
             // 
@@ -190,7 +191,7 @@
             this.checkBox_filterByJob.TabIndex = 1;
             this.checkBox_filterByJob.Text = "Filter by job too";
             this.checkBox_filterByJob.UseVisualStyleBackColor = true;
-            this.checkBox_filterByJob.CheckedChanged += new System.EventHandler(this.FiltrerTravailCheckBox_CheckedChanged);
+            this.checkBox_filterByJob.CheckedChanged += new System.EventHandler(this.checkBox_filterByJob_CheckedChanged);
             // 
             // tableLayoutPanel5
             // 
@@ -229,7 +230,7 @@
             this.comboBox_job.Name = "comboBox_job";
             this.comboBox_job.Size = new System.Drawing.Size(190, 25);
             this.comboBox_job.TabIndex = 0;
-            this.comboBox_job.SelectedIndexChanged += new System.EventHandler(this.TravailCombo_SelectedIndexChanged);
+            this.comboBox_job.SelectedIndexChanged += new System.EventHandler(this.comboBox_job_SelectedIndexChanged);
             // 
             // tableLayoutPanel6
             // 
@@ -260,7 +261,7 @@
             this.button_print.TabIndex = 1;
             this.button_print.Text = "Print";
             this.button_print.UseVisualStyleBackColor = true;
-            this.button_print.Click += new System.EventHandler(this.ImprimerBtn_Click);
+            this.button_print.Click += new System.EventHandler(this.button_print_Click);
             // 
             // button_refresh
             // 
@@ -275,11 +276,16 @@
             this.button_refresh.TabIndex = 2;
             this.button_refresh.Text = "Refresh";
             this.button_refresh.UseVisualStyleBackColor = true;
-            this.button_refresh.Click += new System.EventHandler(this.ActualiserBtn_Click);
+            this.button_refresh.Click += new System.EventHandler(this.button_refresh_Click);
             // 
             // printDocument_main
             // 
-            this.printDocument_main.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            this.printDocument_main.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument_main_PrintPage);
+            // 
+            // printDialog_main
+            // 
+            this.printDialog_main.Document = this.printDocument_main;
+            this.printDialog_main.UseEXDialog = true;
             // 
             // Form_CustomersList
             // 
@@ -293,8 +299,8 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Customers list";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ListeClients_FormClosed);
-            this.Load += new System.EventHandler(this.ListeClients_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_CustomersList_FormClosed);
+            this.Load += new System.EventHandler(this.Form_CustomersList_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox_customersList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_customers)).EndInit();
@@ -330,5 +336,6 @@
         private System.Drawing.Printing.PrintDocument printDocument_main;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Button button_refresh;
+        private System.Windows.Forms.PrintDialog printDialog_main;
     }
 }

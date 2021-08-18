@@ -17,6 +17,11 @@ namespace GestionClient
 
         public readonly DataTable Table;
 
+        public bool IsEmpty
+        {
+            get { return Table.Rows.Count == 0; }
+        }
+
         static TableAccessor()
         {
             s_connection = new OleDbConnection(Settings.Default.ConnectionString);

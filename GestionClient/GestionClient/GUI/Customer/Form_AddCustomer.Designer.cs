@@ -430,7 +430,7 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add a customer";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AjouterClient_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_AddCustomer_FormClosed);
             this.Load += new System.EventHandler(this.Form_AddCustomer_Load);
             this.groupBox_photo.ResumeLayout(false);
             this.tableLayoutPanel_photo.ResumeLayout(false);

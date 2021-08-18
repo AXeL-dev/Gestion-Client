@@ -98,7 +98,7 @@
             this.button_search.TabIndex = 5;
             this.button_search.Text = "Search";
             this.button_search.UseVisualStyleBackColor = true;
-            this.button_search.Click += new System.EventHandler(this.RechercherBtn_Click);
+            this.button_search.Click += new System.EventHandler(this.button_search_Click);
             // 
             // Form_SearchCustomer
             // 
@@ -115,7 +115,8 @@
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Search a customer";
-            this.Load += new System.EventHandler(this.RechercherNomClient_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form_SearchCustomer_FormClosed);
+            this.Load += new System.EventHandler(this.Form_SearchCustomer_Load);
             this.groupBox_customer.ResumeLayout(false);
             this.tableLayoutPanel_main.ResumeLayout(false);
             this.tableLayoutPanel_main.PerformLayout();
