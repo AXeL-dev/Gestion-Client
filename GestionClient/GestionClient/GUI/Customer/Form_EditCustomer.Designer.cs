@@ -77,7 +77,7 @@
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.button_addAsset = new System.Windows.Forms.Button();
             this.button_removeAsset = new System.Windows.Forms.Button();
-            this.tableLayoutPanel_assets = new System.Windows.Forms.TableLayoutPanel();
+            this.picturesTableLayoutPanel_assets = new GestionClient.ImageAssetsPanel();
             this.openFileDialog_main = new System.Windows.Forms.OpenFileDialog();
             this.toolTip_main = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
@@ -179,7 +179,7 @@
             this.button_changePhoto.TabIndex = 3;
             this.button_changePhoto.Text = "Change";
             this.button_changePhoto.UseVisualStyleBackColor = true;
-            this.button_changePhoto.Click += new System.EventHandler(this.ModifierPhotoBtn_Click);
+            this.button_changePhoto.Click += new System.EventHandler(this.button_changePhoto_Click);
             // 
             // pictureBox_photo
             // 
@@ -192,7 +192,7 @@
             this.pictureBox_photo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_photo.TabIndex = 0;
             this.pictureBox_photo.TabStop = false;
-            this.pictureBox_photo.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox_photo.Click += new System.EventHandler(this.pictureBox_photo_Click);
             // 
             // groupBox_customer
             // 
@@ -481,7 +481,7 @@
             this.button_remove.TabIndex = 3;
             this.button_remove.Text = "Remove";
             this.button_remove.UseVisualStyleBackColor = true;
-            this.button_remove.Click += new System.EventHandler(this.SupprimerBtn_Click);
+            this.button_remove.Click += new System.EventHandler(this.button_remove_Click);
             // 
             // button_update
             // 
@@ -496,7 +496,7 @@
             this.button_update.TabIndex = 2;
             this.button_update.Text = "Update";
             this.button_update.UseVisualStyleBackColor = true;
-            this.button_update.Click += new System.EventHandler(this.ModifierBtn_Click);
+            this.button_update.Click += new System.EventHandler(this.button_update_Click);
             // 
             // button_next
             // 
@@ -511,7 +511,7 @@
             this.button_next.TabIndex = 0;
             this.button_next.Text = "Next";
             this.button_next.UseVisualStyleBackColor = true;
-            this.button_next.Click += new System.EventHandler(this.SuivantBtn_Click);
+            this.button_next.Click += new System.EventHandler(this.button_next_Click);
             // 
             // button_previous
             // 
@@ -526,7 +526,7 @@
             this.button_previous.TabIndex = 1;
             this.button_previous.Text = "Previous";
             this.button_previous.UseVisualStyleBackColor = true;
-            this.button_previous.Click += new System.EventHandler(this.PrécédentBtn_Click);
+            this.button_previous.Click += new System.EventHandler(this.button_previous_Click);
             // 
             // groupBox_payement
             // 
@@ -568,7 +568,7 @@
             this.dataGridView_payements.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridView_payements.Size = new System.Drawing.Size(523, 130);
             this.dataGridView_payements.TabIndex = 0;
-            this.dataGridView_payements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView_payements.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_payements_CellContentClick);
             // 
             // groupBox_newPayement
             // 
@@ -669,7 +669,7 @@
             this.button_savePayement.TabIndex = 1;
             this.button_savePayement.Text = "Save payement";
             this.button_savePayement.UseVisualStyleBackColor = true;
-            this.button_savePayement.Click += new System.EventHandler(this.EnregistrerPaiementBtn_Click);
+            this.button_savePayement.Click += new System.EventHandler(this.button_savePayement_Click);
             // 
             // groupBox_assets
             // 
@@ -689,7 +689,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 94F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 6F));
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel15, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel_assets, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.picturesTableLayoutPanel_assets, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -739,7 +739,7 @@
             this.button_addAsset.TabIndex = 2;
             this.toolTip_main.SetToolTip(this.button_addAsset, "Add an asset");
             this.button_addAsset.UseVisualStyleBackColor = true;
-            this.button_addAsset.Click += new System.EventHandler(this.AjouterPieceBtn_Click);
+            this.button_addAsset.Click += new System.EventHandler(this.button_addAsset_Click);
             // 
             // button_removeAsset
             // 
@@ -752,22 +752,22 @@
             this.button_removeAsset.TabIndex = 1;
             this.toolTip_main.SetToolTip(this.button_removeAsset, "Remove an asset");
             this.button_removeAsset.UseVisualStyleBackColor = true;
-            this.button_removeAsset.Click += new System.EventHandler(this.SupprimerPieceBtn_Click);
+            this.button_removeAsset.Click += new System.EventHandler(this.button_removeAsset_Click);
             // 
-            // tableLayoutPanel_assets
+            // picturesTableLayoutPanel_assets
             // 
-            this.tableLayoutPanel_assets.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel_assets.ColumnCount = 1;
-            this.tableLayoutPanel_assets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel_assets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel_assets.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel_assets.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel_assets.Name = "tableLayoutPanel_assets";
-            this.tableLayoutPanel_assets.RowCount = 1;
-            this.tableLayoutPanel_assets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel_assets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 230F));
-            this.tableLayoutPanel_assets.Size = new System.Drawing.Size(823, 231);
-            this.tableLayoutPanel_assets.TabIndex = 0;
+            this.picturesTableLayoutPanel_assets.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.picturesTableLayoutPanel_assets.ColumnCount = 1;
+            this.picturesTableLayoutPanel_assets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.picturesTableLayoutPanel_assets.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.picturesTableLayoutPanel_assets.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picturesTableLayoutPanel_assets.Location = new System.Drawing.Point(3, 3);
+            this.picturesTableLayoutPanel_assets.Name = "picturesTableLayoutPanel_assets";
+            this.picturesTableLayoutPanel_assets.RowCount = 1;
+            this.picturesTableLayoutPanel_assets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.picturesTableLayoutPanel_assets.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 230F));
+            this.picturesTableLayoutPanel_assets.Size = new System.Drawing.Size(823, 231);
+            this.picturesTableLayoutPanel_assets.TabIndex = 0;
             // 
             // openFileDialog_main
             // 
@@ -866,7 +866,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_payementDate;
         private System.Windows.Forms.Button button_savePayement;
         private System.Windows.Forms.MaskedTextBox maskedTextBox_amount;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_assets;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
         private System.Windows.Forms.Button button_addAsset;
@@ -875,5 +874,6 @@
         private System.Windows.Forms.ToolTip toolTip_main;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel17;
         private System.Windows.Forms.Button button_changePhoto;
+        private ImageAssetsPanel picturesTableLayoutPanel_assets;
     }
 }

@@ -10,9 +10,5 @@ namespace GestionClient
         public static string Name = "Gestion Client";
         //public static readonly string FolderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         #endregion
-
-        #region Search-Tracking-Properties
-        public static int SearchResultIndex;
-        #endregion
     }
 }

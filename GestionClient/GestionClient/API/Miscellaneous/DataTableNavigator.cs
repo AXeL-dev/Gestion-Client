@@ -28,6 +28,11 @@ namespace GestionClient
             Move(FirstPosition);
         }
 
+        public bool HasCurrent(string columnName, object columnValue)
+        {
+            return (Current[columnName].ToString().ToLower() == columnValue.ToString().ToLower());
+        }
+
         public void Move(int position)
         {
             if (Count > 0)
@@ -46,8 +51,11 @@ namespace GestionClient
                 }
                 this.Current = Table.Rows[_position];
             }
-            _position = -1;
-            this.Current = null;
+            else
+            {
+                _position = -1;
+                this.Current = null;
+            }
         }
 
         public void MoveFirst()

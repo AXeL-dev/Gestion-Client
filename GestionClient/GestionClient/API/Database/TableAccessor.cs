@@ -111,6 +111,12 @@ namespace GestionClient
             return rows.Length > 0 ? rows[0] : null;
         }
 
+        public int GetRowIndexWhere(string filterExpression, params object[] args)
+        {
+            DataRow row = GetFirstRowWhere(filterExpression, args);
+            return row != null ? Table.Rows.IndexOf(row) : -1;
+        }
+
         /// <summary>
         /// Checks for the existence of a row that matches the filter criteria.
         /// </summary>

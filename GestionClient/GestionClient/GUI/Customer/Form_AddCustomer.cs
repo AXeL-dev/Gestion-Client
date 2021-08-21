@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using GestionClient.Localization;
 using GestionClient.Properties;
+using System.Collections.Generic;
 
 namespace GestionClient
 {
@@ -36,8 +37,15 @@ namespace GestionClient
             label_email.Text = LocalizedStrings.Ajouter_Client_Email_Label;
 
             // Lists
-            comboBox_gender.Items[0] = LocalizedStrings.Sexe_Homme;
-            comboBox_gender.Items[1] = LocalizedStrings.Sexe_Femme;
+            var genders = new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("m", LocalizedStrings.Sexe_Homme),
+                new KeyValuePair<string, string>("f", LocalizedStrings.Sexe_Femme),
+            };
+            comboBox_gender.DataSource = genders;
+            comboBox_gender.DisplayMember = "Value";
+            comboBox_gender.ValueMember = "Key";
+            comboBox_gender_SelectedIndexChanged(comboBox_gender, EventArgs.Empty);
 
             // Buttons
             button_newJob.Text = LocalizedStrings.Ajouter_Client_Nouveau_Travail_Button;
@@ -53,10 +61,9 @@ namespace GestionClient
         {
             if (Database.IsFetched)
             {
-                comboBox_gender.SelectedIndex = 0;
                 comboBox_job.DataSource = Database.Jobs.Table;
-                comboBox_job.DisplayMember = "Description";
                 comboBox_job.ValueMember = "ID";
+                comboBox_job.DisplayMember = "Description";
                 UpdateLocalization();
             }
             else
@@ -73,16 +80,11 @@ namespace GestionClient
 
         private void comboBox_gender_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (!_photoLoaded)
             {
-                if (comboBox_gender.SelectedIndex == 0)
-                {
-                    pictureBox_photo.Image = Resources.man;
-                }
-                else
-                {
-                    pictureBox_photo.Image = Resources.woman;
-                }
+                pictureBox_photo.Image = comboBox_gender.SelectedValue.ToString() == "m"
+                    ? Resources.man : Resources.woman;
             }
         }
 
@@ -122,7 +124,7 @@ namespace GestionClient
                         birthDate = maskedTextBox_birthDate.Text;
                     }
                     Database.Customers.Add(
-                        null, textBox_name.Text.Trim(), comboBox_gender.Text,
+                        null, textBox_name.Text.Trim(), comboBox_gender.SelectedValue,
                         comboBox_job.SelectedValue, birthDate,
                         maskedTextBox_phoneNumber.Text.Replace(" ", string.Empty),
                         textBox_email.Text, DateTime.Now.ToString());

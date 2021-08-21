@@ -371,9 +371,6 @@
             this.comboBox_job.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_job.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox_job.FormattingEnabled = true;
-            this.comboBox_job.Items.AddRange(new object[] {
-            "Homme",
-            "Femme"});
             this.comboBox_job.Location = new System.Drawing.Point(2, 7);
             this.comboBox_job.Margin = new System.Windows.Forms.Padding(2, 5, 2, 5);
             this.comboBox_job.Name = "comboBox_job";

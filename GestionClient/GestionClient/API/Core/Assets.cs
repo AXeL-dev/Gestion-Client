@@ -80,7 +80,7 @@ namespace GestionClient
         /// <param name="assetType">Type of the asset (Photo or Other).</param>
         public static void Add(string sourceFilePath, int customerID, string assetType = "Other")
         {
-            var customerRow = Database.Customers.GetFirstRowWhere("ID = '{0}'", customerID);
+            var customerRow = Database.Customers.GetFirstRowWhere("ID = {0}", customerID);
             Add(sourceFilePath, customerRow, assetType);
         }
 
@@ -99,23 +99,146 @@ namespace GestionClient
         }
 
         /// <summary>
-        /// Gets an Image object containing the asset associated
+        /// Removes an asset from database and from the assets folder.
+        /// </summary>
+        /// <param name="assetID">ID of the asset in database.</param>
+        public static void Remove(int assetID)
+        {
+            DataRow assetRow = Database.Assets.GetFirstRowWhere("ID = {0}", assetID);
+            File.Delete(GetFilePath(assetRow));
+            assetRow.Delete();
+            Database.Assets.ApplyChanges();
+        }
+
+        /// <summary>
+        /// Removes an asset from database and from the assets folder.
+        /// </summary>
+        /// <param name="imageAsset">ImageAsset object.</param>
+        public static void Remove(ImageAsset imageAsset)
+        {
+            Remove(imageAsset.ID);
+        }
+
+        /// <summary>
+        /// Removes all assets associated with the specified customer.
+        /// </summary>
+        /// <param name="customerRow">Customer DataRow.</param>
+        public static void RemoveAll(DataRow customerRow)
+        {
+            string subfolderPath = Path.Combine(RootFolderPath, GetSubfolderName(customerRow));
+            if (Directory.Exists(subfolderPath))
+            {
+                Directory.Delete(subfolderPath, true);
+            }
+        }
+
+        /// <summary>
+        /// Gets the file path of an asset using an asset DataRow.
+        /// </summary>
+        /// <param name="assetRow">Asset DataRow.</param>
+        /// <returns>Asset file path.</returns>
+        public static string GetFilePath(DataRow assetRow)
+        {
+            int customerID = Convert.ToInt32(assetRow["customerID"]);
+            var customerRow = Database.Customers.GetFirstRowWhere("ID = {0}", customerID);
+            string filePath = Path.Combine(GetSubfolderName(customerRow), assetRow["FileName"].ToString());
+            return Path.Combine(RootFolderPath, filePath);
+        }
+
+        /// <summary>
+        /// Gets an array of containing all the assets associated
         /// with the specified customer and having the specified 
         /// type (Photo or Other).
         /// </summary>
         /// <param name="customerID">ID of the associated customer.</param>
         /// <param name="assetType">Type of the asset (Photo or Other).</param>
         /// <returns>Asset Image object.</returns>
-        public static Image Get(int customerID, string assetType = "Other")
+        public static ImageAsset[] Get(int customerID, string assetType = "Other")
         {
-            var customerRow = Database.Customers.GetFirstRowWhere("ID = '{0}'", customerID);
-            var assetRow = Database.Assets
-                .GetFirstRowWhere("CustomerID = '{0}' AND AssetType = '{1}'", customerID, assetType);
-            string filePath = Path.Combine(
-                GetSubfolderName(customerRow),
-                assetRow["FileName"].ToString());
-            filePath = Path.Combine(RootFolderPath, filePath);
-            return Image.FromFile(filePath);
+            var customerRow = Database.Customers.GetFirstRowWhere("ID = {0}", customerID);
+            if (customerRow != null)
+            {
+                var assetsRows = Database.Assets
+                    .GetRowsWhere("CustomerID = {0} AND AssetType = '{1}'", customerID, assetType);
+                if (assetsRows.Length > 0)
+                {
+                    var assets = new ImageAsset[assetsRows.Length];
+                    for (int i = 0; i < assetsRows.Length; i++)
+                    {
+                        string filePath = Path.Combine(
+                            GetSubfolderName(customerRow),
+                            assetsRows[i]["FileName"].ToString());
+                        filePath = Path.Combine(RootFolderPath, filePath);
+                        assets[i] = new ImageAsset
+                        (
+                            id: Convert.ToInt32(assetsRows[i]["ID"]),
+                            customerID: Convert.ToInt32(assetsRows[i]["CustomerID"]),
+                            filePath: filePath,
+                            type: assetsRows[i]["AssetType"].ToString(),
+                            image: Image.FromFile(filePath)
+                        );
+                        assets[i].Image.Tag = assets[i].ID;
+                    }
+                    return assets;
+                }
+            }
+            return new ImageAsset[0];
+        }
+
+        /// <summary>
+        /// Gets a ImageAsset object containing the asset associated
+        /// with the specified customer and having the specified type (Photo or Other).
+        /// </summary>
+        /// <param name="customerID">ID of the associated customer.</param>
+        /// <param name="assetType">Type of the asset (Photo or Other).</param>
+        /// <returns>Asset Image object.</returns>
+        public static ImageAsset GetFirst(int customerID, string assetType = "Other")
+        {
+            ImageAsset[] assets = Get(customerID, assetType);
+            return assets.Length > 0 ? assets[0] : null;
+        }
+    }
+
+    class ImageAsset
+    {
+        /// <summary>
+        /// Generated unique ID of the asset object.
+        /// </summary>
+        public Guid GUID { get; private set; }
+
+        /// <summary>
+        /// ID of the asset in database.
+        /// </summary>
+        public int ID { get; private set; }
+
+        /// <summary>
+        /// CustomerID of the asset in database.
+        /// </summary>
+        public int CustomerID { get; private set; }
+
+        /// <summary>
+        /// FilePath of the asset (Built form FileName in database).
+        /// </summary>
+        public string FilePath { get; private set; }
+
+        /// <summary>
+        /// AssetType of the asset in database.
+        /// </summary>
+        public string Type { get; private set; }
+
+        /// <summary>
+        /// Image object containing the asset.
+        /// </summary>
+        public Image Image { get; private set; }
+
+        public ImageAsset(int id, int customerID, string filePath, string type, Image image)
+        {
+            this.GUID = Guid.NewGuid();
+            this.ID = id;
+            this.CustomerID = customerID;
+            this.FilePath = FilePath;
+            this.Type = type;
+            this.Image = image;
         }
     }
 }

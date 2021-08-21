@@ -6,9 +6,12 @@ namespace GestionClient
 {
     public partial class Form_SearchCustomer : Form
     {
+        public int SearchResultIndex { get; private set; }
+
         public Form_SearchCustomer()
         {
             InitializeComponent();
+            this.SearchResultIndex = -1;
             Language.Changed += (s, args) => this.UpdateLocalization();
         }
 
@@ -42,16 +45,12 @@ namespace GestionClient
             }
             else
             {
-                //var customerRow = Database.Customers.GetFirstRowWhere("FullName LIKE '{0}%'", textBox_name.Text.Trim());
-                for (int i = 0; i < Database.Customers.Table.Rows.Count; i++)
+                int customerRowIndex = Database.Customers.GetRowIndexWhere("FullName LIKE '{0}%'", textBox_name.Text.Trim());
+                if (customerRowIndex != -1)
                 {
-                    if (Database.Customers.Table.Rows[i]["FullName"].ToString()
-                        .ToLower().StartsWith(textBox_name.Text.ToLower()))
-                    {
-                        App.SearchResultIndex = i;
-                        this.Close();
-                        return;
-                    }
+                    this.SearchResultIndex = customerRowIndex;
+                    this.Close();
+                    return;
                 }
                 QuickMessageBox.ShowWarning(LocalizedStrings.MessageBox_Client_Non_trouvé);
             }
