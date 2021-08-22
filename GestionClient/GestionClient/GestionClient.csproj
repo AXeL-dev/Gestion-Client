@@ -12,6 +12,21 @@
     <AssemblyName>GestionClient</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -41,117 +56,148 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\API.Methods.cs" />
-    <Compile Include="GUI\Aide\About.cs">
+    <Compile Include="API\Core\App.cs" />
+    <Compile Include="API\Core\Assets.cs" />
+    <Compile Include="API\Database\Database.cs" />
+    <Compile Include="API\Core\Language.cs" />
+    <Compile Include="API\Database\TableAccessor.cs" />
+    <Compile Include="API\Miscellaneous\DataTableNavigator.cs" />
+    <Compile Include="API\UI Elements\DataGridViewColumnFormat.cs" />
+    <Compile Include="API\UI Elements\AssetsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="API\UI Elements\QuickMessageBox.cs" />
+    <Compile Include="API\Miscellaneous\WinRar.cs" />
+    <Compile Include="GUI\Help\Form_About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Aide\About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
+    <Compile Include="GUI\Help\Form_About.Designer.cs">
+      <DependentUpon>Form_About.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Client\AjouterClient.cs">
+    <Compile Include="GUI\Customer\Form_AddCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\AjouterClient.Designer.cs">
-      <DependentUpon>AjouterClient.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_AddCustomer.Designer.cs">
+      <DependentUpon>Form_AddCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Travail\AjouterTravail.cs">
+    <Compile Include="GUI\Job\Form_AddJob.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Travail\AjouterTravail.Designer.cs">
-      <DependentUpon>AjouterTravail.cs</DependentUpon>
+    <Compile Include="GUI\Job\Form_AddJob.Designer.cs">
+      <DependentUpon>Form_AddJob.cs</DependentUpon>
     </Compile>
-    <Compile Include="Languages\Res.fr.Designer.cs">
+    <Compile Include="API\UI Elements\DataGridViewDeleteButton.cs" />
+    <Compile Include="GUI\Customer\Form_CustomersList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\Form_CustomersList.Designer.cs">
+      <DependentUpon>Form_CustomersList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="API\UI Elements\MessageBoxManager.cs" />
+    <Compile Include="GUI\Customer\Form_EditCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\Form_EditCustomer.Designer.cs">
+      <DependentUpon>Form_EditCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Form_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="API\UI Elements\DataGridViewPrinter.cs" />
+    <Compile Include="Localization\LocalizedStrings.ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Res.fr.resx</DependentUpon>
+      <DependentUpon>LocalizedStrings.ar.resx</DependentUpon>
     </Compile>
-    <Compile Include="API\API.cs" />
-    <Compile Include="API\DeleteButtonColumn.cs" />
-    <Compile Include="GUI\Client\ListeClients.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Localization\LocalizedStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Client\ListeClients.Designer.cs">
-      <DependentUpon>ListeClients.cs</DependentUpon>
+    <Compile Include="Localization\LocalizedStrings.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedStrings.fr.resx</DependentUpon>
     </Compile>
-    <Compile Include="API\MessageBoxManager.cs" />
-    <Compile Include="GUI\Client\ModifierClient.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Localization\LocalizedStrings.ja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizedStrings.ja.resx</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Client\ModifierClient.Designer.cs">
-      <DependentUpon>ModifierClient.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\main.Designer.cs">
-      <DependentUpon>main.cs</DependentUpon>
-    </Compile>
-    <Compile Include="API\PrintDataGridView.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GUI\Client\RechercherNomClient.cs">
+    <Compile Include="GUI\Customer\Form_SearchCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Client\RechercherNomClient.Designer.cs">
-      <DependentUpon>RechercherNomClient.cs</DependentUpon>
+    <Compile Include="GUI\Customer\Form_SearchCustomer.Designer.cs">
+      <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Languages\Res.ar.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Res.ar.resx</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Travail\SupprimerTravail.cs">
+    <Compile Include="GUI\Job\Form_RemoveJob.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Travail\SupprimerTravail.Designer.cs">
-      <DependentUpon>SupprimerTravail.cs</DependentUpon>
+    <Compile Include="GUI\Job\Form_RemoveJob.Designer.cs">
+      <DependentUpon>Form_RemoveJob.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GUI\Aide\About.resx">
-      <DependentUpon>About.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Help\Form_About.resx">
+      <DependentUpon>Form_About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\AjouterClient.resx">
-      <DependentUpon>AjouterClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_AddCustomer.resx">
+      <DependentUpon>Form_AddCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Travail\AjouterTravail.resx">
-      <DependentUpon>AjouterTravail.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Job\Form_AddJob.resx">
+      <DependentUpon>Form_AddJob.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Res.fr.resx">
+    <EmbeddedResource Include="Localization\LocalizedStrings.fr.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Res.fr.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalizedStrings.fr.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\ListeClients.resx">
-      <DependentUpon>ListeClients.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_CustomersList.resx">
+      <DependentUpon>Form_CustomersList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Client\ModifierClient.resx">
-      <DependentUpon>ModifierClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_EditCustomer.resx">
+      <DependentUpon>Form_EditCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\main.resx">
-      <DependentUpon>main.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedStrings.ja.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedStrings.ja.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\LocalizedStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedStrings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <EmbeddedResource Include="GUI\Client\RechercherNomClient.resx">
-      <DependentUpon>RechercherNomClient.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Customer\Form_SearchCustomer.resx">
+      <DependentUpon>Form_SearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\Res.ar.resx">
+    <EmbeddedResource Include="Localization\LocalizedStrings.ar.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Res.ar.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalizedStrings.ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Travail\SupprimerTravail.resx">
-      <DependentUpon>SupprimerTravail.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\Job\Form_RemoveJob.resx">
+      <DependentUpon>Form_RemoveJob.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -168,19 +214,19 @@
     <None Include="Resources\picture_photo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\homme.png" />
+    <None Include="Resources\man.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\femme.png" />
+    <None Include="Resources\woman.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\database.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\true.png" />
+    <None Include="Resources\accept.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\false.png" />
+    <None Include="Resources\decline.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\exit.png" />
@@ -230,8 +276,57 @@
   <ItemGroup>
     <None Include="Resources\update.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Database.mdb" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-12_female_default.jpg" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-14_femme.png" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_02-03-16_male_default.jpg" />
+    <Content Include="Data\Assets\27_Ahmed\30-10-2015_12-31-22_homme.png" />
+    <Content Include="Data\Assets\27_Ahmed\31-10-2015_19-22-38_database.png" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015 01-58-40_female_default.jpg" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015_02-04-27_femme.png" />
+    <Content Include="Data\Assets\30_Samira\30-10-2015_12-27-17_homme.png" />
+    <Content Include="Data\Assets\30_Samira\31-10-2015_19-23-51_female_default.jpg" />
+    <Content Include="Data\Assets\37_Said ta3iss\04-11-2015_18-58-02_database.png" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-46-52_Desert.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-46-55_Penguins.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-47-03_Koala.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-47-06_Lighthouse.jpg" />
+    <Content Include="Data\Assets\46_fleur\06-11-2015_12-49-07_Tulips.jpg" />
+    <Content Include="Data\Assets\47_chateau\06-11-2015_12-48-11_Lighthouse.jpg" />
+    <Content Include="Data\Assets\47_chateau\06-11-2015_12-48-19_Desert.jpg" />
+    <Content Include="Data\Assets\51_محمد\08-08-2021_16-15-12_avatar3.png" />
+    <Content Include="Data\Assets\51_محمد\08-08-2021_16-16-46_avatar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Assets\50_خالد بن الوليد\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>rmdir "$(TargetDir)Data" /s /q
+xcopy "$(ProjectDir)Data" "$(TargetDir)Data" /e /y /i /r</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
